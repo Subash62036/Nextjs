@@ -1,0 +1,9 @@
+node_modules
+.storybook
+stories
+cypress
+.next
+package_lock.json
+yarn.lock 
+auth2.tsx
+*.stories.*
