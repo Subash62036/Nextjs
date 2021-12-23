@@ -5,12 +5,12 @@ export const API = {
       USER_BY_USERNAME: '/user-by-username/',
     },
     POST: {
-      LOGIN: '/signin',
+      LOGIN: '/login',
       LOGOUT: '/signout',
-      REGISTER: '/signup',
       REFRESH: '/refresh-token',
       TEMP_TOKEN: '/profile/temp-token',
       VALIDATE_TEMP_TOKEN: '/profile/validate-temp-token',
+      LOGIN_OTP: '/login-otp'
     },
     PUT: {
       USER_DETAILS: '/user-profile/',

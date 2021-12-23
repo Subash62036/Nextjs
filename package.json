@@ -28,6 +28,7 @@
     "ramda": "^0.27.1",
     "react": "^17.x",
     "react-dom": "^17.0.2",
+    "react-otp-input": "^2.4.0",
     "react-popper": "^2.2.5",
     "react-query": "3.21.1",
     "react-query-devtools": "^2.6.3",
@@ -36,7 +37,8 @@
     "simple-react-lightbox": "^3.6.6",
     "tailwindcss": "^2.2.2",
     "uuid": "^8.3.2",
-    "yup": "^0.32.9"
+    "yup": "^0.32.9",
+    "yup-phone-lite": "^1.1.0"
   },
   "scripts": {
     "start": "next start",

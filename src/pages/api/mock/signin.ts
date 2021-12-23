@@ -1,5 +1,5 @@
 const successResponse = {
-  message: 'Password changed successfully',
+  message: 'mock login',
 };
 
 export default (req, res) => {

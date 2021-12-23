@@ -19,7 +19,7 @@ const commonClasses = `px-4 py-2 font-medium leading-loose outline-none ease-lin
                       focus:outline-none hover:shadow-lg justify-center`;
 
 const variantClasses = {
-  primary: `text-white bg-primary-600 border border-primary-600 
+  primary: `text-black bg-primary-600 border border-primary-600 
             hover:bg-primary-500 hover:border-primary-500 rounded-md
             active:bg-primary-600`,
 
@@ -31,10 +31,10 @@ const variantClasses = {
             hover:shadow-none hover:text-primary-500
             active:bg-gray-300`,
 
-  cancel: `text-white bg-red-400 border-none shadow-none
+  cancel: `text-black bg-red-400 border-none shadow-none
             hover:shadow-none hover:bg-red-600 rounded-md
             active:bg-gray-300`,
-  submit: `text-white bg-primary-950 border border-primary-999 
+  submit: `text-black bg-primary-950 border border-primary-999 
             hover:bg-primary-950 hover:border-primary-500 rounded-md
             active:bg-primary-600`,
   grid: 'disabled:opacity-50 flex-1 font-medium p-4 text-sm hover:bg-gray-300 hover:bg-opacity-50 transition-colors',

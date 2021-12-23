@@ -1,3 +1,3 @@
 export const SEO = {
-  SITE_TITLE: 'XYZ',
+  SITE_TITLE: 'RAPIDO',
 };

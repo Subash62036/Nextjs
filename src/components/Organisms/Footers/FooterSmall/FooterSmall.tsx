@@ -11,7 +11,7 @@ export const FooterSmall = ({ className }: IFooterSmallProps):JSX.Element => (
       {' '}
       {new Date().getFullYear()}
       {' '}
-      XYZ
+      RAPIDO
     </p>
 
   </footer>

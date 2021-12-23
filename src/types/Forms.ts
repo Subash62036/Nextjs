@@ -1,8 +1,9 @@
 import { Dispatch, SetStateAction } from 'react';
 
 export interface ILoginParams {
-  email: string
-  password: string
+  phone: number,
+  countryCode: number,
+  appHash: string
 }
 
 export interface ILoginFormProps {
@@ -39,4 +40,8 @@ export interface IWaitlistForm {
   firstName: string,
   lastName: string,
   email: string,
+}
+
+export interface ILoginOTPParams {
+  otp: number
 }

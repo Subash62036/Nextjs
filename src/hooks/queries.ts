@@ -15,14 +15,13 @@ import {
   TOnErrorFunc,
   TOnSuccessFunc,
   ILoginParams,
-  IRegisterUserParams,
   IUserDetails,
   IError,
   IChangePasswordParams,
   IResetPasswordParams,
   ICreatePasswordForm,
   IOneTimePasswordParams,
-  IWaitlistForm,
+  ILoginOTPParams,
 } from 'types';
 
 const { ENDPOINTS } = API;
@@ -48,10 +47,11 @@ export const useLoginMutation = (
   onError: TOnErrorFunc,
   onSuccess: TOnSuccessFunc, redirect = null,
 ):UseMutationResult => {
-  const fetcher = makeFetcher(useAxios());
-  return useMutation(({ email, password }: ILoginParams) => fetcher(`${POST.LOGIN}`, { email, password }, 'post'), {
+  const fetcher = makeFetcher(useAxios(false));
+  return useMutation((form: ILoginParams) => fetcher(`${POST.LOGIN}`, form, 'post'), {
     onError: (e) => {
-      onError(e);
+      //onError(e);
+      console.log(e)
     },
     onSuccess: (data) => {
       onSuccess(data, redirect);
@@ -128,23 +128,6 @@ export const useLogoutMutation = ():UseMutationResult => {
   return useMutation(() => fetcher(`${POST.LOGOUT}`, null, 'post'));
 };
 
-export const useRegisterUserMutation = (
-  onError: TOnErrorFunc,
-  onSuccess: TOnSuccessFunc,
-  redirect = null,
-):UseMutationResult => {
-  const fetcher = makeFetcher(useAxios());
-  return useMutation((user
-  : IRegisterUserParams) => fetcher(`${POST.REGISTER}`, user, 'post'), {
-    onError: (e) => {
-      onError(e);
-    },
-    onSuccess: (data) => {
-      onSuccess(data, redirect);
-    },
-  });
-};
-
 export const useUserUpdateMutation = (
   onError: TOnErrorFunc,
   onSuccess: TOnSuccessFunc, redirect = null,
@@ -173,3 +156,18 @@ export const useEmailMutation = (
     onSuccess(data, redirect);
   },
 });
+
+export const useLoginOTPMutation = (
+  onError: TOnErrorFunc,
+  onSuccess: TOnSuccessFunc, redirect = null,
+):UseMutationResult => {
+  const fetcher = makeFetcher(useAxios(true));
+  return useMutation(({ otp }: ILoginOTPParams) => fetcher(`${POST.LOGIN_OTP}`, { otp }, 'post'), {
+    onError: (e) => {
+      onError(e);
+    },
+    onSuccess: (data) => {
+      onSuccess(data, redirect);
+    },
+  });
+};

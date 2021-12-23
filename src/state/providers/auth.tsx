@@ -54,7 +54,7 @@ const AuthContextProvider = ({ children }: IAuthContextProviderProps):JSX.Elemen
     });
   }, []);
 
-  const handleLoginSuccess = useCallback((data: TAuthToken, redirect: string):void => {
+  const handleLoginOTPSuccess = useCallback((data: TAuthToken, redirect: string):void => {
     actions.setLoginError('');
     if (data.detail) {
       actions.setLoginError(data.detail);
@@ -64,17 +64,6 @@ const AuthContextProvider = ({ children }: IAuthContextProviderProps):JSX.Elemen
     authStorage.setTokens(data);
     setLoggedIn(true);
     if (redirect) router.push(redirect);
-  }, []);
-
-  const onRegisterSuccess = useCallback((data, redirect: string) => {
-    actions.setRegisterError('');
-    if (data.error_message) {
-      return actions.setRegisterError(data.error_message);
-    }
-    authStorage.setTokens(data);
-    actions.setRegisterModalOpen(false);
-    if (redirect) router.push(redirect);
-    return setLoggedIn(true);
   }, []);
 
   const onForgotPasswordFlowSuccess = useCallback((data, redirect: string):void => {
@@ -119,15 +108,6 @@ const AuthContextProvider = ({ children }: IAuthContextProviderProps):JSX.Elemen
     return setLoggedIn(true);
   }, []);
 
-  const onWaitlistRegisterSuccess = useCallback((data, redirect: string): void => {
-    actions.setUserWaitlistRegisterError('');
-    if (data.details) {
-      return actions.setUserWaitlistRegisterError(data.detail);
-    }
-    if (redirect) router.push(redirect);
-    return null;
-  }, []);
-
   const onChangePasswordSuccess = useCallback((data, redirect: string): void => {
     actions.setUserChangePasswordError('');
     if (data.detail) {
@@ -144,13 +124,11 @@ const AuthContextProvider = ({ children }: IAuthContextProviderProps):JSX.Elemen
     },
     actions: {
       handleLogout,
-      handleLoginSuccess,
-      onRegisterSuccess,
+      handleLoginOTPSuccess,
       onForgotPasswordFlowSuccess,
       onUpdateUserSuccess,
       onOneTimePasswordSuccess,
       onPasswordCreationSuccess,
-      onWaitlistRegisterSuccess,
       onChangePasswordSuccess,
     },
   };

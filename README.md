@@ -1,4 +1,4 @@
-# TITLE Web
+# RAPIDO-BID ADMIN
 
 ## Table of Contents
 * [Intro and General Requirements](#intro-and-general-requirements)
@@ -16,7 +16,7 @@
 
 ## Intro and General Requirements
 
-### Welcome to TITLE Web! 
+### Welcome to RAPIDO-BID ADMIN! 
 
 This project has a few basic requirements for local development:
 - [Node version 14+](https://github.com/nvm-sh/nvm)
@@ -155,7 +155,6 @@ https://atomicdesign.bradfrost.com/chapter-2/
 - Zoom in / Zoom out control pair
 
 ### Organisms contains components that are built with at least two molecule components
-- Register Form
 - Login Form
 - Modal
 - Navbars
@@ -176,15 +175,15 @@ import { IUIContext } from 'types';
 export default function MyPage():JSX.Element {
   const { state: uiState, actions: uiActions } = useGlobalUiContext() as IUIContext;
   const {
-    registerModalOpen, loginModalOpen,
+    ModalOpen, loginModalOpen,
   } = uiState;
   const {
-    setRegisterModalOpen,
+    setModalOpen,
     setLoginModalOpen,
   } = uiActions;
   return (
     <>
-      <Modal data-test-id="registerModal" showCloseButton={false} open={registerModalOpen} setOpen={setRegisterModalOpen} id="register" size="large"><RegisterForm /></Modal>
+      <Modal data-test-id="Modal" showCloseButton={false} open={ModalOpen} setOpen={setModalOpen} id="form" size="large"><Form /></Modal>
       <Modal showCloseButton={false} background="light" size="small" open={loginModalOpen} setOpen={setLoginModalOpen} id="auth"><LoginForm /></Modal>
       </>    
 // etc...

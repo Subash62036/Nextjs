@@ -8,11 +8,11 @@ export default function AuthLayout({ children }):JSX.Element {
   return (
     <>
       <main className="h-full bg-gray-50">
-        <MainNav />
-        <section className="relative w-full pt-4 pb-8">
+        {/* <MainNav /> */}
+        <section className="relative w-full h-full">
           {children}
         </section>
-        <FooterSmall />
+        {/* <FooterSmall /> */}
       </main>
     </>
   );

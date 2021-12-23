@@ -14,12 +14,3 @@ export interface IUserDetails {
   username: string
   redirect?: string
 }
-
-export interface IRegisterUserParams {
-  email:string
-  password:string
-  firstName:string
-  lastName:string
-  username:string
-  confirmPassword:string
-}

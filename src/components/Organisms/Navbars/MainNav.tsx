@@ -80,11 +80,11 @@ export const MainNav = () => {
                     <span className="flex items-center">
                       {/* <Image
                         className="cursor-pointer"
-                        alt="TITLE"
+                        alt="RAPIDO"
                         width="48" height="48"
                         src="/img/logo-transparent.png" /> */}
                       {/* WEBSITE LOGO */}
-                      <Typography variant="strong" className="hidden md:inline-block ml-3 uppercase">TITLE</Typography>
+                      <Typography variant="strong" className="hidden md:inline-block ml-3 uppercase">RAPIDO</Typography>
                     </span>
                   </Link>
                 </div>
@@ -104,7 +104,6 @@ export const MainNav = () => {
                 && (
                 <>
                   <Button variant="primary" href={ROUTES.LOGIN}>Log In</Button>
-                  <Button className="ml-4" variant="secondary" href={ROUTES.REGISTER}>Register</Button>
                 </>
                 )}
               </div>

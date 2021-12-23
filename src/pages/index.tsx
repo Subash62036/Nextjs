@@ -1,58 +1,67 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { useAuth, useGlobalUiContext } from 'state';
+import { GetServerSideProps } from 'next';
+import Image from 'next/image';
+import AuthLayout from 'layouts/AuthLayout';
+import { ROUTES } from 'config';
+import {
+  LoginForm, Typography, Card, OTPForm,
+} from 'components';
+import { IAuthContext, IUIContext } from 'types';
+import Rapido from '../../public/favico/android-chrome.png';
 
-import { useTheme } from 'next-themes';
-import { MoonIcon, SunIcon } from '@heroicons/react/solid';
+interface ILoginPageProps {
+  username?: string;
+  loggedout?: boolean;
+}
 
-export default function HomePage(): JSX.Element {
-  const [opacityClass, setOpacityClass] = useState('opacity-100');
-  const { systemTheme, theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  const handleInputFocus = () => {
-    setOpacityClass('opacity-40');
-  };
-
-  const handleInputBlur = () => {
-    setOpacityClass('opacity-100');
-  };
+export default function LoginPage({ username, loggedout }:ILoginPageProps):JSX.Element {
+  const { actions: { handleLogout } } = useAuth() as IAuthContext;
+  const { state: { loginSuccess } } = useGlobalUiContext() as IUIContext;
 
   useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  const renderThemeChanger = () => {
-    if (!mounted) return null;
-    const currentTheme = theme === 'system' ? systemTheme : theme;
-
-    if (currentTheme === 'dark') {
-      return (
-        <SunIcon
-          className="w-7 h-7"
-          role="button"
-          onClick={() => setTheme('light')}
-        />
-      );
+    if (loggedout) {
+      handleLogout(false);
     }
-    return (
-      <MoonIcon
-        className="w-7 h-7"
-        role="button"
-        onClick={() => setTheme('dark')}
-      />
-    );
-  };
-
+  }, []);
   return (
     <>
-      <div className="h-[100vh] px-4 lg:px-0 overflow-x-hidden">
-        <div className="relative h-full">
-          <div className="w-full h-full mx-auto">
-            {renderThemeChanger()}
-            <p className={`mt-4 md:mt-8 text-[20px] text-grey leading-none font-sans-serif text-center ${opacityClass} transition-all`}>Some caption</p>
-          </div>
-        </div>
+      {username && (
+      <div className="mt-2 pb-4 max-w-md mx-auto text-center">
+        <Typography variant="p">
+          {username}
+          , you have been logged out.
+        </Typography>
       </div>
+      )}
+      <div className="flex flex-row min-h-screen">
+
+        <div className="bg-grey-200 min-h-screen w-2/3 item-center">image here</div>
+        <div className="flex flex-col min-h-screen justify-center content-center h-full w-1/3">
+          <div className="bg-white h-full sm:px-10 sm:mx-auto sm:w-full sm:max-w-md w-full">
+            <Image src={Rapido} className="w-12" />
+          </div>
+          <div className="bg-white h-full sm:px-10 sm:mx-auto sm:w-full sm:max-w-md w-full">
+            {
+            !loginSuccess ? <LoginForm /> : <OTPForm />
+          }
+          </div>
+
+        </div>
+
+      </div>
+
     </>
   );
 }
-HomePage.pageTitle = 'XYZ';
+
+LoginPage.layout = AuthLayout;
+
+export const getServerSideProps:GetServerSideProps = async ({ query }) => ({
+  props: {
+    username: query.username || null,
+    loggedout: query.logout || null,
+  },
+});
+
+LoginPage.pageTitle = 'RAPIDO';
