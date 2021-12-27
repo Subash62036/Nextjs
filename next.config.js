@@ -7,6 +7,7 @@ module.exports = {
     cloudinaryThumbnailUrl: process.env.CLOUDINARY_THUMBNAIL_URL,
     cloudinaryCloudName: process.env.CLOUDINARY_CLOUD_NAME,
     mongoEmail: process.env.MONGO_EMAIL,
+    loginCookieName: process.env.LOGIN_COOKIE_NAME,
   },
   publicRuntimeConfig: {
     apiBaseURL: process.env.API_BASE_URL,
@@ -14,5 +15,6 @@ module.exports = {
     authRefreshCookieName: process.env.AUTH_REFRESH_COOKIE_NAME,
     cloudinaryThumbnailUrl: process.env.CLOUDINARY_THUMBNAIL_URL,
     cloudinaryCloudName: process.env.CLOUDINARY_CLOUD_NAME,
+    loginCookieName: process.env.LOGIN_COOKIE_NAME,
   },
 };

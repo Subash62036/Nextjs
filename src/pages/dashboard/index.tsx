@@ -13,8 +13,7 @@ import {
 } from 'types';
 import { makeAuthHeaders, serverSideAxiosInstance } from '_axios';
 import {
-  Typography,
-  DashboardMain, DashboardCaptain, DashboardOrder, DashboardCustomer, DashboardInterface,
+  DashboardInterface,
 } from 'components';
 import { ArchiveIcon, UserIcon, HomeIcon } from '@heroicons/react/outline';
 
@@ -38,26 +37,26 @@ export default function UserDashboard({ user }: IDashboardProps):JSX.Element {
 UserDashboard.layout = DashboardLayout;
 UserDashboard.pageTitle = 'User Dashboard';
 
-// export const getServerSideProps:GetServerSideProps = async (ctx) => {
-//   const { req, res } = ctx;
-//   const cookies = new Cookies(req, res);
-//   const authHeaders = makeAuthHeaders(cookies) as AxiosRequestConfig;
-//   try {
-//     if (!authHeaders) throw Error();
-//     const [userDetails] = await Promise.all([
-//       serverSideAxiosInstance.get(`${GET.USER_DETAILS}`, authHeaders),
-//     ]);
-//     return {
-//       props: {
-//         user: userDetails?.data,
-//       },
-//     };
-//   } catch (error) {
-//     return {
-//       redirect: {
-//         destination: URIS.LOGOUT_REDIRECT,
-//         statusCode: 302,
-//       },
-//     };
-//   }
-// };
+export const getServerSideProps:GetServerSideProps = async (ctx) => {
+  const { req, res } = ctx;
+  const cookies = new Cookies(req, res);
+  const authHeaders = makeAuthHeaders(cookies) as AxiosRequestConfig;
+  try {
+    if (!authHeaders) throw Error();
+    const [userDetails] = await Promise.all([
+      serverSideAxiosInstance.get(`${GET.USER_DETAILS}`, authHeaders),
+    ]);
+    return {
+      props: {
+        user: userDetails?.data,
+      },
+    };
+  } catch (error) {
+    return {
+      redirect: {
+        destination: URIS.LOGOUT_REDIRECT,
+        statusCode: 302,
+      },
+    };
+  }
+};

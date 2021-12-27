@@ -26,7 +26,6 @@ const AuthContextProvider = ({ children }: IAuthContextProviderProps):JSX.Elemen
   const [isLoggedIn, setLoggedIn] = useState(!!authToken);
   const queryClient = useQueryClient();
   const { data: userData } = useUserQuery(null, isLoggedIn);
-  const { username } = userData as IUserDetails || {};
   const { actions } = useGlobalUiContext() as IUIContext;
   const logoutMutation = useLogoutMutation();
   const router = useRouter();
@@ -40,28 +39,37 @@ const AuthContextProvider = ({ children }: IAuthContextProviderProps):JSX.Elemen
   }, [isLoggedIn]);
 
   const handleLogout = useCallback(async (redirect = true) => {
-    logoutMutation.mutate('logout', {
-      onSuccess: () => {
-        authStorage.removeTokens();
-        setLoggedIn(false);
-        if (redirect) {
-          router.push({
-            pathname: URIS.LOGOUT_REDIRECT,
-            query: { username },
-          });
-        }
-      },
-    });
+    // logoutMutation.mutate('logout', {
+    //   onSuccess: () => {
+    //     authStorage.removeTokens();
+    //     setLoggedIn(false);
+    //     if (redirect) {
+    //       router.push({
+    //         pathname: URIS.LOGOUT_REDIRECT,
+    //         query: { },
+    //       });
+    //     }
+    //   },
+    // });
+
+    authStorage.removeTokens();
+    setLoggedIn(false);
+    if (redirect) {
+      router.push({
+        pathname: URIS.LOGOUT_REDIRECT,
+        query: { },
+      });
+    }
   }, []);
 
-  const handleLoginOTPSuccess = useCallback((data: TAuthToken, redirect: string):void => {
+  const handleLoginOTPSuccess = useCallback((data, redirect: string):void => {
     actions.setLoginError('');
-    if (data.detail) {
-      actions.setLoginError(data.detail);
-      return;
-    }
+    // if (data.detail) {
+    //   actions.setLoginError(data.detail);
+    //   return;
+    // }
     actions.setLoginModalOpen(false);
-    authStorage.setTokens(data);
+    authStorage.setTokens(data.data);
     setLoggedIn(true);
     if (redirect) router.push(redirect);
   }, []);
@@ -118,6 +126,19 @@ const AuthContextProvider = ({ children }: IAuthContextProviderProps):JSX.Elemen
     return setLoggedIn(true);
   }, []);
 
+  const onLoginSuccess = useCallback((data, redirect: string):void => {
+    actions.setOneTimePasswordError('');
+    if (data.detail) {
+      return actions.setOneTimePasswordError(data.detail);
+    }
+    const dataT = {
+      loginAccessToken: data.data.token,
+    };
+    authStorage.setLoginTokens(dataT);
+    if (redirect) router.push(redirect);
+    return null;
+  }, []);
+
   const authState = {
     user: {
       ...userData,
@@ -130,6 +151,7 @@ const AuthContextProvider = ({ children }: IAuthContextProviderProps):JSX.Elemen
       onOneTimePasswordSuccess,
       onPasswordCreationSuccess,
       onChangePasswordSuccess,
+      onLoginSuccess,
     },
   };
 

@@ -4,8 +4,6 @@ import {
   KeyIcon, UserCircleIcon, ArchiveIcon, UserIcon, HomeIcon,
 } from '@heroicons/react/outline';
 import {
-  UserProfile, ChangePasswordForm,
-  Typography,
   DashboardMain, DashboardCaptain, DashboardOrder, DashboardCustomer,
 } from 'components';
 import { Disclosure } from '@headlessui/react';

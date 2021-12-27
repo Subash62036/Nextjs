@@ -22,20 +22,27 @@ export const useAuthStorage = () => {
     getAuthToken() {
       return sessionStorage.getItem(publicRuntimeConfig.authCookieName);
     },
+    getLoginAuthToken() {
+      return sessionStorage.getItem(publicRuntimeConfig.loginCookieName);
+    },
     getRefreshToken() {
-      return sessionStorage.getItem(publicRuntimeConfig.authRefreshCookieName);
+      //return sessionStorage.getItem(publicRuntimeConfig.authRefreshCookieName);
     },
     setTokens(data) {
       sessionStorage.setItem(publicRuntimeConfig.authCookieName, data.accessToken);
-      sessionStorage.setItem(publicRuntimeConfig.authRefreshCookieName, data.refreshToken);
+      //sessionStorage.setItem(publicRuntimeConfig.authRefreshCookieName, data.refreshToken);
       Cookie.set(publicRuntimeConfig.authCookieName, data.accessToken);
-      Cookie.set(publicRuntimeConfig.authRefreshCookieName, data.refreshToken);
+      //Cookie.set(publicRuntimeConfig.authRefreshCookieName, data.refreshToken);
+    },
+    setLoginTokens(data) {
+      sessionStorage.setItem(publicRuntimeConfig.loginCookieName, data.loginAccessToken);
+      Cookie.set(publicRuntimeConfig.loginCookieName, data.loginAccessToken);
     },
     removeTokens() {
       Cookie.remove(publicRuntimeConfig.authCookieName);
-      Cookie.remove(publicRuntimeConfig.authRefreshCookieName);
+      //Cookie.remove(publicRuntimeConfig.authRefreshCookieName);
       sessionStorage.removeItem(publicRuntimeConfig.authCookieName);
-      sessionStorage.removeItem(publicRuntimeConfig.authRefreshCookieName);
+      //sessionStorage.removeItem(publicRuntimeConfig.authRefreshCookieName);
     },
   });
 };

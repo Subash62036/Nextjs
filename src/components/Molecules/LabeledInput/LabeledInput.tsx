@@ -19,11 +19,11 @@ const LabeledInput = ({
   const [field, meta] = useField(restProps);
   const classes = classNames(
     className,
-    'appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm',
+    'appearance-none block w-full px-3 py-2 border-0 border-b-2 border-gray-300 placeholder-black focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm',
   );
   const labelClasses = classNames(
     labelClassName,
-    'block text-sm font-medium text-gray-700',
+    'block text-sm text-black',
   );
   return (
     <>
@@ -35,7 +35,7 @@ const LabeledInput = ({
         {!isTextArea
         && <input {...field} {...restProps} className={classes} />}
         {isTextArea
-        && <textarea {...field} cols={60} rows={10} className={classNames(classes, 'resize-y border rounded-md')} />}
+        && <textarea {...field} cols={60} rows={10} className={classNames(classes, 'resize-y border rounded-md text-black')} />}
         {meta.error && meta.touched && (
         <div className="text-red-500 mt-2">
           *

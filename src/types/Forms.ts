@@ -3,7 +3,6 @@ import { Dispatch, SetStateAction } from 'react';
 export interface ILoginParams {
   phone: number,
   countryCode: number,
-  appHash: string
 }
 
 export interface ILoginFormProps {
@@ -43,5 +42,6 @@ export interface IWaitlistForm {
 }
 
 export interface ILoginOTPParams {
-  otp: number
+  otp: number,
+  token: string
 }

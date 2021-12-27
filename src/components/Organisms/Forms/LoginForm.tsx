@@ -18,9 +18,11 @@ export const LoginForm = ():JSX.Element => {
     state: { loginError, loginSuccess },
     actions: { setLoginError, setLoginSuccess },
   } = useGlobalUiContext() as IUIContext;
+  const { actions: { onLoginSuccess } } = useAuth() as IAuthContext;
 
   const handleLoginSuccess = (e) => {
     setLoginSuccess(true);
+    onLoginSuccess(e);
   };
 
   const logInMutation = useLoginMutation(setLoginError, handleLoginSuccess);
@@ -32,18 +34,16 @@ export const LoginForm = ():JSX.Element => {
         initialValues={{
           phone: '',
           countryCode: 91,
-          appHash: '',
         }}
         validateOnBlur
         validationSchema={LoginSchema}
         onSubmit={(values) => {
           logInMutation.mutate(values);
-          console.log(values);
         }}
       >
         {() => (
           <Form data-test-id="loginForm">
-            <Typography variant="h3" className="">Log In</Typography>
+            <Typography variant="h3" className="">Log in</Typography>
             <LabeledInput
               name="phone"
               label="Phone Number"
@@ -51,7 +51,7 @@ export const LoginForm = ():JSX.Element => {
               data-test-id="loginPhoneNumber"
             />
             {loginError && (<GenericErrorMessage data-test-id="login-error">{loginError}</GenericErrorMessage>)}
-            <Button data-test-id="loginSubmit" type="submit" className="mt-6 w-full">Log In</Button>
+            <Button data-test-id="loginSubmit" type="submit" className="mt-6 w-full">Login</Button>
           </Form>
         )}
       </Formik>

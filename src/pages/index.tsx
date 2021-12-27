@@ -43,10 +43,10 @@ export default function LoginPage({ username, loggedout }:ILoginPageProps):JSX.E
           </div>
         </div>
         <div className="flex flex-col min-h-screen justify-center content-center h-full w-1/3">
-          <div className="bg-white h-full sm:px-10 sm:mx-auto sm:w-full sm:max-w-md w-full">
+          <div className="bg-white h-full sm:px-10 sm:mx-auto mb-32">
             <Image src={Rapido} className="w-12" />
           </div>
-          <div className="bg-white h-full sm:px-10 sm:mx-auto sm:w-full sm:max-w-md w-full">
+          <div className="bg-white h-full sm:px-10 sm:mx-auto sm:w-full sm:max-w-md w-full mb-40">
             {
             !loginSuccess ? <LoginForm /> : <OTPForm />
           }

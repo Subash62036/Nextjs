@@ -4,7 +4,7 @@ import {
 } from 'formik';
 import { useRouter } from 'next/router';
 import { useAuth, useGlobalUiContext } from 'state';
-import { useLoginOTPMutation } from 'hooks';
+import { useLoginOTPMutation, useAuthStorage } from 'hooks';
 import {
   LabeledInput, Button, Typography, GenericErrorMessage,
 } from 'components';
@@ -19,35 +19,35 @@ export const OTPForm = ():JSX.Element => {
     state: { loginOTPError },
     actions: { setLoginOTPError },
   } = useGlobalUiContext() as IUIContext;
-
+  const authStorage = useAuthStorage();
   const { actions: { handleLoginOTPSuccess } } = useAuth() as IAuthContext;
-
+  const loginToken = authStorage.getLoginAuthToken();
   const logInOTPMutation = useLoginOTPMutation(
     setLoginOTPError, handleLoginOTPSuccess, ROUTES.DASHBOARD,
   );
+
+  const sendForm = (e) => {
+    e.token = authStorage.getLoginAuthToken();
+    logInOTPMutation.mutate(e);
+  };
+
   const router = useRouter();
   return (
     <>
       <Formik
         initialValues={{
           otp: '',
+          token: '',
         }}
         validateOnBlur
         validationSchema={OTPSchema}
         onSubmit={(values) => {
-          logInOTPMutation.mutate(values);
-          console.log(values, 'otp=========');
+          sendForm(values);
         }}
       >
         {() => (
           <Form data-test-id="loginForm">
             <Typography variant="h3" className="">Enter OTP</Typography>
-            {/* <OtpInput
-              value={otp}
-              onChange={(e)=>setOtp(e)}
-              numInputs={4}
-              separator={<span>-</span>}
-            /> */}
             <LabeledInput
               name="otp"
               label="OTP"

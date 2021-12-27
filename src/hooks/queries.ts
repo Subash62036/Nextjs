@@ -161,10 +161,11 @@ export const useLoginOTPMutation = (
   onError: TOnErrorFunc,
   onSuccess: TOnSuccessFunc, redirect = null,
 ):UseMutationResult => {
-  const fetcher = makeFetcher(useAxios(true));
-  return useMutation(({ otp }: ILoginOTPParams) => fetcher(`${POST.LOGIN_OTP}`, { otp }, 'post'), {
+  const fetcher = makeFetcher(useAxios(false));
+  return useMutation((formdata: ILoginOTPParams) => fetcher(`${POST.LOGIN_OTP}`, formdata, 'post'), {
     onError: (e) => {
-      onError(e);
+      //onError(e);
+      console.log(e)
     },
     onSuccess: (data) => {
       onSuccess(data, redirect);

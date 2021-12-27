@@ -1,4 +1,4 @@
 export const URIS = {
-  LOGOUT_REDIRECT: '/login',
+  LOGOUT_REDIRECT: '/',
   LOGIN_REDIRECT: '/dashboard',
 };

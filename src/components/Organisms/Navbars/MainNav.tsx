@@ -50,10 +50,10 @@ export const ProfileMenu = (dropDownMenuItems, handleLogout) => (
 );
 
 export const MainNav = () => {
-  const { actions: { handleLogout }, user: { username } } = useAuth() as IAuthContext;
+  const { actions: { handleLogout }, user: { data } } = useAuth() as IAuthContext;
   let dropDownMenuItems = [];
   let mainMenuItems = [];
-  if (username) {
+  if (data) {
     dropDownMenuItems = MAIN_NAV.LOGGED_IN.USER_DROPDOWN_MENU;
     mainMenuItems = MAIN_NAV.LOGGED_IN.MAIN_MENU_ITEMS;
   }
@@ -62,7 +62,7 @@ export const MainNav = () => {
     <Disclosure as="nav" className="bg-white shadow z-10">
       {({ open }) => (
         <>
-          <div className="container mx-auto px-2 sm:px-6 lg:px-8">
+          <div className="mx-auto px-2 sm:px-6 lg:px-8">
             <div className="relative flex justify-between h-16">
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 {/* Mobile menu button */}
@@ -76,7 +76,7 @@ export const MainNav = () => {
                 </Disclosure.Button>
               </div>
               <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
-                <div className="flex-shrink-0 flex items-center">
+                <div className="flex-shrink-0 flex items-center ml-20">
                   <Link href={ROUTES.HOME}>
                     <span className="flex items-center">
                       <Image
@@ -100,8 +100,8 @@ export const MainNav = () => {
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                {username && ProfileMenu(dropDownMenuItems, handleLogout)}
-                {!username
+                {data && ProfileMenu(dropDownMenuItems, handleLogout)}
+                {!data
                 && (
                 <>
                   <Button variant="primary" href={ROUTES.LOGIN}>Log In</Button>

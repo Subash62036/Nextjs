@@ -48,19 +48,20 @@ export function AxiosProvider({ children }):JSX.Element {
         return error.response;
       }
 
-      if (status === 401 && refreshToken) {
-        const newTokenResponse = await axiosInstance.post(`${POST.REFRESH}`, { refresh: refreshToken }).catch();
+      // if (status === 401 && refreshToken) {
+      //   const newTokenResponse = await axiosInstance.post(`${POST.REFRESH}`,
+      //   { refresh: refreshToken }).catch();
 
-        if (!newTokenResponse) return router.push(URIS.LOGOUT_REDIRECT);
+      //   if (!newTokenResponse) return router.push(URIS.LOGOUT_REDIRECT);
 
-        const { data: { access: newAccess } } = newTokenResponse;
+      //   const { data: { access: newAccess } } = newTokenResponse;
 
-        Cookie.set(publicRuntimeConfig.authCookieName, newAccess);
-        Cookie.remove(publicRuntimeConfig.authRefreshCookieName);
+      //   Cookie.set(publicRuntimeConfig.authCookieName, newAccess);
+      //   Cookie.remove(publicRuntimeConfig.authRefreshCookieName);
 
-        originalRequest.headers.Authorization = `Bearer ${newAccess}`;
-        return axiosInstance.request(originalRequest);
-      }
+      //   originalRequest.headers.Authorization = `Bearer ${newAccess}`;
+      //   return axiosInstance.request(originalRequest);
+      // }
 
       return error.response;
     });
