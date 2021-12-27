@@ -9,6 +9,7 @@ import {
 } from 'components';
 import { IAuthContext, IUIContext } from 'types';
 import Rapido from '../../public/favico/android-chrome.png';
+import RapidoArt from '../../public/favico/bro.png';
 
 interface ILoginPageProps {
   username?: string;
@@ -36,7 +37,11 @@ export default function LoginPage({ username, loggedout }:ILoginPageProps):JSX.E
       )}
       <div className="flex flex-row min-h-screen">
 
-        <div className="bg-grey-200 min-h-screen w-2/3 item-center">image here</div>
+        <div className="flex flex-col justify-center content-center bg-grey-50 min-h-screen w-2/3 item-center">
+          <div className="grid justify-items-center">
+            <Image src={RapidoArt} />
+          </div>
+        </div>
         <div className="flex flex-col min-h-screen justify-center content-center h-full w-1/3">
           <div className="bg-white h-full sm:px-10 sm:mx-auto sm:w-full sm:max-w-md w-full">
             <Image src={Rapido} className="w-12" />

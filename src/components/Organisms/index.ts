@@ -5,3 +5,4 @@ export * from './Footers';
 export * from './UserProfile';
 export * from './Headers';
 export * from './SidebarNav';
+export * from './Dashboard';

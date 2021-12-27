@@ -62,7 +62,6 @@ export const UserProfileInterface = ({ user }) => {
                 ))}
               </nav>
             </aside>
-            {/* <p>asdasd</p> */}
             <div className="divide-y divide-gray-200 lg:col-span-9">
               <div className="p-4">
                 {tabName === 'Profile' && (

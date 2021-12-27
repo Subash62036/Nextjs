@@ -13,10 +13,6 @@ export const MAIN_NAV = {
         text: 'Dashboard',
         href: ROUTES.DASHBOARD,
       },
-      // {
-      //   text: 'Insights',
-      //   href: ROUTES.INSIGHTS,
-      // },
       {
         text: 'Profile',
         href: ROUTES.USER_PROFILE,

@@ -24,10 +24,10 @@ const variantClasses = {
   p: 'text-base mt-2',
   strong: 'font-bold',
   em: 'text-base',
-  h1: 'text-4xl font-bold',
-  h2: 'text-3xl font-bold',
-  h3: 'text-2xl font-bold',
-  h4: 'text-xl font-bold',
+  h1: 'text-4xl ',
+  h2: 'text-3xl ',
+  h3: 'text-2xl ',
+  h4: 'text-xl ',
   h5: 'text-lg font-semibold',
 };
 

@@ -11,6 +11,7 @@ import { useAuth } from 'state';
 import { IAuthContext } from 'types';
 
 import { MAIN_NAV, ROUTES } from 'config';
+import Rapido from '../../../../public/favico/android-chrome.png';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
@@ -78,13 +79,13 @@ export const MainNav = () => {
                 <div className="flex-shrink-0 flex items-center">
                   <Link href={ROUTES.HOME}>
                     <span className="flex items-center">
-                      {/* <Image
+                      <Image
                         className="cursor-pointer"
                         alt="RAPIDO"
-                        width="48" height="48"
-                        src="/img/logo-transparent.png" /> */}
-                      {/* WEBSITE LOGO */}
-                      <Typography variant="strong" className="hidden md:inline-block ml-3 uppercase">RAPIDO</Typography>
+                        width="100"
+                        height="60"
+                        src={Rapido}
+                      />
                     </span>
                   </Link>
                 </div>

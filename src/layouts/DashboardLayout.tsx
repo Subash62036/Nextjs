@@ -11,15 +11,13 @@ interface IDashboardLayoutProps {
 
 export default function DashboardLayout({ children, pageTitle }:IDashboardLayoutProps):JSX.Element {
   return (
-    <main className="h-full bg-gray-50">
-      <div className="">
+    <main className="h-full bg-gray-100">
+      <div>
         <MainNav />
       </div>
-      <section className="relative w-full min-h-full container mx-auto pb-12">
-        <UserDashboardHeader pageTitle={pageTitle} />
+      <section className="relative w-full min-h-full mx-0 pb-12">
         {children}
       </section>
-      <FooterSmall />
     </main>
   );
 }

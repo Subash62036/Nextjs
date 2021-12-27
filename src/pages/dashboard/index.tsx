@@ -1,5 +1,9 @@
 /* eslint-disable react/jsx-no-target-blank */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import classNames from 'classnames';
+import { Disclosure } from '@headlessui/react';
+import { ChevronUpIcon } from '@heroicons/react/solid';
+
 import Cookies from 'cookies';
 import { AxiosRequestConfig } from 'axios';
 import { GetServerSideProps } from 'next';
@@ -10,7 +14,9 @@ import {
 import { makeAuthHeaders, serverSideAxiosInstance } from '_axios';
 import {
   Typography,
+  DashboardMain, DashboardCaptain, DashboardOrder, DashboardCustomer, DashboardInterface,
 } from 'components';
+import { ArchiveIcon, UserIcon, HomeIcon } from '@heroicons/react/outline';
 
 import { API, URIS } from 'config';
 import DashboardLayout from 'layouts/DashboardLayout';
@@ -24,11 +30,8 @@ const { GET } = ENDPOINTS;
 
 export default function UserDashboard({ user }: IDashboardProps):JSX.Element {
   return (
-    <section className="items-center flex flex-wrap h-full mt-4">
-      <Typography variant="h2">
-        LANDING
-        {' '}
-      </Typography>
+    <section className="flex flex-wrap h-full">
+      <DashboardInterface />
     </section>
   );
 }
