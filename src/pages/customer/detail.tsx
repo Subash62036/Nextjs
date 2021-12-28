@@ -1,15 +1,12 @@
 /* eslint-disable react/jsx-no-target-blank */
-import React, { useState, useEffect } from 'react';
-
+import React from 'react';
 import Cookies from 'cookies';
 import { AxiosRequestConfig } from 'axios';
 import { GetServerSideProps } from 'next';
-import {
-  IUserDetails,
-} from 'types';
+
 import { makeAuthHeaders, serverSideAxiosInstance } from '_axios';
 import {
-  DashboardMain,
+  DashboardCustomerDetails,
 } from 'components';
 
 import { API, URIS } from 'config';
@@ -18,15 +15,15 @@ import DashboardLayout from 'layouts/DashboardLayout';
 const { ENDPOINTS } = API;
 const { GET } = ENDPOINTS;
 
-export default function UserDashboard():JSX.Element {
+export default function CustomerDetail():JSX.Element {
   return (
-    <section className="flex flex-wrap h-full">
-      <DashboardMain />
+    <section className="flex flex-wrap h-full w-full">
+      <DashboardCustomerDetails />
     </section>
   );
 }
-UserDashboard.layout = DashboardLayout;
-UserDashboard.pageTitle = 'User Dashboard';
+CustomerDetail.layout = DashboardLayout;
+CustomerDetail.pageTitle = 'User Dashboard';
 
 // export const getServerSideProps:GetServerSideProps = async (ctx) => {
 //   const { req, res } = ctx;

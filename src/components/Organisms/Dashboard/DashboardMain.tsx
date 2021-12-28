@@ -1,15 +1,11 @@
 import React from 'react';
-import classNames from 'classnames';
 import { useRouter } from 'next/router';
 
-import { Typography, Button, Card } from 'components';
-import { useAuth, useGlobalUiContext } from 'state';
+import { Typography, Card } from 'components';
+import { useAuth } from 'state';
 import { IAuthContext } from 'types';
-import { UI_CONFIG, ROUTES } from 'config';
 
-const { CONTENT: { EDIT_MODE } } = UI_CONFIG;
-
-export const DashboardMain = ({ pageTitle = 'Your Dashboard', subTitle = '' }):JSX.Element => {
+export const DashboardMain = ():JSX.Element => {
   const { user: userData } = useAuth() as IAuthContext;
   const { route } = useRouter();
 

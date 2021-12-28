@@ -8,3 +8,4 @@ export * from './Tooltip';
 export * from './MenuItem';
 export * from './Card';
 export * from './GenericSuccessMessage';
+export * from './GenericSuccessMessage';

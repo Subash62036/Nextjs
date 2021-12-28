@@ -3,9 +3,8 @@ import { useAuth, useGlobalUiContext } from 'state';
 import { GetServerSideProps } from 'next';
 import Image from 'next/image';
 import AuthLayout from 'layouts/AuthLayout';
-import { ROUTES } from 'config';
 import {
-  LoginForm, Typography, Card, OTPForm,
+  LoginForm, Typography, OTPForm,
 } from 'components';
 import { IAuthContext, IUIContext } from 'types';
 import Rapido from '../../public/favico/android-chrome.png';
@@ -62,11 +61,11 @@ export default function LoginPage({ username, loggedout }:ILoginPageProps):JSX.E
 
 LoginPage.layout = AuthLayout;
 
-export const getServerSideProps:GetServerSideProps = async ({ query }) => ({
-  props: {
-    username: query.username || null,
-    loggedout: query.logout || null,
-  },
-});
+// export const getServerSideProps:GetServerSideProps = async ({ query }) => ({
+//   props: {
+//     username: query.username || null,
+//     loggedout: query.logout || null,
+//   },
+// });
 
 LoginPage.pageTitle = 'RAPIDO';

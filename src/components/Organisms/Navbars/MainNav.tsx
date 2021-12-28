@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
 
-import { Typography, MenuItem, Button } from 'components';
+import { MenuItem, Button } from 'components';
 import { useAuth } from 'state';
 import { IAuthContext } from 'types';
 

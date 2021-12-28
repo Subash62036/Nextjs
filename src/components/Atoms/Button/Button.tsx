@@ -20,7 +20,7 @@ const commonClasses = `px-4 py-2 font-medium leading-loose outline-none ease-lin
 
 const variantClasses = {
   primary: `text-black bg-primary-600 border border-primary-600 
-            hover:bg-primary-500 hover:border-primary-500 rounded-md
+            hover:border-primary-500 rounded-md
             active:bg-primary-600`,
 
   secondary: `cursor-pointer flex justify-center items-center 
