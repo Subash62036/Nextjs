@@ -137,9 +137,9 @@ export const PaginationTableComponentForCaptain = () => {
         Cell: ({ value }) => (
 
           value === 'Approved' ? (
-            <Button variant="primary" className="bg-green-400 text-white rounded-full w-full disabled:transform-none cursor-default">APPROVED</Button>
+            <Button variant="primary" className="bg-green-400 text-white rounded-full w-3/4 h-8 disabled:transform-none cursor-default">APPROVED</Button>
           ) : (
-            <Button variant="primary" className="bg-primary-500 text-white rounded-full w-full cursor-default">PENDING</Button>
+            <Button variant="primary" className="bg-primary-500 text-white rounded-full w-3/4 h-8 cursor-default">PENDING</Button>
           )
         ),
       },
@@ -150,9 +150,11 @@ export const PaginationTableComponentForCaptain = () => {
           ({ value }) => (
             <Link
               key={value}
-              href={ROUTES.CAPTAIN_DETAILS}
+              href={`${ROUTES.CAPTAIN_DETAILS}${value}`}
             >
-              <EyeIcon className="text-grey-500 w-8 h-8" />
+              <button className="cursor-pointer">
+                <EyeIcon className="text-grey-500 w-8 h-8" />
+              </button>
             </Link>
           ),
       },

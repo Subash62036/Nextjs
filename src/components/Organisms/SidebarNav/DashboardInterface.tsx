@@ -51,7 +51,7 @@ export const DashboardInterface = () => {
 
   return (
     <>
-      <aside className="py-6 bg-white">
+      <aside className="py-6 bg-white w-1/4 h-screen">
         <nav className="space-y-1">
           <Link href={ROUTES.DASHBOARD}>
             <button

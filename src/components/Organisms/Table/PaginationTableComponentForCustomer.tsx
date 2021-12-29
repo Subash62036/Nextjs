@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  EyeIcon, PencilIcon,
+  EyeIcon,
 } from '@heroicons/react/outline';
 import { StarIcon } from '@heroicons/react/solid';
 
@@ -138,9 +138,11 @@ export const PaginationTableComponentForCustomer = () => {
           ({ value }) => (
             <Link
               key={value}
-              href={ROUTES.CUSTOMER_DETAILS}
+              href={`${ROUTES.CUSTOMER_DETAILS}${value}`}
             >
-              <EyeIcon className="text-grey-500 w-8 h-8" />
+              <button className="cursor-pointer">
+                <EyeIcon className="text-grey-500 w-8 h-8" />
+              </button>
             </Link>
           ),
       },

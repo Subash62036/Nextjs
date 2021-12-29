@@ -1,18 +1,20 @@
 import React from 'react';
 import classNames from 'classnames';
+import { StarIcon } from '@heroicons/react/solid';
 
 import { Label, Typography } from 'components';
 
-export interface ILabeledTextProps {
+export interface ILabeledTextRatingProps {
   label: string
   className?: string
   labelClassName?: string
-  [x:string]: any
+  [x:string]: any,
+  icon : boolean
 }
 
-const LabeledText = ({
-  label, labelClassName, className, value, ...restProps
-}: ILabeledTextProps):JSX.Element => {
+const LabeledTextRating = ({
+  label, labelClassName, className, value, icon, ...restProps
+}: ILabeledTextRatingProps):JSX.Element => {
   // @ts-ignore
   const classes = classNames(
     className,
@@ -33,11 +35,17 @@ const LabeledText = ({
       <Typography variant="p" className={labelClasses}>
         {label}
       </Typography>
-      <Typography variant="p" className={textClasses}>
-        {value}
-      </Typography>
+      <span className="flex items-end">
+        <Typography variant="p" className={textClasses}>
+          {value}
+        </Typography>
+        {
+        icon && <StarIcon className="text-primary-400 w-5 h-5 ml-2 mb-1" />
+
+      }
+      </span>
     </div>
   );
 };
 
-export { LabeledText };
+export { LabeledTextRating };

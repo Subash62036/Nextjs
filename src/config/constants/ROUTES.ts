@@ -5,7 +5,8 @@ export const ROUTES = {
   CUSTOMER: '/customer',
   CAPTAIN: '/captain',
   ORDER: '/order',
-  CUSTOMER_DETAILS: '/customer/detail',
-  CAPTAIN_DETAILS: '/captain/detail',
-  ORDER_DETAILS: 'order/detail'
+  CUSTOMER_DETAILS: '/customer/',
+  CUSTOMER_DETAILS_RIDES: '/customer/ride/',
+  CAPTAIN_DETAILS: '/captain/',
+  ORDER_DETAILS: 'order/'
 };

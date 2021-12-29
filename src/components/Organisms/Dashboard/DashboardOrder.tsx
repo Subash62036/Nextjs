@@ -16,7 +16,7 @@ export const DashboardOrder = ():JSX.Element => (
       <Typography className="m-2" variant="h3">
         Order List
       </Typography>
-      <PaginationTableComponentForOrder />
+      <PaginationTableComponentForOrder route={ROUTES.ORDER_DETAILS} />
     </Card>
 
   </section>

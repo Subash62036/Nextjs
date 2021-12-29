@@ -3,6 +3,9 @@ import { useTable, usePagination } from 'react-table';
 import { Button } from 'components';
 import Link from 'next/link';
 import { ROUTES } from 'config';
+import {
+  EyeIcon,
+} from '@heroicons/react/outline';
 
 function Table({ columns, data }) {
   // Use the state and functions returned from useTable to build your UI
@@ -113,7 +116,7 @@ function Table({ columns, data }) {
   );
 }
 
-export const PaginationTableComponentForOrder = () => {
+export const PaginationTableComponentForOrder = ({ route }) => {
   const columns = React.useMemo(
     () => [
       {
@@ -140,9 +143,9 @@ export const PaginationTableComponentForOrder = () => {
         Cell: ({ value }) => (
 
           value === 'Completed' ? (
-            <Button variant="primary" className="bg-green-400 text-white rounded-full w-2/3 disabled:transform-none cursor-default">Completed</Button>
+            <Button variant="primary" className="bg-green-400 text-white rounded-full w-2/4 h-10 disabled:transform-none cursor-default">Completed</Button>
           ) : (
-            <Button variant="primary" className="bg-red-500 text-white rounded-full w-2/3 cursor-default">Cancelled</Button>
+            <Button variant="primary" className="bg-red-500 text-white rounded-full w-2/4 h-10 cursor-default">Cancelled</Button>
           )),
       },
       {
@@ -152,9 +155,11 @@ export const PaginationTableComponentForOrder = () => {
         ({ value }) => (
           <Link
             key={value}
-            href={ROUTES.ORDER_DETAILS}
+            href={`${route}${value}`}
           >
-            <button className="text-blue-600">View Details</button>
+            <button className="cursor-pointer">
+              <EyeIcon className="text-grey-500 w-8 h-8" />
+            </button>
           </Link>
         ),
 
@@ -178,7 +183,7 @@ export const PaginationTableComponentForOrder = () => {
       to: 'Dhanbad',
       date: '30 Oct 2021',
       status: 'Cancelled',
-      action: '0009784',
+      action: '0009733',
     },
     {
       orderId: '0009784',
@@ -194,6 +199,7 @@ export const PaginationTableComponentForOrder = () => {
       to: 'Dhanbad',
       date: '30 Oct 2021',
       status: 'Cancelled',
+      action: '0009733',
     },
     {
       orderId: '0009784',
@@ -209,6 +215,7 @@ export const PaginationTableComponentForOrder = () => {
       to: 'Dhanbad',
       date: '30 Oct 2021',
       status: 'Cancelled',
+      action: '0009733',
     },
     {
       orderId: '0009784',
@@ -224,6 +231,7 @@ export const PaginationTableComponentForOrder = () => {
       to: 'Dhanbad',
       date: '30 Oct 2021',
       status: 'Cancelled',
+      action: '0009733',
     },
   ];
 

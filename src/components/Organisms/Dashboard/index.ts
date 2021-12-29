@@ -5,3 +5,4 @@ export * from './DashboardCustomer';
 export * from './DashboardCaptainDetails';
 export * from './DashboardCustomerDetails';
 export * from './DashboardOrderDetails';
+export * from './DashboardCustomerRideDetails';
