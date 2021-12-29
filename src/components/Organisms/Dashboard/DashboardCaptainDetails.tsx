@@ -1,13 +1,21 @@
-import React from 'react';
-import classNames from 'classnames';
-import { useRouter } from 'next/router';
-
-import { Typography, LabeledText, Card } from 'components';
-import { UI_CONFIG, ROUTES } from 'config';
-
-const { CONTENT: { EDIT_MODE } } = UI_CONFIG;
+import React, { useState } from 'react';
+import { Switch } from '@headlessui/react';
+import {
+  Typography, LabeledText, Card, Modal, DisableForm,
+} from 'components';
+import { useGlobalUiContext } from 'state';
+import {
+  IUIContext,
+} from 'types';
 
 export const DashboardCaptainDetails = ():JSX.Element => {
+  const {
+    state: { openDisableModal },
+    actions: { setOpenDisableModal },
+  } = useGlobalUiContext() as IUIContext;
+
+  const active = true; // TODO: this value will be extracted from captain status obj
+  const [enabled, setEnabled] = useState(active);
   const captainDetails = [
     {
       label: 'Full name',
@@ -160,22 +168,68 @@ export const DashboardCaptainDetails = ():JSX.Element => {
     },
   ];
 
+  const toggle = (e) => {
+    if (e) {
+      setEnabled(e);
+      // TODO : call mutation to enable captain
+    } else {
+      // TODO : On open modal, input disable reason and call mutation to disable captain
+      setEnabled(e);
+      setOpenDisableModal(true);
+    }
+  };
+
   return (
     <section className="m-6 w-full">
+
+      <Modal
+        setOpen={setOpenDisableModal}
+        size="xlarge"
+        open={openDisableModal}
+        showCloseButton={false}
+        id="1" // TODO: pass captain id
+      >
+
+        <DisableForm />
+        {/* TODO: pass captain id in form */}
+      </Modal>
+
       <Typography className="mt-5" variant="p">
         Home / User /
         <b> Captain</b>
       </Typography>
+
       <Typography className="m-2" variant="h3">
         Captain Details
       </Typography>
       {/* TODO: add active disable dropdown here */}
+
       <Card className="bg-white py-8 px-4 shadow sm:rounded-lg divide-y">
         <div className="flex justify-between">
           <Typography className="m-2" variant="h4">
             Personal information
           </Typography>
+          <span className="flex">
+            <Typography variant="p">
+              { enabled ? 'ACTIVE' : 'INACTIVE'}
+            </Typography>
+
+            <Switch
+              checked={enabled}
+              onChange={(e) => toggle(e)}
+              className={`${
+                enabled ? 'bg-grey-600' : 'bg-gray-200'
+              } relative inline-flex items-center h-6 rounded-full w-11 border-black m-2`}
+            >
+              <span
+                className={`${
+                  enabled ? 'translate-x-6' : 'translate-x-1'
+                } inline-block w-4 h-4 transform bg-white rounded-full`}
+              />
+            </Switch>
+          </span>
         </div>
+
         <div className="grid grid-cols-6 gap-4">
           {captainDetails.map(({ label, value }) => (
             <LabeledText label={label} value={value} />

@@ -6,3 +6,4 @@ export * from './resetPassword';
 export * from './oneTimePassword';
 export * from './passwordCreation';
 export * from './otp';
+export * from './disable';

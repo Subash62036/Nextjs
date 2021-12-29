@@ -1,11 +1,23 @@
-import React from 'react';
-import classNames from 'classnames';
+import React, { useState } from 'react';
 import {
-  Typography, Card, LabeledText, PaginationTableComponentForOrder,
+  Typography, Card, LabeledText, PaginationTableComponentForOrder, Modal, DisableForm,
 } from 'components';
+import { Switch } from '@headlessui/react';
 import { ROUTES } from 'config';
+import { useGlobalUiContext } from 'state';
+import {
+  IUIContext,
+} from 'types';
 
 export const DashboardCustomerDetails = ():JSX.Element => {
+  const {
+    state: { openDisableModal },
+    actions: { setOpenDisableModal },
+  } = useGlobalUiContext() as IUIContext;
+
+  const active = true; // TODO: this value will be extracted from customer status obj
+  const [enabled, setEnabled] = useState(active);
+
   const customerDetails = [
     {
       label: 'Full name',
@@ -54,8 +66,31 @@ export const DashboardCustomerDetails = ():JSX.Element => {
     },
   ];
 
+  const toggle = (e) => {
+    if (e) {
+      setEnabled(e);
+      // TODO : call mutation to enable captain
+    } else {
+      // TODO : On open modal, input disable reason and call mutation to disable captain
+      setEnabled(e);
+      setOpenDisableModal(true);
+    }
+  };
+
   return (
     <section className="m-6 w-full">
+      <Modal
+        setOpen={setOpenDisableModal}
+        size="xlarge"
+        open={openDisableModal}
+        showCloseButton={false}
+        id="1"
+      >
+
+        <DisableForm />
+        {/* TODO: pass customer id in form */}
+      </Modal>
+
       <Typography className="mt-5" variant="p">
         Home / User /
         <b> Customer</b>
@@ -69,6 +104,25 @@ export const DashboardCustomerDetails = ():JSX.Element => {
           <Typography className="m-2" variant="h4">
             Personal information
           </Typography>
+          <span className="flex">
+            <Typography variant="p">
+              { enabled ? 'ACTIVE' : 'INACTIVE'}
+            </Typography>
+
+            <Switch
+              checked={enabled}
+              onChange={(e) => toggle(e)}
+              className={`${
+                enabled ? 'bg-grey-600' : 'bg-gray-200'
+              } relative inline-flex items-center h-6 rounded-full w-11 border-black m-2`}
+            >
+              <span
+                className={`${
+                  enabled ? 'translate-x-6' : 'translate-x-1'
+                } inline-block w-4 h-4 transform bg-white rounded-full`}
+              />
+            </Switch>
+          </span>
         </div>
         <div className="grid grid-cols-6 gap-4">
           {customerDetails.map(({ label, value }) => (
