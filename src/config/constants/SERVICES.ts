@@ -3,6 +3,14 @@ export const API = {
     GET: {
       USER_DETAILS: '/user',
       USER_BY_USERNAME: '/user-by-username/',
+      ALL_ORDERS: '/all_orders', // /orders
+      DASHBOARD: '/dashboard',
+      ALL_CUSTOMERS: '/all_customers', // /customers
+      ALL_CAPTAINS: '/all_captains', // /captains
+      ORDER_DETAIL: '/orderdetails', //'/order/',
+      CUSTOMER_DETAIL: '/customerdetails/', // /customer/',
+      CAPTAIN_DETAIL: '/captaindetails', //'/captain/'
+      CUSTOMER_RIDE_DETAILS: '/customerRidesDetails', //'/customer/{id}/rides'
     },
     POST: {
       LOGIN: '/login',

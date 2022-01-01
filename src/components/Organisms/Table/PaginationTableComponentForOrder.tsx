@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTable, usePagination } from 'react-table';
-import { Button } from 'components';
+import { Button, LoadingIndicator } from 'components';
 import Link from 'next/link';
-import { ROUTES } from 'config';
 import {
   EyeIcon,
 } from '@heroicons/react/outline';
+import {
+  useGetAllOrdersQuery,
+} from 'hooks';
 
 function Table({ columns, data }) {
   // Use the state and functions returned from useTable to build your UI
@@ -150,92 +152,45 @@ export const PaginationTableComponentForOrder = ({ route }) => {
       },
       {
         Header: 'Action',
-        accessor: 'action',
         Cell:
-        ({ value }) => (
+        ({ row }) => (
           <Link
-            key={value}
-            href={`${route}${value}`}
+            key={row.original.orderId}
+            href={`${route}${row.original.orderId}`}
           >
             <button className="cursor-pointer">
               <EyeIcon className="text-grey-500 w-8 h-8" />
             </button>
           </Link>
         ),
-
       },
     ],
     [],
   );
 
-  const data = [
-    {
-      orderId: '0009784',
-      from: 'Ranchi',
-      to: 'Dhanbad',
-      date: '30 Oct 2021',
-      status: 'Completed',
-      action: '0009784',
-    },
-    {
-      orderId: '0009733',
-      from: 'Ranchi',
-      to: 'Dhanbad',
-      date: '30 Oct 2021',
-      status: 'Cancelled',
-      action: '0009733',
-    },
-    {
-      orderId: '0009784',
-      from: 'Ranchi',
-      to: 'Dhanbad',
-      date: '30 Oct 2021',
-      status: 'Completed',
-      action: '0009784',
-    },
-    {
-      orderId: '0009733',
-      from: 'Ranchi',
-      to: 'Dhanbad',
-      date: '30 Oct 2021',
-      status: 'Cancelled',
-      action: '0009733',
-    },
-    {
-      orderId: '0009784',
-      from: 'Ranchi',
-      to: 'Dhanbad',
-      date: '30 Oct 2021',
-      status: 'Completed',
-      action: '0009784',
-    },
-    {
-      orderId: '0009733',
-      from: 'Ranchi',
-      to: 'Dhanbad',
-      date: '30 Oct 2021',
-      status: 'Cancelled',
-      action: '0009733',
-    },
-    {
-      orderId: '0009784',
-      from: 'Ranchi',
-      to: 'Dhanbad',
-      date: '30 Oct 2021',
-      status: 'Completed',
-      action: '0009784',
-    },
-    {
-      orderId: '0009733',
-      from: 'Ranchi',
-      to: 'Dhanbad',
-      date: '30 Oct 2021',
-      status: 'Cancelled',
-      action: '0009733',
-    },
-  ];
+  const { data } = useGetAllOrdersQuery();
+  const orderResponse = data && data.data;
+
+  const [isFetched, setIsFetched] = useState(false);
+
+  useEffect(() => {
+    if (data) {
+      setIsFetched(true);
+    }
+  }, [data]);
 
   return (
-    <Table columns={columns} data={data} />
+    <>
+      {
+        !isFetched
+          ? <LoadingIndicator className="h-20 w-20 text-center" />
+          : (
+            <>
+              { orderResponse && <Table columns={columns} data={orderResponse} /> }
+
+            </>
+          )
+      }
+    </>
   );
 };

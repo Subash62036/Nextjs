@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   EyeIcon,
 } from '@heroicons/react/outline';
 import { StarIcon } from '@heroicons/react/solid';
+import { LoadingIndicator } from 'components';
 
 import { useTable, usePagination } from 'react-table';
 import Link from 'next/link';
 import { ROUTES } from 'config';
+import {
+  useGetAllCustomersQuery,
+} from 'hooks';
 
 function Table({ columns, data }) {
   // Use the state and functions returned from useTable to build your UI
@@ -133,12 +137,11 @@ export const PaginationTableComponentForCustomer = () => {
       },
       {
         Header: 'Action',
-        accessor: 'action',
         Cell:
-          ({ value }) => (
+          ({ row }) => (
             <Link
-              key={value}
-              href={`${ROUTES.CUSTOMER_DETAILS}${value}`}
+              key={row.original.id}
+              href={`${ROUTES.CUSTOMER_DETAILS}${row.original.id}`}
             >
               <button className="cursor-pointer">
                 <EyeIcon className="text-grey-500 w-8 h-8" />
@@ -150,56 +153,30 @@ export const PaginationTableComponentForCustomer = () => {
     [],
   );
 
-  const data = [
-    {
-      id: '0009784',
-      customerName: 'Rober Fox',
-      phone: '9876543210',
-      dateJoined: '30 Oct 2021',
-      totalRide: '30',
-      rating: '4.5',
-      action: '0009784',
-    },
-    {
-      id: '0009784',
-      customerName: 'Rober Fox',
-      phone: '9876543210',
-      dateJoined: '30 Oct 2021',
-      totalRide: '30',
-      rating: '4.5',
-      action: '0009784',
-    },
-    {
-      id: '0009784',
-      customerName: 'Rober Fox',
-      phone: '9876543210',
-      dateJoined: '30 Oct 2021',
-      totalRide: '30',
-      rating: '4.5',
-      action: '0009784',
-    },
-    {
-      id: '0009784',
-      customerName: 'Rober Fox',
-      phone: '9876543210',
-      dateJoined: '30 Oct 2021',
-      totalRide: '30',
-      rating: '4.5',
-      action: '0009784',
-    },
-    {
-      id: '0009784',
-      customerName: 'Rober Fox',
-      phone: '9876543210',
-      dateJoined: '30 Oct 2021',
-      totalRide: '30',
-      rating: '4.5',
-      action: '0009784',
-    },
+  const { data } = useGetAllCustomersQuery();
+  const response = data && data.data;
 
-  ];
+  const [isFetched, setIsFetched] = useState(false);
+
+  useEffect(() => {
+    if (data) {
+      setIsFetched(true);
+    }
+  }, [data]);
 
   return (
-    <Table columns={columns} data={data} />
+
+    <>
+      {
+      !isFetched
+        ? <LoadingIndicator className="h-20 w-20 text-center" />
+        : (
+          <>
+            { response && <Table columns={columns} data={response} /> }
+
+          </>
+        )
+    }
+    </>
   );
 };

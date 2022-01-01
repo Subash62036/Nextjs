@@ -22,6 +22,13 @@ import {
   ICreatePasswordForm,
   IOneTimePasswordParams,
   ILoginOTPParams,
+  IOrderDetails,
+  IDashboardDetails,
+  ICaptainDetails,
+  ICustomerDetails,
+  IOrderSpecificList,
+  IPersonalDetails,
+  ICaptainSpecificObject
 } from 'types';
 
 const { ENDPOINTS } = API;
@@ -38,9 +45,51 @@ export const makeFetcher = (axiosInstance: AxiosInstance) => async (_url: string
 };
 
 export const useUserQuery = (initialData = null, isEnabled = true):
-  UseQueryResult<IUserDetails, IError> => {
+  UseQueryResult<IUserDetails,IError> => {
   const fetcher = makeFetcher(useAxios());
   return useQuery('user', () => fetcher(`${GET.USER_DETAILS}`), { initialData, enabled: !!isEnabled });
+};
+
+export const useGetAllOrdersQuery = (initialData = null, isEnabled = true):
+  UseQueryResult<IOrderDetails, IError> => {
+  const fetcher = makeFetcher(useAxios(true));
+  return useQuery('allOrders', () => fetcher(`${GET.ALL_ORDERS}`), { initialData, enabled: !!isEnabled });
+};
+
+export const useDashboardQuery = (initialData = null, isEnabled = true):
+  UseQueryResult<IDashboardDetails, IError> => {
+  const fetcher = makeFetcher(useAxios(true));
+  return useQuery('dashboard', () => fetcher(`${GET.DASHBOARD}`), { initialData, enabled: !!isEnabled });
+};
+
+export const useGetAllCustomersQuery = (initialData = null, isEnabled = true):
+  UseQueryResult<ICustomerDetails, IError> => {
+  const fetcher = makeFetcher(useAxios(true));
+  return useQuery('allCustomers', () => fetcher(`${GET.ALL_CUSTOMERS}`), { initialData, enabled: !!isEnabled });
+};
+
+export const useGetAllCaptainsQuery = (initialData = null, isEnabled = true):
+  UseQueryResult<ICaptainDetails, IError> => {
+  const fetcher = makeFetcher(useAxios(true));
+  return useQuery('allCaptains', () => fetcher(`${GET.ALL_CAPTAINS}`), { initialData, enabled: !!isEnabled });
+};
+
+export const useGetOrderDetailsQuery = (id = null, initialData = null, isEnabled = true):
+  UseQueryResult<IOrderSpecificList, IError> => {
+  const fetcher = makeFetcher(useAxios(true)); //${GET.ORDER_DETAIL}${id}
+  return useQuery(['captainsById', id], () => fetcher(`${GET.ORDER_DETAIL}`), { initialData, enabled: !!isEnabled });
+};
+
+export const useGetCustomerDetailsQuery = (id = null, initialData = null, isEnabled = true):
+  UseQueryResult<IPersonalDetails, IError> => {
+  const fetcher = makeFetcher(useAxios(true)); //${GET.CUSTOMER_DETAIL}${id}
+  return useQuery(['customerById', id], () => fetcher(`${GET.CUSTOMER_DETAIL}`), { initialData, enabled: !!isEnabled });
+};
+
+export const useGetCaptainDetailsQuery = (id = null, initialData = null, isEnabled = true):
+  UseQueryResult<ICaptainSpecificObject, IError> => {
+  const fetcher = makeFetcher(useAxios(true)); //${GET.CAPTAIN_DETAIL}${id}
+  return useQuery(['captainById', id], () => fetcher(`${GET.CAPTAIN_DETAIL}`), { initialData, enabled: !!isEnabled });
 };
 
 export const useLoginMutation = (
