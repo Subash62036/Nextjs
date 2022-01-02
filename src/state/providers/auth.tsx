@@ -53,6 +53,7 @@ const AuthContextProvider = ({ children }: IAuthContextProviderProps):JSX.Elemen
     // });
 
     authStorage.removeTokens();
+    actions.setLoginSuccess(false);
     setLoggedIn(false);
     if (redirect) {
       router.push({
@@ -127,7 +128,6 @@ const AuthContextProvider = ({ children }: IAuthContextProviderProps):JSX.Elemen
   }, []);
 
   const onLoginSuccess = useCallback((data, redirect: string):void => {
-    actions.setOneTimePasswordError('');
     if (data.detail) {
       return actions.setOneTimePasswordError(data.detail);
     }

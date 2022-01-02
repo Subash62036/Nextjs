@@ -26,14 +26,6 @@ export default function LoginPage({ username, loggedout }:ILoginPageProps):JSX.E
   }, []);
   return (
     <>
-      {username && (
-      <div className="mt-2 pb-4 max-w-md mx-auto text-center">
-        <Typography variant="p">
-          {username}
-          , you have been logged out.
-        </Typography>
-      </div>
-      )}
       <div className="flex flex-row min-h-screen">
 
         <div className="flex flex-col justify-center content-center bg-grey-50 min-h-screen w-2/3 item-center">

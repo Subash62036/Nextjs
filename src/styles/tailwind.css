@@ -1600,9 +1600,6 @@ select{
 .pb-12{
 	padding-bottom: 3rem;
 }
-.pb-4{
-	padding-bottom: 1rem;
-}
 .pl-3{
 	padding-left: 0.75rem;
 }
@@ -1620,6 +1617,9 @@ select{
 }
 .pt-5{
 	padding-top: 1.25rem;
+}
+.pb-4{
+	padding-bottom: 1rem;
 }
 .pt-4{
 	padding-top: 1rem;

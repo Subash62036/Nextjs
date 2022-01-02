@@ -42,6 +42,7 @@ export const makeFetcher = (axiosInstance: AxiosInstance) => async (_url: string
     return data;
   }
   throw Error(status);
+  //return data;
 };
 
 export const useUserQuery = (initialData = null, isEnabled = true):
@@ -99,8 +100,7 @@ export const useLoginMutation = (
   const fetcher = makeFetcher(useAxios(false));
   return useMutation((form: ILoginParams) => fetcher(`${POST.LOGIN}`, form, 'post'), {
     onError: (e) => {
-      //onError(e);
-      console.log(e)
+      onError(e);
     },
     onSuccess: (data) => {
       onSuccess(data, redirect);
@@ -213,8 +213,7 @@ export const useLoginOTPMutation = (
   const fetcher = makeFetcher(useAxios(false));
   return useMutation((formdata: ILoginOTPParams) => fetcher(`${POST.LOGIN_OTP}`, formdata, 'post'), {
     onError: (e) => {
-      //onError(e);
-      console.log(e)
+      onError(e);
     },
     onSuccess: (data) => {
       onSuccess(data, redirect);

@@ -12,6 +12,7 @@ import {
   IUIContext, IAuthContext, ILoginFormProps,
 } from 'types';
 import { LoginSchema } from 'config';
+import { onErrorResponse } from 'utils';
 
 export const LoginForm = ():JSX.Element => {
   const {
@@ -20,12 +21,17 @@ export const LoginForm = ():JSX.Element => {
   } = useGlobalUiContext() as IUIContext;
   const { actions: { onLoginSuccess } } = useAuth() as IAuthContext;
 
+  const onError = (e) => {
+    const textError = onErrorResponse(e);
+    setLoginError('Password Mismatched');
+  };
+
   const handleLoginSuccess = (e) => {
     setLoginSuccess(true);
     onLoginSuccess(e);
   };
 
-  const logInMutation = useLoginMutation(setLoginError, handleLoginSuccess);
+  const logInMutation = useLoginMutation(onError, handleLoginSuccess);
   const router = useRouter();
 
   return (

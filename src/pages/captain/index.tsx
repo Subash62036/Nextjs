@@ -26,26 +26,26 @@ export default function CaptainDashboard():JSX.Element {
 CaptainDashboard.layout = DashboardLayout;
 CaptainDashboard.pageTitle = 'User Dashboard';
 
-// export const getServerSideProps:GetServerSideProps = async (ctx) => {
-//   const { req, res } = ctx;
-//   const cookies = new Cookies(req, res);
-//   const authHeaders = makeAuthHeaders(cookies) as AxiosRequestConfig;
-//   try {
-//     if (!authHeaders) throw Error();
-//     const [userDetails] = await Promise.all([
-//       serverSideAxiosInstance.get(`${GET.USER_DETAILS}`, authHeaders),
-//     ]);
-//     return {
-//       props: {
-//         user: userDetails?.data,
-//       },
-//     };
-//   } catch (error) {
-//     return {
-//       redirect: {
-//         destination: URIS.LOGOUT_REDIRECT,
-//         statusCode: 302,
-//       },
-//     };
-//   }
-// };
+export const getServerSideProps:GetServerSideProps = async (ctx) => {
+  const { req, res } = ctx;
+  const cookies = new Cookies(req, res);
+  const authHeaders = makeAuthHeaders(cookies) as AxiosRequestConfig;
+  try {
+    if (!authHeaders) throw Error();
+    const [userDetails] = await Promise.all([
+      serverSideAxiosInstance.get(`${GET.USER_DETAILS}`, authHeaders),
+    ]);
+    return {
+      props: {
+        user: userDetails?.data,
+      },
+    };
+  } catch (error) {
+    return {
+      redirect: {
+        destination: URIS.LOGOUT_REDIRECT,
+        statusCode: 302,
+      },
+    };
+  }
+};

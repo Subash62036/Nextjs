@@ -12,7 +12,7 @@ import {
   IUIContext, IAuthContext,
 } from 'types';
 import { OTPSchema, ROUTES } from 'config';
-import OtpInput from 'react-otp-input';
+import { onErrorResponse } from 'utils';
 
 export const OTPForm = ():JSX.Element => {
   const {
@@ -21,9 +21,14 @@ export const OTPForm = ():JSX.Element => {
   } = useGlobalUiContext() as IUIContext;
   const authStorage = useAuthStorage();
   const { actions: { handleLoginOTPSuccess } } = useAuth() as IAuthContext;
-  const loginToken = authStorage.getLoginAuthToken();
+
+  const onError = (e) => {
+    const textError = onErrorResponse(e);
+    setLoginOTPError('Wrong OTP');
+  };
+
   const logInOTPMutation = useLoginOTPMutation(
-    setLoginOTPError, handleLoginOTPSuccess, ROUTES.DASHBOARD,
+    onError, handleLoginOTPSuccess, ROUTES.DASHBOARD,
   );
 
   const sendForm = (e) => {
