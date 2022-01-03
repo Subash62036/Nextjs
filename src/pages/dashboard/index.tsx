@@ -6,6 +6,7 @@ import { AxiosRequestConfig } from 'axios';
 import { GetServerSideProps } from 'next';
 import {
   IUserDetails,
+  IAuthContext,
 } from 'types';
 import { makeAuthHeaders, serverSideAxiosInstance } from '_axios';
 import {
@@ -14,11 +15,19 @@ import {
 
 import { API, URIS } from 'config';
 import DashboardLayout from 'layouts/DashboardLayout';
+import { useAuth } from 'state';
 
 const { ENDPOINTS } = API;
 const { GET } = ENDPOINTS;
 
-export default function UserDashboard():JSX.Element {
+export default function UserDashboard(user):JSX.Element {
+  const { actions: { checkIsAdmin } } = useAuth() as IAuthContext;
+
+  useEffect(() => {
+    if (user.user.data.roles[0].id === 3) {
+      checkIsAdmin();
+    }
+  }, []);
   return (
     <section className="flex flex-wrap h-full">
       <DashboardMain />

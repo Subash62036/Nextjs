@@ -53,11 +53,11 @@ export default function LoginPage({ username, loggedout }:ILoginPageProps):JSX.E
 
 LoginPage.layout = AuthLayout;
 
-// export const getServerSideProps:GetServerSideProps = async ({ query }) => ({
-//   props: {
-//     username: query.username || null,
-//     loggedout: query.logout || null,
-//   },
-// });
+export const getServerSideProps:GetServerSideProps = async ({ query }) => ({
+  props: {
+    username: query.username || null,
+    loggedout: query.logout || null,
+  },
+});
 
 LoginPage.pageTitle = 'RAPIDO';

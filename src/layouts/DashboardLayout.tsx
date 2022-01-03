@@ -14,7 +14,7 @@ export default function DashboardLayout({ children }:IDashboardLayoutProps):JSX.
       <div>
         <MainNav />
       </div>
-      <section className="relative flex w-full min-h-full mx-0 pb-12">
+      <section className="flex w-full min-h-full mx-0">
         <DashboardInterface />
         {children}
       </section>

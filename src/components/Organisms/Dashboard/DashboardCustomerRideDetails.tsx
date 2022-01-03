@@ -5,6 +5,7 @@ import {
 import {
   useGetOrderDetailsQuery,
 } from 'hooks';
+import { epochToJsDate } from 'utils';
 
 export const DashboardCustomerRideDetails = ():JSX.Element => {
   // temp data for testing
@@ -45,7 +46,7 @@ export const DashboardCustomerRideDetails = ():JSX.Element => {
                 </div>
                 <div className="grid grid-cols-6 gap-4">
                   <LabeledText label="Trip Details" value={tripDetails.id} />
-                  <LabeledText label="Date" value={tripDetails.createdAt} />
+                  <LabeledText label="Date" value={epochToJsDate(tripDetails.createdAt)} />
                   <LabeledText label="From" value={tripDetails.fromAddress} />
                   <LabeledText label="To" value={tripDetails.toAddress} />
                   <LabeledText label="Distance" value="tripDetails.distance" />
@@ -62,7 +63,7 @@ export const DashboardCustomerRideDetails = ():JSX.Element => {
                   <div className="grid grid-cols-3 gap-4">
                     <LabeledText label="Full Name" value={captain.name} />
                     <LabeledText label="Mobile Number" value={captain.phone} />
-                    <LabeledText label="Joining Date" value={captain.createdAt} />
+                    <LabeledText label="Joining Date" value={epochToJsDate(captain.createdAt)} />
                     <LabeledTextRating label="Rating" icon value={captain.rating} />
                     <LabeledText label="City" value={captain.city} />
                     <LabeledText label="State" value={captain.state} />

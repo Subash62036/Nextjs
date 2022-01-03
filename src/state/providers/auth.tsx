@@ -63,6 +63,19 @@ const AuthContextProvider = ({ children }: IAuthContextProviderProps):JSX.Elemen
     }
   }, []);
 
+  const checkIsAdmin = useCallback(async (redirect = true) => {
+    queryClient.fetchQuery('user');
+    authStorage.removeTokens();
+    actions.setLoginSuccess(false);
+    setLoggedIn(false);
+    if (redirect) {
+      router.push({
+        pathname: URIS.UNAUTH_REDIRECT,
+        query: { },
+      });
+    }
+  }, []);
+
   const handleLoginOTPSuccess = useCallback((data, redirect: string):void => {
     actions.setLoginError('');
     // if (data.detail) {
@@ -152,6 +165,7 @@ const AuthContextProvider = ({ children }: IAuthContextProviderProps):JSX.Elemen
       onPasswordCreationSuccess,
       onChangePasswordSuccess,
       onLoginSuccess,
+      checkIsAdmin,
     },
   };
 

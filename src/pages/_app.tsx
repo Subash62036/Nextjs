@@ -1,7 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import Head from 'next/head';
-import { GoogleAnalytics, usePagesViews } from 'nextjs-google-analytics';
 
 import {
   QueryClient, QueryClientProvider,
@@ -25,7 +24,6 @@ interface IAppProps {
 export const MyApp = ({
   pageProps, Component, pageTitle,
 }: IAppProps):JSX.Element => {
-  usePagesViews();
   const [queryClient] = React.useState(() => new QueryClient());
   // @ts-ignore
   const Layout = Component.layout || (({ children }) => <>{children}</>);
@@ -52,7 +50,6 @@ export const MyApp = ({
                 <title>{title}</title>
               </Head>
               <Layout pageTitle={title}>
-                <GoogleAnalytics strategy="lazyOnLoad" />
                 <Component {...pageProps} />
                 <ReactQueryDevtools initialIsOpen={false} />
               </Layout>

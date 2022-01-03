@@ -59,7 +59,7 @@ export const MainNav = () => {
   }
   const { route } = useRouter();
   return (
-    <Disclosure as="nav" className="bg-white shadow z-10">
+    <Disclosure as="nav" className="bg-white drop-shadow-lg">
       {({ open }) => (
         <>
           <div className="mx-auto px-2 sm:px-6 lg:px-8">

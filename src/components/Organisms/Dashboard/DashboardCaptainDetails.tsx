@@ -10,6 +10,7 @@ import {
 import {
   useGetCaptainDetailsQuery,
 } from 'hooks';
+import { epochToJsDate } from 'utils';
 
 export const DashboardCaptainDetails = ():JSX.Element => {
   const {
@@ -88,6 +89,7 @@ export const DashboardCaptainDetails = ():JSX.Element => {
       setOpenDisableModal(true);
     }
   };
+
   return (
     <section className="m-6 w-full">
 
@@ -149,7 +151,7 @@ export const DashboardCaptainDetails = ():JSX.Element => {
                 <div className="grid grid-cols-6 gap-4">
                   <LabeledText label="Full Name" value={name} />
                   <LabeledText label="Phone" value={phone} />
-                  <LabeledText label="Joining Date" value={createdAt} />
+                  <LabeledText label="Joining Date" value={epochToJsDate(createdAt)} />
                   <LabeledTextRating label="Rating" icon value={rating} />
                   <LabeledText label="City" value={city} />
                   <LabeledText label="State" value={state} />

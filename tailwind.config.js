@@ -172,7 +172,7 @@ module.exports = {
         full: '100%',
       },
       fontFamily: {
-        sans: ['Poppins', 'Helvetica', 'Arial', 'PT Sans', 'sans-serif'],
+        sans: ['PT Sans', 'Helvetica', 'Arial', 'sans-serif'],
       },
     },
   },
