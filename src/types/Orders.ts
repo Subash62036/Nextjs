@@ -1,17 +1,18 @@
 export interface IOrderDetails {
   data: IOrders
   message: string
+  count: number
+  total: number
+  totalPages: number
 }
 
 export interface IOrders {
   
-  orderId: number
-  from: string
-  to: string
-  date: string
-  status: string
-  action: number
-
+  id: number
+  fromAddress: string
+  toAddress: string
+  createdAt: Date
+  bookingStatus: string
 }
 
 export interface IDashboardDetails {
@@ -30,35 +31,36 @@ export interface IDashboard {
 export interface ICustomerDetails {
   data: ICustomers
   message: string
+  count: number
+  total: number
+  totalPages: number
 }
 
 export interface ICustomers {
   
   id: number
-  customerName: string
+  name: string
   phone: number
-  dateJoined: string
+  createdAt: Date
   totalRide: number
   rating: number
-  action: number
-
 }
 
 export interface ICaptainDetails {
   data: ICaptains
   message: string
+  count: number
+  total: number
+  totalPages: number
 }
 
 export interface ICaptains {
   
   id: number
-  customerName: string
-  phone: number
   dateJoined: string
-  totalRide: number
+  totalTrips: number
   rating: number
-  action: number
-
+  user: IUserSpecific
 }
 
 export interface IOrderSpecificList {

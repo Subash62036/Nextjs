@@ -42,7 +42,6 @@ export const makeFetcher = (axiosInstance: AxiosInstance) => async (_url: string
     return data;
   }
   throw Error(status);
-  //return data;
 };
 
 export const useUserQuery = (initialData = null, isEnabled = true):
@@ -51,10 +50,11 @@ export const useUserQuery = (initialData = null, isEnabled = true):
   return useQuery('user', () => fetcher(`${GET.USER_DETAILS}`), { initialData, enabled: !!isEnabled });
 };
 
-export const useGetAllOrdersQuery = (initialData = null, isEnabled = true):
+export const useGetAllOrdersQuery = (page, pageSize, initialData = null, isEnabled = true):
+
   UseQueryResult<IOrderDetails, IError> => {
-  const fetcher = makeFetcher(useAxios(true));
-  return useQuery('allOrders', () => fetcher(`${GET.ALL_ORDERS}`), { initialData, enabled: !!isEnabled });
+  const fetcher = makeFetcher(useAxios(false));
+  return useQuery(['allOrders', page, pageSize], () => fetcher(`${GET.ALL_ORDERS}?page=${page}&size=${pageSize}`), { initialData, enabled: !!isEnabled, keepPreviousData : true });
 };
 
 export const useDashboardQuery = (initialData = null, isEnabled = true):
@@ -63,16 +63,16 @@ export const useDashboardQuery = (initialData = null, isEnabled = true):
   return useQuery('dashboard', () => fetcher(`${GET.DASHBOARD}`), { initialData, enabled: !!isEnabled });
 };
 
-export const useGetAllCustomersQuery = (initialData = null, isEnabled = true):
+export const useGetAllCustomersQuery = (page, pageSize, initialData = null, isEnabled = true):
   UseQueryResult<ICustomerDetails, IError> => {
-  const fetcher = makeFetcher(useAxios(true));
-  return useQuery('allCustomers', () => fetcher(`${GET.ALL_CUSTOMERS}`), { initialData, enabled: !!isEnabled });
+  const fetcher = makeFetcher(useAxios(false));
+  return useQuery(['allCustomers', page, pageSize], () => fetcher(`${GET.ALL_CUSTOMERS}?page=${page}&size=${pageSize}`), { initialData, enabled: !!isEnabled, keepPreviousData : true });
 };
 
-export const useGetAllCaptainsQuery = (initialData = null, isEnabled = true):
+export const useGetAllCaptainsQuery = (page, pageSize, initialData = null, isEnabled = true):
   UseQueryResult<ICaptainDetails, IError> => {
-  const fetcher = makeFetcher(useAxios(true));
-  return useQuery('allCaptains', () => fetcher(`${GET.ALL_CAPTAINS}`), { initialData, enabled: !!isEnabled });
+  const fetcher = makeFetcher(useAxios(false));
+  return useQuery(['allCaptains', page, pageSize], () => fetcher(`${GET.ALL_CAPTAINS}?page=${page}&size=${pageSize}`), { initialData, enabled: !!isEnabled, keepPreviousData : true });
 };
 
 export const useGetOrderDetailsQuery = (id = null, initialData = null, isEnabled = true):
@@ -81,16 +81,22 @@ export const useGetOrderDetailsQuery = (id = null, initialData = null, isEnabled
   return useQuery(['captainsById', id], () => fetcher(`${GET.ORDER_DETAIL}`), { initialData, enabled: !!isEnabled });
 };
 
-export const useGetCustomerDetailsQuery = (id = null, initialData = null, isEnabled = true):
+export const useGetCustomerDetailsQuery = (id, initialData = null, isEnabled = true):
   UseQueryResult<IPersonalDetails, IError> => {
-  const fetcher = makeFetcher(useAxios(true)); //${GET.CUSTOMER_DETAIL}${id}
-  return useQuery(['customerById', id], () => fetcher(`${GET.CUSTOMER_DETAIL}`), { initialData, enabled: !!isEnabled });
+  const fetcher = makeFetcher(useAxios(false)); //${GET.CUSTOMER_DETAIL}${id}
+  return useQuery(['customerById', id], () => fetcher(`${GET.CUSTOMER_DETAIL}${id}`), { initialData, enabled: !!isEnabled });
 };
 
 export const useGetCaptainDetailsQuery = (id = null, initialData = null, isEnabled = true):
   UseQueryResult<ICaptainSpecificObject, IError> => {
   const fetcher = makeFetcher(useAxios(true)); //${GET.CAPTAIN_DETAIL}${id}
   return useQuery(['captainById', id], () => fetcher(`${GET.CAPTAIN_DETAIL}`), { initialData, enabled: !!isEnabled });
+};
+
+export const useGetAllCustomerRides = (id, page, pageSize, initialData = null, isEnabled = true):
+  UseQueryResult<ICaptainDetails, IError> => {
+  const fetcher = makeFetcher(useAxios(false));
+  return useQuery(['allCaptains', id, page, pageSize], () => fetcher(`${GET.CUSTOMER_RIDE_DETAILS}${id}/rides?page=${page}&size=${pageSize}`), { initialData, enabled: !!isEnabled, keepPreviousData : true });
 };
 
 export const useLoginMutation = (

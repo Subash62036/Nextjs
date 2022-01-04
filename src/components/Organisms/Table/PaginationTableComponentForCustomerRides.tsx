@@ -1,18 +1,16 @@
 import React, {
   useEffect, useState, useReducer, useMemo,
 } from 'react';
+import { useTable, usePagination } from 'react-table';
+import { Button, LoadingIndicator } from 'components';
+import Link from 'next/link';
 import {
   EyeIcon,
 } from '@heroicons/react/outline';
-import { StarIcon } from '@heroicons/react/solid';
-import { LoadingIndicator } from 'components';
-
-import { useTable, usePagination } from 'react-table';
-import Link from 'next/link';
-import { ROUTES } from 'config';
 import {
-  useGetAllCustomersQuery,
+  useGetAllCustomerRides,
 } from 'hooks';
+import { useRouter } from 'next/router';
 
 const initialState = {
   queryPageIndex: 0,
@@ -46,83 +44,62 @@ const reducer = (state, { type, payload }) => {
   }
 };
 
-export const PaginationTableComponentForCustomer = () => {
+export const PaginationTableComponentForCustomerRides = ({ route }) => {
   const columns = useMemo(
     () => [
       {
-        Header: 'ID',
+        Header: 'Order ID',
         accessor: 'id',
 
       },
       {
-        Header: 'Customer Name',
-        accessor: 'name',
+        Header: 'From',
+        accessor: 'fromAddress',
       },
 
       {
-        Header: 'Mobile Number',
-        accessor: 'phone',
+        Header: 'To',
+        accessor: 'toAddress',
       },
       {
-        Header: 'Joining date',
+        Header: 'Date',
         accessor: 'createdAt',
       },
       {
-        Header: 'Total completed rides',
-        accessor: 'totalRide',
+        Header: 'Status',
+        accessor: 'bookingStatus',
         Cell: ({ value }) => (
-          (value
-            ? (
-              <span className="flex">
-                {value}
-              </span>
-            )
-            : '0')
-        ),
-      },
-      {
-        Header: 'Rating',
-        accessor: 'rating',
-        Cell: ({ value }) => (
-          (value
-            ? (
-              <span className="flex">
-                {value}
-                <StarIcon className="text-primary-400 w-5 h-5" />
-              </span>
-            )
-            : (
-              <span className="flex">
-                {0}
-                <StarIcon className="text-primary-400 w-5 h-5" />
-              </span>
-            ))
-        ),
+
+          value === 'CREATED' ? (
+            <Button variant="primary" className="bg-green-400 text-white rounded-full text-sm w-3/4 h-8 disabled:transform-none cursor-default">{value}</Button>
+          ) : (
+            <Button variant="primary" className="bg-red-500 text-white rounded-full text-sm w-3/4 h-8 cursor-default">{value}</Button>
+          )),
       },
       {
         Header: 'Action',
         Cell:
-          ({ row }) => (
-            <Link
-              key={row.original.id}
-              href={`${ROUTES.CUSTOMER_DETAILS}${row.original.id}`}
-            >
-              <button className="cursor-pointer">
-                <EyeIcon className="text-grey-500 w-8 h-8" />
-              </button>
-            </Link>
-          ),
+        ({ row }) => (
+
+          <Link
+            key={row.original.id}
+            href={`${route}${row.original.id}`}
+          >
+            <button className="cursor-pointer">
+              <EyeIcon className="text-grey-500 w-8 h-8" />
+            </button>
+          </Link>
+        ),
       },
     ],
     [],
   );
-
+  const { query } = useRouter();
   const [{
     queryPageIndex,
     queryPageSize, totalCount,
   }, dispatch] = useReducer(reducer, initialState);
-
-  const { data } = useGetAllCustomersQuery(queryPageIndex, queryPageSize);
+  const { data } = useGetAllCustomerRides(query.detail, queryPageIndex, queryPageSize);
 
   const totalPages = data && data.totalPages;
   const [isFetched, setIsFetched] = useState(false);

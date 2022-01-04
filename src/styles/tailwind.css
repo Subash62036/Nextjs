@@ -1003,9 +1003,6 @@ select{
 .h-16{
 	height: 4rem;
 }
-.h-10{
-	height: 2.5rem;
-}
 .max-h-60{
 	max-height: 15rem;
 }
@@ -1071,9 +1068,6 @@ select{
 }
 .w-3\/4{
 	width: 75%;
-}
-.w-2\/4{
-	width: 50%;
 }
 .min-w-full{
 	min-width: 100%;
@@ -1580,10 +1574,6 @@ select{
 .py-6{
 	padding-top: 1.5rem;
 	padding-bottom: 1.5rem;
-}
-.px-5{
-	padding-left: 1.25rem;
-	padding-right: 1.25rem;
 }
 .py-3{
 	padding-top: 0.75rem;

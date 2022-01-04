@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Typography, Card, LabeledText, PaginationTableComponentForOrder, Modal, DisableForm,
+  Typography, Card, LabeledText, PaginationTableComponentForCustomerRides, Modal, DisableForm,
   LabeledTextRating, LoadingIndicator,
 } from 'components';
 import { Switch } from '@headlessui/react';
@@ -13,14 +13,16 @@ import {
   useGetCustomerDetailsQuery,
 } from 'hooks';
 import { epochToJsDate } from 'utils';
+import { useRouter } from 'next/router';
 
 export const DashboardCustomerDetails = ():JSX.Element => {
+  const { query } = useRouter();
   const {
     state: { openDisableModal },
     actions: { setOpenDisableModal },
   } = useGlobalUiContext() as IUIContext;
 
-  const { data } = useGetCustomerDetailsQuery();
+  const { data } = useGetCustomerDetailsQuery(query.detail);
   const [isFetched, setIsFetched] = useState(false);
   const [enabled, setEnabled] = useState(false);
   const {
@@ -31,6 +33,7 @@ export const DashboardCustomerDetails = ():JSX.Element => {
     if (data) {
       setIsFetched(true);
       setEnabled(active);
+      console.log(data);
     }
   }, [data]);
 
@@ -100,7 +103,7 @@ export const DashboardCustomerDetails = ():JSX.Element => {
                 <Typography className="m-2" variant="h3">
                   Ride list
                 </Typography>
-                <PaginationTableComponentForOrder route={ROUTES.CUSTOMER_DETAILS_RIDES} />
+                <PaginationTableComponentForCustomerRides route={ROUTES.CUSTOMER_DETAILS_RIDES} />
                 {/* TODO: pass object in table and route to which eyeIcon will send */}
               </Card>
 

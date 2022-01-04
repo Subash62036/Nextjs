@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+  useEffect, useState, useReducer, useMemo,
+} from 'react';
 import {
   EyeIcon,
 } from '@heroicons/react/outline';
@@ -11,96 +13,40 @@ import {
   useGetAllCaptainsQuery,
 } from 'hooks';
 
-function Table({ columns, data }) {
-  // Use the state and functions returned from useTable to build your UI
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    prepareRow,
-    page,
-    canPreviousPage,
-    canNextPage,
-    pageOptions,
-    nextPage,
-    previousPage,
-    setPageSize,
-    state: { pageIndex, pageSize },
-  } = useTable(
-    {
-      columns,
-      data,
-      initialState: { pageIndex: 0, pageSize: 5 },
-    },
-    usePagination,
-  );
+const initialState = {
+  queryPageIndex: 0,
+  queryPageSize: 10,
+  totalCount: null,
+};
 
-  // Render the UI for your table
-  return (
-    <div>
-      <table className="mt-4 min-w-full leading-normal" {...getTableProps()}>
-        <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <th className="px-5 py-3 border-b-2 border-gray-200 text-left text-xs text-gray-500 tracking-wider" {...column.getHeaderProps()}>{column.render('Header')}</th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {page.map((row, i) => {
-            prepareRow(row);
-            return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map((cell) => <td className="px-5 py-3 border-b-2 border-gray-200 text-left text-xs text-black tracking-wider" {...cell.getCellProps()}>{cell.render('Cell')}</td>)}
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+const PAGE_CHANGED = 'PAGE_CHANGED';
+const PAGE_SIZE_CHANGED = 'PAGE_SIZE_CHANGED';
+const TOTAL_COUNT_CHANGED = 'TOTAL_COUNT_CHANGED';
 
-      <ul className="flex mt-6 justify-end items-end h-16">
-        <select
-          className="border-0 border-b-2 border-grey-200 mr-10 text-sm"
-          value={pageSize}
-          onChange={(e) => {
-            setPageSize(Number(e.target.value));
-          }}
-          style={{ width: '12rem', height: '3rem', color: 'grey' }}
-        >
-          {[5, 10, 20, 30, 40, 50].map((val) => (
-            <option className="text-grey-300" key={val} value={val}>
-              Rows per page
-              {' '}
-              {val}
-            </option>
-          ))}
-        </select>
-        <p>
-          Page
-          {' '}
-          <strong>
-            {pageIndex + 1}
-            {' '}
-            of
-            {pageOptions.length}
-          </strong>
-          {' '}
-        </p>
-        <button onClick={() => previousPage()} disabled={!canPreviousPage}>
-          <p className="text-grey-300 mr-1 text-3xl">{'<'}</p>
-        </button>
-        <button onClick={() => nextPage()} disabled={!canNextPage}>
-          <p className="text-grey-300 mr-3 text-3xl">{'>'}</p>
-        </button>
-      </ul>
-    </div>
-  );
-}
+const reducer = (state, { type, payload }) => {
+  switch (type) {
+    case PAGE_CHANGED:
+      return {
+        ...state,
+        queryPageIndex: payload,
+      };
+    case PAGE_SIZE_CHANGED:
+      return {
+        ...state,
+        queryPageSize: payload,
+      };
+    case TOTAL_COUNT_CHANGED:
+      return {
+        ...state,
+        totalCount: payload,
+      };
+    default:
+      throw new Error(`Unhandled action type: ${type}`);
+  }
+};
 
 export const PaginationTableComponentForCaptain = () => {
-  const columns = React.useMemo(
+  const columns = useMemo(
     () => [
       {
         Header: 'ID',
@@ -139,7 +85,7 @@ export const PaginationTableComponentForCaptain = () => {
         accessor: 'status',
         Cell: ({ value }) => (
 
-          value === 'Approved' ? (
+          value === 'APPROVED' ? (
             <Button variant="primary" className="bg-green-400 text-white rounded-full w-3/4 h-8 disabled:transform-none cursor-default">APPROVED</Button>
           ) : (
             <Button variant="primary" className="bg-primary-500 text-white rounded-full w-3/4 h-8 cursor-default">PENDING</Button>
@@ -165,30 +111,131 @@ export const PaginationTableComponentForCaptain = () => {
     [],
   );
 
-  const { data } = useGetAllCaptainsQuery();
-  const response = data && data.data;
+  const [{
+    queryPageIndex,
+    queryPageSize, totalCount,
+  }, dispatch] = useReducer(reducer, initialState);
 
+  const { data } = useGetAllCaptainsQuery(queryPageIndex, queryPageSize);
+
+  const totalPages = data && data.totalPages;
   const [isFetched, setIsFetched] = useState(false);
 
   useEffect(() => {
     if (data) {
       setIsFetched(true);
+      console.log(data.data);
     }
   }, [data]);
+
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    prepareRow,
+    page,
+    canPreviousPage,
+    canNextPage,
+    pageOptions,
+    pageCount,
+    gotoPage,
+    nextPage,
+    previousPage,
+    setPageSize,
+    state: { pageIndex, pageSize },
+  } = useTable(
+    {
+      columns,
+      data: isFetched ? data.data : [],
+      initialState: {
+        pageIndex: queryPageIndex,
+        pageSize: queryPageSize,
+      },
+      manualPagination: true,
+      pageCount: isFetched ? totalPages : null,
+    },
+    usePagination,
+  );
+
+  useEffect(() => {
+    dispatch({ type: PAGE_CHANGED, payload: pageIndex });
+  }, [pageIndex]);
+
+  useEffect(() => {
+    dispatch({ type: PAGE_SIZE_CHANGED, payload: pageSize });
+    gotoPage(0);
+  }, [pageSize, gotoPage]);
 
   return (
 
     <>
       {
-  !isFetched
-    ? <LoadingIndicator className="h-20 w-20 text-center" />
-    : (
-      <>
-        { response && <Table columns={columns} data={response} /> }
+        !isFetched
+          ? <LoadingIndicator className="h-20 w-20 text-center" />
+          : (
+            <>
+              <div>
+                <table className="mt-4 min-w-full leading-normal" {...getTableProps()}>
+                  <thead>
+                    {headerGroups.map((headerGroup) => (
+                      <tr {...headerGroup.getHeaderGroupProps()}>
+                        {headerGroup.headers.map((column) => (
+                          <th className="py-3 border-b-2 border-gray-200 text-left text-xs text-gray-500 tracking-wider" {...column.getHeaderProps()}>{column.render('Header')}</th>
+                        ))}
+                      </tr>
+                    ))}
+                  </thead>
+                  <tbody {...getTableBodyProps()}>
+                    {page.map((row, i) => {
+                      prepareRow(row);
+                      return (
+                        <tr {...row.getRowProps()}>
+                          {row.cells.map((cell) => <td className="py-1 border-b-2 border-gray-200 text-left text-xs text-black tracking-wider" {...cell.getCellProps()}>{cell.render('Cell')}</td>)}
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
 
-      </>
-    )
-}
+                <ul className="flex mt-6 justify-end items-end h-16">
+                  <select
+                    className="border-0 border-b-2 border-grey-200 mr-10 text-sm"
+                    value={pageSize}
+                    onChange={(e) => {
+                      setPageSize(Number(e.target.value));
+                    }}
+                    style={{ width: '12rem', height: '3rem', color: 'grey' }}
+                  >
+                    {[5, 10, 20, 30, 40, 50].map((val) => (
+                      <option className="text-grey-300" key={val} value={val}>
+                        Rows per page
+                        {' '}
+                        {val}
+                      </option>
+                    ))}
+                  </select>
+                  <p>
+                    Page
+                    {' '}
+                    <strong>
+                      {pageIndex + 1}
+                      {' '}
+                      of
+                      {pageOptions.length}
+                    </strong>
+                    {' '}
+                  </p>
+                  <button onClick={() => previousPage()} disabled={!canPreviousPage}>
+                    <p className="text-grey-300 mr-1 text-3xl">{'<'}</p>
+                  </button>
+                  <button onClick={() => nextPage()} disabled={!canNextPage}>
+                    <p className="text-grey-300 mr-3 text-3xl">{'>'}</p>
+                  </button>
+                </ul>
+              </div>
+            </>
+          )
+      }
     </>
   );
 };

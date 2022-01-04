@@ -6,14 +6,17 @@ import {
   useGetOrderDetailsQuery,
 } from 'hooks';
 import { epochToJsDate } from 'utils';
+import { useRouter } from 'next/router';
 
 export const DashboardOrderDetails = ():JSX.Element => {
+  const { query } = useRouter();
+
   const { data } = useGetOrderDetailsQuery();
   const [isFetched, setIsFetched] = useState(false);
-
   useEffect(() => {
     if (data) {
       setIsFetched(true);
+      console.log(query.detail);
     }
   }, [data]);
 
