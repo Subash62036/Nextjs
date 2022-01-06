@@ -11,7 +11,6 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 
 import 'styles/tailwind.css';
 
-import { SEO } from 'config';
 // state
 import { UIContextProvider, AuthContextProvider, AxiosProvider } from 'state';
 
@@ -28,7 +27,7 @@ export const MyApp = ({
   // @ts-ignore
   const Layout = Component.layout || (({ children }) => <>{children}</>);
   // @ts-ignore
-  const title = pageTitle || Component.pageTitle || SEO.SITE_TITLE;
+  const title = pageTitle || Component.pageTitle;
   return (
     <AxiosProvider>
       <QueryClientProvider client={queryClient}>

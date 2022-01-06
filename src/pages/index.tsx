@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useAuth, useGlobalUiContext } from 'state';
-import { GetServerSideProps } from 'next';
 import AuthLayout from 'layouts/AuthLayout';
 import {
   LoginForm, Typography, OTPForm,
@@ -51,12 +50,5 @@ export default function LoginPage({ username, loggedout }:ILoginPageProps):JSX.E
 }
 
 LoginPage.layout = AuthLayout;
-
-export const getServerSideProps:GetServerSideProps = async ({ query }) => ({
-  props: {
-    username: query.username || null,
-    loggedout: query.logout || null,
-  },
-});
 
 LoginPage.pageTitle = 'RAPIDO';

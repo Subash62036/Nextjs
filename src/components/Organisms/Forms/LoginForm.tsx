@@ -23,7 +23,7 @@ export const LoginForm = ():JSX.Element => {
 
   const onError = (e) => {
     const textError = onErrorResponse(e);
-    setLoginError('Password Mismatched');
+    setLoginError('Something went wrong');
   };
 
   const handleLoginSuccess = (e) => {

@@ -47,6 +47,14 @@ module.exports = {
       },
     ],
   },
+  overrides: [
+    {
+      files: ['out/*'], // Or *.test.js
+      rules: {
+        'require-jsdoc': 'off',
+      },
+    },
+  ],
   settings: {
     'import/resolver': {
       typescript: {},
