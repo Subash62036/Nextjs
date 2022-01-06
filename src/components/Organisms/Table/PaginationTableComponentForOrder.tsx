@@ -11,6 +11,7 @@ import {
   useGetAllOrdersQuery,
 } from 'hooks';
 import { useRouter } from 'next/router';
+import { epochToJsDate } from 'utils';
 
 const initialState = {
   queryPageIndex: 0,
@@ -64,6 +65,9 @@ export const PaginationTableComponentForOrder = ({ route }) => {
       {
         Header: 'Date',
         accessor: 'createdAt',
+        Cell: ({ value }) => (
+          epochToJsDate(value)
+        ),
       },
       {
         Header: 'Status',
@@ -100,7 +104,7 @@ export const PaginationTableComponentForOrder = ({ route }) => {
     queryPageSize, totalCount,
   }, dispatch] = useReducer(reducer, initialState);
 
-  const { data } = useGetAllOrdersQuery(query.detail, queryPageIndex, queryPageSize);
+  const { data } = useGetAllOrdersQuery(queryPageIndex, queryPageSize);
 
   const totalPages = data && data.totalPages;
   const [isFetched, setIsFetched] = useState(false);

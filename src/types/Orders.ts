@@ -57,10 +57,11 @@ export interface ICaptainDetails {
 export interface ICaptains {
   
   id: number
-  dateJoined: string
   totalTrips: number
   rating: number
-  user: IUserSpecific
+  name: string
+  phone: number
+  createdAt: Date
 }
 
 export interface IOrderSpecificList {
@@ -86,16 +87,20 @@ export interface IBookingHistory {
 }
 
 export interface IVehicle {
-  type: string
-      acceptBookingFor: string
-      brand: string
-      model: string
-      color: string
-      numberPlate: string
+      serviceType: string
+      //acceptBookingFor: string
+      vehicleBrand: string
+      vehicleModel: string
+      vehicleColor: string
+      vehicleType: string
       vehicleImage: string
-      registrationCertificateFront: string
-      registrationCertificateBack: string
+      vehicleRegistrationFrontImage: string
+      vehicleRegistrationBackImage: string
+      vehicleRegistrationNumber: string
       vehicleRegistrationYear: number
+      verificationStatus: boolean
+      verifiedAt: Date
+      verifiedBy: string
 }
 
 export interface ILicence {
@@ -109,9 +114,9 @@ export interface ILicence {
 }
 
 export interface IAadhaar {
-  aadhaarNumber: string
-      aadhaarFrontImage: string
-      aadhaarBackImage: string
+  aadharNumber: string
+      aadharFrontImage: string
+      aadharBackImage: string
       verifiedBy: string
       verificationStatus: boolean
       verifiedAt: number
@@ -135,6 +140,14 @@ export interface IOrderSpecific {
   tripDetails: ITripDetails,
   captain: IUserSpecific,
   customer: IUserSpecific,
+  id: number
+  fromAddress: string
+  toAddress: string
+  createdAt: number
+  fare: number
+  bookingStatus: string
+  numberPlate: string
+  model: string
 }
 
 export interface IPersonalDetails {
@@ -156,6 +169,7 @@ export interface ICaptainSpecific {
   vehicle: IVehicle
   licence: ILicence
   aadhar: IAadhaar
+  captain: IUserSpecific
 
 }
 

@@ -10,10 +10,12 @@ import {
   IUIContext,
 } from 'types';
 import {
-  useGetCustomerDetailsQuery,
+  useGetCustomerDetailsQuery, useEnableDisableUserMutation,
 } from 'hooks';
-import { epochToJsDate } from 'utils';
+import { epochToJsDate, onErrorResponse } from 'utils';
 import { useRouter } from 'next/router';
+
+import { useQueryClient } from 'react-query';
 
 export const DashboardCustomerDetails = ():JSX.Element => {
   const { query } = useRouter();
@@ -21,30 +23,70 @@ export const DashboardCustomerDetails = ():JSX.Element => {
     state: { openDisableModal },
     actions: { setOpenDisableModal },
   } = useGlobalUiContext() as IUIContext;
-
+  const queryClient = useQueryClient();
   const { data } = useGetCustomerDetailsQuery(query.detail);
   const [isFetched, setIsFetched] = useState(false);
-  const [enabled, setEnabled] = useState(false);
   const {
     name, active, phone, email, createdAt, rating, city, state, id,
   } = isFetched && data.data;
+  const [enabled, setEnabled] = useState(false);
+  const [error, setError] = useState('');
+  const userId = query.detail;
 
   useEffect(() => {
     if (data) {
       setIsFetched(true);
       setEnabled(active);
-      console.log(data);
     }
   }, [data]);
+
+  useEffect(() => {
+    setEnabled(active);
+  }, [active]);
+
+  useEffect(() => {
+    if (error !== '') {
+      setInterval(() => {
+        setError('');
+      }, 3000);
+    }
+  }, [error]);
+
+  const onError = (e) => {
+    const textError = onErrorResponse(e);
+    setError('Something went wrong');
+    setEnabled(active);
+    queryClient.refetchQueries('customerById');
+  };
+
+  const handleSuccess = (e) => {
+    queryClient.refetchQueries('customerById');
+    setError('');
+    // setOpenDisableModal(false);
+  };
+
+  const userStatusMutation = useEnableDisableUserMutation(onError, handleSuccess);
 
   const toggle = (e) => {
     if (e) {
       setEnabled(e);
-      // TODO : call mutation to enable captain
+      const values = {
+        formdata: {
+          active: e,
+        },
+        id: userId,
+      };
+      userStatusMutation.mutate(values);
     } else {
-      // TODO : On open modal, input disable reason and call mutation to disable captain
       setEnabled(e);
-      setOpenDisableModal(true);
+      const values = {
+        formdata: {
+          active: e,
+        },
+        id: userId,
+      };
+      userStatusMutation.mutate(values);
+      // setOpenDisableModal(true);
     }
   };
 
@@ -69,6 +111,12 @@ export const DashboardCustomerDetails = ():JSX.Element => {
                     Personal information
                   </Typography>
                   <span className="flex">
+                    {error
+                    && (
+                    <Typography variant="p" className="text-red-500 pr-4">
+                      { error}
+                    </Typography>
+                    )}
                     <Typography variant="p">
                       { enabled ? 'ACTIVE' : 'INACTIVE'}
                     </Typography>
@@ -82,7 +130,7 @@ export const DashboardCustomerDetails = ():JSX.Element => {
                     >
                       <span
                         className={`${
-                          enabled ? 'translate-x-6' : 'translate-x-1'
+                          active ? 'translate-x-6' : 'translate-x-1'
                         } inline-block w-4 h-4 transform bg-white rounded-full`}
                       />
                     </Switch>
@@ -92,7 +140,10 @@ export const DashboardCustomerDetails = ():JSX.Element => {
                   <LabeledText label="Full Name" value={name} />
                   <LabeledText label="Phone" value={phone} />
                   <LabeledText label="Joining Date" value={epochToJsDate(createdAt)} />
-                  <LabeledTextRating label="Rating" icon value={rating} />
+                  {
+                    rating ? <LabeledTextRating label="Rating" icon value={rating} />
+                      : <LabeledTextRating label="Rating" icon value={0} />
+                  }
                   <LabeledText label="City" value={city} />
                   <LabeledText label="State" value={state} />
                   <LabeledText label="Email" value={email} />
@@ -104,7 +155,6 @@ export const DashboardCustomerDetails = ():JSX.Element => {
                   Ride list
                 </Typography>
                 <PaginationTableComponentForCustomerRides route={ROUTES.CUSTOMER_DETAILS_RIDES} />
-                {/* TODO: pass object in table and route to which eyeIcon will send */}
               </Card>
 
               <Modal
@@ -115,8 +165,7 @@ export const DashboardCustomerDetails = ():JSX.Element => {
                 id="1"
               >
 
-                <DisableForm />
-                {/* TODO: pass customer id in form */}
+                <DisableForm id={query.detail} />
               </Modal>
             </>
           )

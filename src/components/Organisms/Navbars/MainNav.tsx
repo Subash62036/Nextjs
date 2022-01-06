@@ -2,7 +2,6 @@
 import React, { Fragment } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import Image from 'next/image';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
 
@@ -79,13 +78,7 @@ export const MainNav = () => {
                 <div className="flex-shrink-0 flex items-center ml-20">
                   <Link href={ROUTES.HOME}>
                     <span className="flex items-center">
-                      <Image
-                        className="cursor-pointer"
-                        alt="RAPIDO"
-                        width="100"
-                        height="60"
-                        src={Rapido}
-                      />
+                      <img alt="img" className="w-30 h-14 cursor-pointer" src="https://admin-dashboard-image.s3.ap-south-1.amazonaws.com/android-chrome.png" />
                     </span>
                   </Link>
                 </div>

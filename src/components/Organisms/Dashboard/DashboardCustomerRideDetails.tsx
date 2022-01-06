@@ -6,10 +6,12 @@ import {
   useGetOrderDetailsQuery,
 } from 'hooks';
 import { epochToJsDate } from 'utils';
+import { useRouter } from 'next/router';
 
 export const DashboardCustomerRideDetails = ():JSX.Element => {
-  // temp data for testing
-  const { data } = useGetOrderDetailsQuery();
+  const { query } = useRouter();
+
+  const { data } = useGetOrderDetailsQuery(query.detail);
   const [isFetched, setIsFetched] = useState(false);
 
   useEffect(() => {
@@ -18,9 +20,7 @@ export const DashboardCustomerRideDetails = ():JSX.Element => {
     }
   }, [data]);
 
-  const { tripDetails, captain } = isFetched && data.data;
-
-  // temp data for testing
+  const { id, captain } = isFetched && data.data;
 
   return (
     <section className="m-6 w-full">
@@ -42,17 +42,19 @@ export const DashboardCustomerRideDetails = ():JSX.Element => {
                   <Typography className="m-2" variant="h4">
                     Trip Details
                   </Typography>
-                  <Button variant="primary" className="bg-green-400 text-white rounded-full h-6 disabled:transform-none cursor-default">COMPLETE</Button>
+                  <Button variant="primary" className="bg-green-400 text-white rounded-full h-6 disabled:transform-none cursor-default">
+                    {data.data.bookingStatus}
+                  </Button>
                 </div>
                 <div className="grid grid-cols-6 gap-4">
-                  <LabeledText label="Trip Details" value={tripDetails.id} />
-                  <LabeledText label="Date" value={epochToJsDate(tripDetails.createdAt)} />
-                  <LabeledText label="From" value={tripDetails.fromAddress} />
-                  <LabeledText label="To" value={tripDetails.toAddress} />
-                  <LabeledText label="Distance" value="tripDetails.distance" />
-                  <LabeledText label="Time" value="tripDetails.time" />
-                  <LabeledText label="Vehicle Number" value="tripDetails.vehicalNumber" />
-                  <LabeledText label="Model" value={tripDetails.model} />
+                  <LabeledText label="Trip Details" value={id} />
+                  <LabeledText label="Date" value={epochToJsDate(data.data.createdAt)} />
+                  <LabeledText label="From" value={data.data.fromAddress} />
+                  <LabeledText label="To" value={data.data.toAddress} />
+                  {/* <LabeledText label="Distance" value="data.data.distance" />
+                  <LabeledText label="Time" value="data.data.time" />
+                  <LabeledText label="Vehicle Number" value="data.data.vehicalNumber" /> */}
+                  <LabeledText label="Model" value={data.data.model} />
                 </div>
               </Card>
               <div className="flex flex-row ">
@@ -60,15 +62,26 @@ export const DashboardCustomerRideDetails = ():JSX.Element => {
                   <Typography className="" variant="h4">
                     Captain Details
                   </Typography>
-                  <div className="grid grid-cols-3 gap-4">
-                    <LabeledText label="Full Name" value={captain.name} />
-                    <LabeledText label="Mobile Number" value={captain.phone} />
-                    <LabeledText label="Joining Date" value={epochToJsDate(captain.createdAt)} />
-                    <LabeledTextRating label="Rating" icon value={captain.rating} />
-                    <LabeledText label="City" value={captain.city} />
-                    <LabeledText label="State" value={captain.state} />
-                    <LabeledText label="Email" value={captain.email} />
-                  </div>
+                  {
+                    captain
+                      ? (
+                        <div className="grid grid-cols-3 gap-4">
+                          <LabeledText label="Full Name" value={captain.name} />
+                          <LabeledText label="Mobile Number" value={captain.phone} />
+                          <LabeledText label="Joining Date" value={epochToJsDate(captain.createdAt)} />
+                          <LabeledTextRating label="Rating" icon value={captain.rating} />
+                          <LabeledText label="City" value={captain.city} />
+                          <LabeledText label="State" value={captain.state} />
+                          <LabeledText label="Email" value={captain.email} />
+                        </div>
+                      )
+                      : (
+                        <div className="grid grid-cols-3 gap-4">
+                          <LabeledText label="NA" value="" />
+                        </div>
+                      )
+
+                  }
                 </Card>
 
                 <Card className="w-1/2 h-full bg-white py-8 px-4 shadow sm:rounded-lg divide-y mt-4 ml-2">
@@ -84,7 +97,7 @@ export const DashboardCustomerRideDetails = ():JSX.Element => {
                       Fare
                     </Typography>
                     <Typography className="text-green-400 mt-2" variant="h4">
-                      {tripDetails.fare}
+                      {data.data.fare}
                     </Typography>
                   </div>
                 </Card>

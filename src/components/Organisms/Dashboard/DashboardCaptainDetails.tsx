@@ -8,85 +8,83 @@ import {
   IUIContext,
 } from 'types';
 import {
-  useGetCaptainDetailsQuery,
+  useGetCaptainDetailsQuery, useEnableDisableUserMutation,
 } from 'hooks';
-import { epochToJsDate } from 'utils';
+import { epochToJsDate, onErrorResponse } from 'utils';
+import { useRouter } from 'next/router';
+
+import { useQueryClient } from 'react-query';
 
 export const DashboardCaptainDetails = ():JSX.Element => {
   const {
     state: { openDisableModal },
     actions: { setOpenDisableModal },
   } = useGlobalUiContext() as IUIContext;
+  const { query } = useRouter();
 
-  const { data } = useGetCaptainDetailsQuery();
+  const { data } = useGetCaptainDetailsQuery(query.detail);
   const [isFetched, setIsFetched] = useState(false);
   const [enabled, setEnabled] = useState(false);
   const {
-    name, active, phone, email, createdAt, rating, city, state, id, vehicle, licence, aadhar,
+    vehicle, licence, aadhar, captain,
   } = isFetched && data.data;
+  const [error, setError] = useState('');
+  const userId = query.detail;
+  const queryClient = useQueryClient();
+
+  const handleSuccess = (e) => {
+    queryClient.refetchQueries('captainById');
+    setError('');
+    // setOpenDisableModal(false);
+  };
 
   useEffect(() => {
     if (data) {
       setIsFetched(true);
-      setEnabled(active);
     }
   }, [data]);
 
-  const or = [
-    {
-      captainDetails: {
-        fullName: 'Ankit Kumar',
-        mobileNumber: '6587412984',
-        email: 'abc@xyz.com',
-        joiningDate: '17 Feb 2021',
-        Rating: '3.5 (star)',
-        totalRides: '50',
-        city: 'Ranchi',
-        state: 'Jharkhand',
-        active: true,
-      },
-      aadhaarDetails: {
-        fullName: 'Ankit Kumar',
-        dateOfBirth: '10 Jan 1991',
-        gender: 'Male',
-        aadhaarNumber: '1234 5678 9854',
-        aadhaarFrontPhoto: 'url',
-        aadhaarBackPhoto: 'url',
-        verified: true,
-      },
-      vehicleDetails: {
-        number: 'JH-07-0872',
-        model: 'Hyndai Xcent',
-        color: 'white',
-        registrationNumber: '1234W4566PE7898',
-        registrationState: 'Jharkhand',
-        registrationDate: '10 Jan 1991',
-        vehicleImage: 'url',
-      },
-      drivingLicenceDetails: {
-        registrationState: 'Jharkhand',
-        frontImage: 'url',
-        backmage: 'url',
-        verified: true,
-      },
-      registrationDetails: {
-        number: 'JH-07-0682',
-        issuedOn: '10 Jan 1991',
-        expiresOn: '10 Jan 1991',
-        vehicleImage: 'url',
-        verified: true,
-      },
-    },
-  ];
+  useEffect(() => {
+    if (error !== '') {
+      setInterval(() => {
+        setError('');
+      }, 3000);
+    }
+  }, [error]);
+
+  useEffect(() => {
+    if (captain) setEnabled(captain.active);
+  }, [captain]);
+
+  const onError = (e) => {
+    const textError = onErrorResponse(e);
+    setError('Something went wrong');
+    setEnabled(captain.active);
+    queryClient.refetchQueries('captainById');
+  };
+
+  const userStatusMutation = useEnableDisableUserMutation(onError, handleSuccess);
 
   const toggle = (e) => {
     if (e) {
       setEnabled(e);
-      // TODO : call mutation to enable captain
+      const values = {
+        formdata: {
+          active: e,
+        },
+        id: userId,
+      };
+      userStatusMutation.mutate(values);
     } else {
-      // TODO : On open modal, input disable reason and call mutation to disable captain
       setEnabled(e);
-      setOpenDisableModal(true);
+      const values = {
+        formdata: {
+          active: e,
+        },
+        id: userId,
+      };
+      userStatusMutation.mutate(values);
+      // setOpenDisableModal(true);
     }
   };
 
@@ -107,8 +105,7 @@ export const DashboardCaptainDetails = ():JSX.Element => {
                 id="1"
               >
 
-                <DisableForm />
-                {/* TODO: pass captain id in form */}
+                <DisableForm id={query.detail} />
               </Modal>
 
               <Typography className="mt-5" variant="p">
@@ -119,7 +116,6 @@ export const DashboardCaptainDetails = ():JSX.Element => {
               <Typography className="m-2" variant="h3">
                 Captain Details
               </Typography>
-              {/* TODO: add active disable dropdown here */}
 
               <Card className="bg-white py-8 px-4 shadow sm:rounded-lg divide-y">
                 <div className="flex justify-between">
@@ -127,6 +123,12 @@ export const DashboardCaptainDetails = ():JSX.Element => {
                     Personal information
                   </Typography>
                   <span className="flex">
+                    {error
+                    && (
+                    <Typography variant="p" className="text-red-500 pr-4">
+                      { error}
+                    </Typography>
+                    )}
                     <Typography variant="p">
                       { enabled ? 'ACTIVE' : 'INACTIVE'}
                     </Typography>
@@ -149,13 +151,16 @@ export const DashboardCaptainDetails = ():JSX.Element => {
                 </div>
 
                 <div className="grid grid-cols-6 gap-4">
-                  <LabeledText label="Full Name" value={name} />
-                  <LabeledText label="Phone" value={phone} />
-                  <LabeledText label="Joining Date" value={epochToJsDate(createdAt)} />
-                  <LabeledTextRating label="Rating" icon value={rating} />
-                  <LabeledText label="City" value={city} />
-                  <LabeledText label="State" value={state} />
-                  <LabeledText label="Email" value={email} />
+                  <LabeledText label="Full Name" value={captain.name} />
+                  <LabeledText label="Phone" value={captain.phone} />
+                  <LabeledText label="Joining Date" value={epochToJsDate(captain.createdAt)} />
+                  {
+                    captain.rating ? <LabeledTextRating label="Rating" icon value={captain.rating} />
+                      : <LabeledTextRating label="Rating" icon value={0} />
+                  }
+                  <LabeledText label="City" value={captain.city} />
+                  <LabeledText label="State" value={captain.state} />
+                  <LabeledText label="Email" value={captain.email} />
 
                 </div>
               </Card>
@@ -165,21 +170,71 @@ export const DashboardCaptainDetails = ():JSX.Element => {
                   <Typography className="" variant="h4">
                     Aadhaar Details
                   </Typography>
-                  {/* TODO: aadhar.verificationStatus is false ,onclick button verify aadhaar */}
-                  {
-                    aadhar.verificationStatus && <Button variant="primary" className="bg-green-500 text-white rounded-md h-6 disabled:transform-none cursor-default">VERIFY</Button>
-                  }
-
                 </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="grid grid-cols-2 gap-4">
-                    <LabeledText label="Number" value={aadhar.aadhaarNumber} />
+                <div className="flex flex-wrap justify-between">
+                  <LabeledText label="Number" value={aadhar.aadharNumber} />
+                  <div className="flex flex-col">
                     <LabeledText label="Front" value="" />
+                    {
+                      aadhar.aadharFrontImage ? <img alt="img" className="w-90 h-64" src={aadhar.aadharFrontImage} /> : 'NA'
+                    }
+                  </div>
+                  <div className="flex flex-col">
                     <LabeledText label="Back" value="" />
-                    <LabeledText label="Verified By" value={aadhar.verifiedBy} />
+                    {
+                      aadhar.aadharFrontImage ? <img alt="img" className="w-90 h-64" src={aadhar.aadharBackImage} /> : 'NA'
+                    }
 
                   </div>
                 </div>
+              </Card>
+
+              <Card className="bg-white py-8 px-4 shadow sm:rounded-lg divide-y mt-3">
+                <div className="flex justify-between">
+                  <Typography className="" variant="h4">
+                    Driving Licence Details
+                  </Typography>
+                  {
+                    !licence.verificationStatus && <Button variant="primary" className="bg-green-500 text-white rounded-md h-6 disabled:transform-none cursor-default">VERIFY</Button>
+                      }
+                </div>
+                <div className="flex flex-col flex-wrap justify-between">
+                  <div className="flex flex-wrap justify-start gap-20">
+                    <LabeledText label="Number" value={licence.licenceNumber} />
+                    <LabeledText label="Expiry Date" value={licence.licenceExpiryDate} />
+                    <LabeledText label="Verified By" value={licence.verifiedBy} />
+
+                  </div>
+                  <div className="flex flex-wrap justify-start gap-20">
+                    <div className="flex flex-col">
+                      <LabeledText label="Front" value="" />
+                      {
+                      licence.licenceFrontImage ? <img alt="img" className="w-90 h-64" src={licence.licenceFrontImage} /> : 'NA'
+                    }
+                    </div>
+                    <div className="flex flex-col">
+                      <LabeledText label="Back" value="" />
+                      {
+                      licence.licenceBackImage ? <img alt="img" className="w-90 h-64" src={licence.licenceBackImage} /> : 'NA'
+                    }
+
+                    </div>
+                  </div>
+
+                </div>
+
+                {
+                    licence.verificationStatus && (
+                    <span className="text-green-400 mt-3">
+                      Verified by
+                      {' '}
+                      {licence.verifiedBy}
+                      {' '}
+                      at
+                      {epochToJsDate(licence.verifiedAt)}
+                    </span>
+                    )
+                      }
               </Card>
 
               <div className="flex">
@@ -193,30 +248,17 @@ export const DashboardCaptainDetails = ():JSX.Element => {
                     </div>
                     <div>
                       <div className="grid grid-cols-3 gap-4">
-                        <LabeledText label="Number" value={vehicle.numberPlate} />
-                        <LabeledText label="Color" value={vehicle.color} />
-                        <LabeledText label="Model" value={vehicle.model} />
-                        <LabeledText label="Type" value={vehicle.type} />
-                        <LabeledText label="Color" value={vehicle.color} />
-
+                        <LabeledText label="Color" value={vehicle.vehicleColor} />
+                        <LabeledText label="Model" value={vehicle.vehicleModel} />
+                        <LabeledText label="Type" value={vehicle.vehicleType} />
                       </div>
-                      <LabeledText label="Front" value="" />
-                      {/* TODO: add image */}
-                    </div>
-                  </Card>
-                  <Card className="bg-white py-8 px-4 shadow sm:rounded-lg divide-y mt-3">
-                    <div className="flex justify-between">
-                      <Typography className="m-2" variant="h4">
-                        Registration Details
-                      </Typography>
-                      {/* TODO: add verify button */}
-                    </div>
-                    <div>
-                      <LabeledText label="Registration Year" value={vehicle.vehicleRegistrationYear} />
+                      <div className="flex flex-col">
+                        <LabeledText label="Back" value="" />
+                        {
+                      vehicle.vehicleImage ? <img alt="img" className="w-80 h-64" src={vehicle.vehicleImage} /> : 'NA'
+                    }
+                      </div>
 
-                      <LabeledText label="Front" value="" />
-                      <LabeledText label="Back" value="" />
-                      {/* TODO: add image */}
                     </div>
                   </Card>
                 </div>
@@ -224,24 +266,43 @@ export const DashboardCaptainDetails = ():JSX.Element => {
                 <div className="w-1/2 ml-2">
                   <Card className="bg-white py-8 px-4 shadow sm:rounded-lg divide-y mt-3">
                     <div className="flex justify-between">
-                      <Typography className="" variant="h4">
-                        Driving Licence Details
+                      <Typography className="m-2" variant="h4">
+                        Registration Details
                       </Typography>
+                      {/* TODO: onclick verify button, call mutation to set it true */}
                       {
-                    licence.verificationStatus && <Button variant="primary" className="bg-green-500 text-white rounded-md h-6 disabled:transform-none cursor-default">VERIFY</Button>
-                  }
+                    !vehicle.verificationStatus && <Button variant="primary" className="bg-green-500 text-white rounded-md h-6 disabled:transform-none cursor-default">VERIFY</Button>
+                      }
                     </div>
                     <div>
-                      <div className="grid grid-cols-3 gap-4">
-                        <LabeledText label="Number" value={licence.licenceNumber} />
-                        <LabeledText label="Expiry Date" value={licence.licenceExpiryDate} />
-                        <LabeledText label="Verified By" value={licence.verifiedBy} />
+                      <LabeledText label="Registration Year" value={vehicle.vehicleRegistrationYear} />
 
+                      <div className="flex flex-col">
+                        <LabeledText label="Back" value="" />
+                        {
+                      vehicle.vehicleRegistrationFrontImage ? <img alt="img" className="w-80 h-64" src={vehicle.vehicleRegistrationFrontImage} /> : 'NA'
+                    }
                       </div>
-                      <LabeledText label="Front" value="" />
-                      <LabeledText label="Back" value="" />
-                      {/* TODO: add image */}
+                      <div className="flex flex-col">
+                        <LabeledText label="Back" value="" />
+                        {
+                      vehicle.vehicleRegistrationBackImage ? <img alt="img" className="w-80 h-64" src={vehicle.vehicleRegistrationBackImage} /> : 'NA'
+                    }
+                      </div>
+                      {
+                    vehicle.verificationStatus && (
+                    <span className="text-green-400 mt-3">
+                      Verified by
+                      {' '}
+                      {vehicle.verifiedBy}
+                      {' '}
+                      at
+                      {epochToJsDate(vehicle.verifiedAt)}
+                    </span>
+                    )
+                      }
                     </div>
+
                   </Card>
                 </div>
               </div>

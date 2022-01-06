@@ -13,8 +13,10 @@ import {
 import { DisableSchema } from 'config';
 import { CheckIcon, SelectorIcon } from '@heroicons/react/solid';
 import { Listbox, Transition } from '@headlessui/react';
+import { useEnableDisableUserMutation } from 'hooks';
+import { onErrorResponse } from 'utils';
 
-export const DisableForm = ():JSX.Element => {
+export const DisableForm = (id):JSX.Element => {
   const reasonsList = [
     { name: 'Some reason', key: 10 },
     { name: 'Some other reason', key: 20 },
@@ -27,6 +29,15 @@ export const DisableForm = ():JSX.Element => {
     actions: { setOpenDisableModal },
   } = useGlobalUiContext() as IUIContext;
 
+  const onError = (e) => {
+    const textError = onErrorResponse(e);
+    setError('Something went wrong');
+  };
+
+  const handleSuccess = (e) => {
+    // TODO: call query to refresh data on page
+    setOpenDisableModal(false);
+  };
   const submitForm = (formData) => {
     const form = formData;
     form.reason = selectedList.name;
@@ -35,9 +46,13 @@ export const DisableForm = ():JSX.Element => {
     // if(type=captain) call captainDisableMutation
     // elseif(type==customer) call customerDisableMutation
     // setError if mutation fails
+    const values = {
+      active: false,
+    };
+    userStatusMutation.mutate(values, id);
     setOpenDisableModal(false);
   };
-
+  const userStatusMutation = useEnableDisableUserMutation(onError, handleSuccess);
   return (
     <>
       <Formik
@@ -49,6 +64,8 @@ export const DisableForm = ():JSX.Element => {
         validationSchema={DisableSchema}
         onSubmit={(values) => {
           submitForm(values);
+          // console.log(values);
+          // userStatusMutation.mutate(values);
         }}
       >
         {() => (

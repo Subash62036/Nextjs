@@ -13,6 +13,7 @@ import { ROUTES } from 'config';
 import {
   useGetAllCustomersQuery,
 } from 'hooks';
+import { epochToJsDate } from 'utils';
 
 const initialState = {
   queryPageIndex: 0,
@@ -66,6 +67,9 @@ export const PaginationTableComponentForCustomer = () => {
       {
         Header: 'Joining date',
         accessor: 'createdAt',
+        Cell: ({ value }) => (
+          epochToJsDate(value)
+        ),
       },
       {
         Header: 'Total completed rides',

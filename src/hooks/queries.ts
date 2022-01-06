@@ -59,7 +59,7 @@ export const useGetAllOrdersQuery = (page, pageSize, initialData = null, isEnabl
 
 export const useDashboardQuery = (initialData = null, isEnabled = true):
   UseQueryResult<IDashboardDetails, IError> => {
-  const fetcher = makeFetcher(useAxios(true));
+  const fetcher = makeFetcher(useAxios(false));
   return useQuery('dashboard', () => fetcher(`${GET.DASHBOARD}`), { initialData, enabled: !!isEnabled });
 };
 
@@ -77,20 +77,20 @@ export const useGetAllCaptainsQuery = (page, pageSize, initialData = null, isEna
 
 export const useGetOrderDetailsQuery = (id = null, initialData = null, isEnabled = true):
   UseQueryResult<IOrderSpecificList, IError> => {
-  const fetcher = makeFetcher(useAxios(true)); //${GET.ORDER_DETAIL}${id}
-  return useQuery(['captainsById', id], () => fetcher(`${GET.ORDER_DETAIL}`), { initialData, enabled: !!isEnabled });
+  const fetcher = makeFetcher(useAxios(false));
+  return useQuery(['captainsById', id], () => fetcher(`${GET.ORDER_DETAIL}${id}`), { initialData, enabled: !!isEnabled });
 };
 
 export const useGetCustomerDetailsQuery = (id, initialData = null, isEnabled = true):
   UseQueryResult<IPersonalDetails, IError> => {
-  const fetcher = makeFetcher(useAxios(false)); //${GET.CUSTOMER_DETAIL}${id}
+  const fetcher = makeFetcher(useAxios(false));
   return useQuery(['customerById', id], () => fetcher(`${GET.CUSTOMER_DETAIL}${id}`), { initialData, enabled: !!isEnabled });
 };
 
 export const useGetCaptainDetailsQuery = (id = null, initialData = null, isEnabled = true):
   UseQueryResult<ICaptainSpecificObject, IError> => {
-  const fetcher = makeFetcher(useAxios(true)); //${GET.CAPTAIN_DETAIL}${id}
-  return useQuery(['captainById', id], () => fetcher(`${GET.CAPTAIN_DETAIL}`), { initialData, enabled: !!isEnabled });
+  const fetcher = makeFetcher(useAxios(false));
+  return useQuery(['captainById', id], () => fetcher(`${GET.CAPTAIN_DETAIL}${id}`), { initialData, enabled: !!isEnabled });
 };
 
 export const useGetAllCustomerRides = (id, page, pageSize, initialData = null, isEnabled = true):
@@ -114,66 +114,18 @@ export const useLoginMutation = (
   });
 };
 
-export const useChangePasswordMutation = (
+export const useEnableDisableUserMutation = (
   onError: TOnErrorFunc,
   onSuccess: TOnSuccessFunc,
   redirect = null,
 ):UseMutationResult => {
   const fetcher = makeFetcher(useAxios());
-  return useMutation((passWordChangeData: IChangePasswordParams) => fetcher(`${PUT.CHANGE_PASSWORD}`, passWordChangeData, 'put'), {
+  return useMutation(({formdata, id}) => fetcher(`${PUT.ENABLE_DISABLE_USER}${id}/account-status`, formdata, 'put'), {
     onError: (e) => {
       onError(e);
     },
     onSuccess: (data) => {
-      onSuccess(data === undefined ? data = { detail: 'error' } : data, redirect);
-    },
-  });
-};
-
-export const useResetPasswordMutation = (
-  onError: TOnErrorFunc,
-  onSuccess: TOnSuccessFunc,
-  redirect = null,
-):UseMutationResult => {
-  const fetcher = makeFetcher(useAxios());
-  return useMutation(({ email }: IResetPasswordParams) => fetcher(`${POST.TEMP_TOKEN}`, { email }, 'post'), {
-    onError: (e) => {
-      onError(e);
-    },
-    onSuccess: (data) => {
-      onSuccess(data === null ? { data: 'ok' } : data);
-    },
-  });
-};
-
-export const useOneTimePassworddMutation = (
-  onError: TOnErrorFunc,
-  onSuccess: TOnSuccessFunc,
-  redirect = null,
-):UseMutationResult => {
-  const fetcher = makeFetcher(useAxios());
-  return useMutation(({ tempToken }: IOneTimePasswordParams) => fetcher(`${POST.VALIDATE_TEMP_TOKEN}`, { tempToken }, 'post'), {
-    onError: (e) => {
-      onError(e);
-    },
-    onSuccess: (data) => {
-      onSuccess(data === null ? data = { detail: 'Password Mismatched' } : data, redirect);
-    },
-  });
-};
-
-export const useCreatePasswordMutation = (
-  onError: TOnErrorFunc,
-  onSuccess: TOnSuccessFunc,
-  redirect = null,
-):UseMutationResult => {
-  const fetcher = makeFetcher(useAxios());
-  return useMutation(({ newPassword }: ICreatePasswordForm) => fetcher(`${PUT.RESET_PASSWORD}`, { newPassword }, 'put'), {
-    onError: (e) => {
-      onError(e);
-    },
-    onSuccess: (data) => {
-      onSuccess(data, redirect);
+      onSuccess(data);
     },
   });
 };
@@ -182,35 +134,6 @@ export const useLogoutMutation = ():UseMutationResult => {
   const fetcher = makeFetcher(useAxios());
   return useMutation(() => fetcher(`${POST.LOGOUT}`, null, 'post'));
 };
-
-export const useUserUpdateMutation = (
-  onError: TOnErrorFunc,
-  onSuccess: TOnSuccessFunc, redirect = null,
-):UseMutationResult => {
-  const fetcher = makeFetcher(useAxios());
-  return useMutation((userDetailsData: IUserDetails) => fetcher(`${PUT.USER_DETAILS}`,
-    userDetailsData, 'put'), {
-    onError: () => {
-      onError();
-    },
-    onSuccess: (data) => {
-      onSuccess(data === null ? 'success' : data, redirect);
-    },
-  });
-};
-
-export const useEmailMutation = (
-  onError: TOnErrorFunc,
-  onSuccess: TOnSuccessFunc,
-  redirect = null,
-):UseMutationResult => useMutation(({ email }) => Axios.post('/api/waitlist', { email }), {
-  onError: (e) => {
-    onError(e);
-  },
-  onSuccess: (data) => {
-    onSuccess(data, redirect);
-  },
-});
 
 export const useLoginOTPMutation = (
   onError: TOnErrorFunc,

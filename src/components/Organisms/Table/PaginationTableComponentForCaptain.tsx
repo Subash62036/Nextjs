@@ -12,6 +12,7 @@ import { ROUTES } from 'config';
 import {
   useGetAllCaptainsQuery,
 } from 'hooks';
+import { epochToJsDate } from 'utils';
 
 const initialState = {
   queryPageIndex: 0,
@@ -55,7 +56,7 @@ export const PaginationTableComponentForCaptain = () => {
       },
       {
         Header: 'Captain Name',
-        accessor: 'captainName',
+        accessor: 'name',
       },
 
       {
@@ -64,25 +65,37 @@ export const PaginationTableComponentForCaptain = () => {
       },
       {
         Header: 'Joining date',
-        accessor: 'dateJoined',
+        accessor: 'createdAt',
+        Cell: ({ value }) => (
+          epochToJsDate(value)
+        ),
       },
       {
         Header: 'Total completed rides',
-        accessor: 'totalRide',
+        accessor: 'totalTrips',
       },
       {
         Header: 'Rating',
         accessor: 'rating',
         Cell: ({ value }) => (
-          <span className="flex">
-            {value}
-            <StarIcon className="text-primary-400 w-5 h-5" />
-          </span>
+          (value
+            ? (
+              <span className="flex">
+                {value}
+                <StarIcon className="text-primary-400 w-5 h-5" />
+              </span>
+            )
+            : (
+              <span className="flex">
+                {0}
+                <StarIcon className="text-primary-400 w-5 h-5" />
+              </span>
+            ))
         ),
       },
       {
         Header: 'Status',
-        accessor: 'status',
+        accessor: 'verified',
         Cell: ({ value }) => (
 
           value === 'APPROVED' ? (
@@ -124,7 +137,6 @@ export const PaginationTableComponentForCaptain = () => {
   useEffect(() => {
     if (data) {
       setIsFetched(true);
-      console.log(data.data);
     }
   }, [data]);
 

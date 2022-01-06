@@ -4,13 +4,13 @@ export const API = {
       USER_DETAILS: '/user',
       USER_BY_USERNAME: '/user-by-username/',
       ALL_ORDERS: '/orders',
-      DASHBOARD: '/dashboard',
+      DASHBOARD: '/admin/dashboard',
       ALL_CUSTOMERS: '/customers',
       ALL_CAPTAINS: '/captains',
-      ORDER_DETAIL: '/orderdetails', //'/order/',
-      CUSTOMER_DETAIL: '/customer/', // /customer/',
-      CAPTAIN_DETAIL: '/captaindetails', //'/captain/'
-      CUSTOMER_RIDE_DETAILS: '/customer/', //'/customer/{id}/rides'
+      ORDER_DETAIL: '/order/',
+      CUSTOMER_DETAIL: '/customer/',
+      CAPTAIN_DETAIL: '/captain/',
+      CUSTOMER_RIDE_DETAILS: '/customer/',
     },
     POST: {
       LOGIN: '/login',
@@ -21,9 +21,7 @@ export const API = {
       LOGIN_OTP: '/verify'
     },
     PUT: {
-      USER_DETAILS: '/user-profile/',
-      CHANGE_PASSWORD: '/profile/change-password',
-      RESET_PASSWORD: '/profile/reset-password',
+      ENABLE_DISABLE_USER: '/user/'
     },
     DELETE: {
     },

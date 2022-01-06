@@ -11,6 +11,7 @@ import {
   useGetAllCustomerRides,
 } from 'hooks';
 import { useRouter } from 'next/router';
+import { epochToJsDate } from 'utils';
 
 const initialState = {
   queryPageIndex: 0,
@@ -64,6 +65,9 @@ export const PaginationTableComponentForCustomerRides = ({ route }) => {
       {
         Header: 'Date',
         accessor: 'createdAt',
+        Cell: ({ value }) => (
+          epochToJsDate(value)
+        ),
       },
       {
         Header: 'Status',
@@ -71,9 +75,9 @@ export const PaginationTableComponentForCustomerRides = ({ route }) => {
         Cell: ({ value }) => (
 
           value === 'CREATED' ? (
-            <Button variant="primary" className="bg-green-400 text-white rounded-full text-sm w-3/4 h-8 disabled:transform-none cursor-default">{value}</Button>
+            <Button variant="primary" className="bg-green-400 text-white rounded-full text-sm w-2/4 h-8 disabled:transform-none cursor-default">{value}</Button>
           ) : (
-            <Button variant="primary" className="bg-red-500 text-white rounded-full text-sm w-3/4 h-8 cursor-default">{value}</Button>
+            <Button variant="primary" className="bg-red-500 text-white rounded-full text-sm w-2/4 h-8 cursor-default">{value}</Button>
           )),
       },
       {

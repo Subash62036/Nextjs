@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useAuth, useGlobalUiContext } from 'state';
 import { GetServerSideProps } from 'next';
-import Image from 'next/image';
 import AuthLayout from 'layouts/AuthLayout';
 import {
   LoginForm, Typography, OTPForm,
@@ -30,12 +29,12 @@ export default function LoginPage({ username, loggedout }:ILoginPageProps):JSX.E
 
         <div className="flex flex-col justify-center content-center bg-grey-50 min-h-screen w-2/3 item-center">
           <div className="grid justify-items-center">
-            <Image src={RapidoArt} />
+            <img alt="img" className="w-42 h-100 cursor-pointer" src="https://admin-dashboard-image.s3.ap-south-1.amazonaws.com/bro.png" />
           </div>
         </div>
         <div className="flex flex-col min-h-screen justify-center content-center h-full w-1/3">
           <div className="bg-white h-full sm:px-10 sm:mx-auto mb-32">
-            <Image src={Rapido} className="w-12" />
+            <img alt="img" className="w-30 h-40 cursor-pointer" src="https://admin-dashboard-image.s3.ap-south-1.amazonaws.com/android-chrome.png" />
           </div>
           <div className="bg-white h-full sm:px-10 sm:mx-auto sm:w-full sm:max-w-md w-full mb-40">
             {
