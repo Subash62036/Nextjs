@@ -31,7 +31,7 @@ export default function LoginPage({ username, loggedout }:ILoginPageProps):JSX.E
             <img alt="img" className="w-42 h-100 cursor-pointer" src="https://admin-dashboard-image.s3.ap-south-1.amazonaws.com/bro.png" />
           </div>
         </div>
-        <div className="flex flex-col min-h-screen justify-center content-center h-full w-1/3">
+        <div className="bg-white flex flex-col min-h-screen justify-center content-center h-full w-1/3">
           <div className="bg-white h-full sm:px-10 sm:mx-auto mb-32">
             <img alt="img" className="w-30 h-40 cursor-pointer" src="https://admin-dashboard-image.s3.ap-south-1.amazonaws.com/android-chrome.png" />
           </div>

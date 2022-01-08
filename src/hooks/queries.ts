@@ -149,3 +149,19 @@ export const useLoginOTPMutation = (
     },
   });
 };
+
+export const useVerifyDocumentMutation = (
+  onError: TOnErrorFunc,
+  onSuccess: TOnSuccessFunc,
+  redirect = null,
+):UseMutationResult => {
+  const fetcher = makeFetcher(useAxios());
+  return useMutation(({formdata, id}) => fetcher(`${PUT.VERIFY_DOC}${id}`, formdata, 'put'), {
+    onError: (e) => {
+      onError(e);
+    },
+    onSuccess: (data) => {
+      onSuccess(data);
+    },
+  });
+};

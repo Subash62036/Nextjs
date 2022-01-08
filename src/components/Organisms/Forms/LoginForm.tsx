@@ -53,7 +53,7 @@ export const LoginForm = ():JSX.Element => {
             <LabeledInput
               name="phone"
               label="Phone Number"
-              type="number"
+              // type="number"
               data-test-id="loginPhoneNumber"
             />
             {loginError && (<GenericErrorMessage data-test-id="login-error">{loginError}</GenericErrorMessage>)}

@@ -38,13 +38,13 @@ export const DashboardInterface = () => {
     'border-transparent text-black hover:bg-primary-200 hover:text-black w-full',
   );
 
-  const classes = classNames('group border-l-4 px-3 py-2 flex items-center text-sm font-medium');
+  const classes = classNames('group border-l-4 px-3 py-2 flex items-center text-sm font-medium tracking-widest');
 
   const selectedIcon = classNames(
-    'text-primary-700 group-hover:text-primary-500',
+    'ml-4 text-primary-700 group-hover:text-primary-500',
   );
   const unselectedIcon = classNames(
-    'text-black ',
+    'ml-4 text-black ',
   );
 
   const classesIcon = classNames('flex-shrink-0 -ml-1 mr-3 h-6 w-6');
@@ -52,7 +52,7 @@ export const DashboardInterface = () => {
   return (
     <>
       <aside className="py-6 bg-white w-1/4 h-screen">
-        <nav className="space-y-1">
+        <nav className="space-y-1 ">
           <Link href={ROUTES.DASHBOARD}>
             <button
               key="Dashboard"

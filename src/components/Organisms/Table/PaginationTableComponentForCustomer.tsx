@@ -188,7 +188,7 @@ export const PaginationTableComponentForCustomer = () => {
                     {headerGroups.map((headerGroup) => (
                       <tr {...headerGroup.getHeaderGroupProps()}>
                         {headerGroup.headers.map((column) => (
-                          <th className="py-3 border-b-2 border-gray-200 text-left text-xs text-gray-500 tracking-wider" {...column.getHeaderProps()}>{column.render('Header')}</th>
+                          <th className="py-3 border-b-2 border-gray-200 text-left text-xs text-gray-500 w-16 tracking-wider" {...column.getHeaderProps()}>{column.render('Header')}</th>
                         ))}
                       </tr>
                     ))}
@@ -198,7 +198,7 @@ export const PaginationTableComponentForCustomer = () => {
                       prepareRow(row);
                       return (
                         <tr {...row.getRowProps()}>
-                          {row.cells.map((cell) => <td className="py-1 border-b-2 border-gray-200 text-left text-xs text-black tracking-wider" {...cell.getCellProps()}>{cell.render('Cell')}</td>)}
+                          {row.cells.map((cell) => <td className="py-1 border-b-2 border-gray-200 text-left text-xs text-black w-16 tracking-wider" {...cell.getCellProps()}>{cell.render('Cell')}</td>)}
                         </tr>
                       );
                     })}

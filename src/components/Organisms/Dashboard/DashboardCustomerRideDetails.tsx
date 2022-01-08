@@ -42,7 +42,7 @@ export const DashboardCustomerRideDetails = ():JSX.Element => {
                   <Typography className="m-2" variant="h4">
                     Trip Details
                   </Typography>
-                  <Button variant="primary" className="bg-green-400 text-white rounded-full h-6 disabled:transform-none cursor-default">
+                  <Button variant="primary" className="bg-shamrock text-white rounded-full h-6 disabled:transform-none cursor-default">
                     {data.data.bookingStatus}
                   </Button>
                 </div>
@@ -69,7 +69,7 @@ export const DashboardCustomerRideDetails = ():JSX.Element => {
                           <LabeledText label="Full Name" value={captain.name} />
                           <LabeledText label="Mobile Number" value={captain.phone} />
                           <LabeledText label="Joining Date" value={epochToJsDate(captain.createdAt)} />
-                          <LabeledTextRating label="Rating" icon value={captain.rating} />
+                          <LabeledTextRating label="Rating" icon value={captain.rating ? captain.rating : 0} />
                           <LabeledText label="City" value={captain.city} />
                           <LabeledText label="State" value={captain.state} />
                           <LabeledText label="Email" value={captain.email} />
@@ -96,7 +96,7 @@ export const DashboardCustomerRideDetails = ():JSX.Element => {
                     <Typography className="text-grey-400 mt-2" variant="h4">
                       Fare
                     </Typography>
-                    <Typography className="text-green-400 mt-2" variant="h4">
+                    <Typography className="text-shamrock mt-2" variant="h4">
                       {data.data.fare}
                     </Typography>
                   </div>

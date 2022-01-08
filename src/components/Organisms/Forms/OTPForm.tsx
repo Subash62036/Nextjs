@@ -56,7 +56,7 @@ export const OTPForm = ():JSX.Element => {
             <LabeledInput
               name="otp"
               label="OTP"
-              type="number"
+              // type="number"
               data-test-id="otpLogin"
             />
             {loginOTPError && (<GenericErrorMessage data-test-id="login-error">{loginOTPError}</GenericErrorMessage>)}

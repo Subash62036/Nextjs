@@ -21,7 +21,8 @@ export const API = {
       LOGIN_OTP: '/verify'
     },
     PUT: {
-      ENABLE_DISABLE_USER: '/user/'
+      ENABLE_DISABLE_USER: '/user/',
+      VERIFY_DOC: '/verify-captain/'
     },
     DELETE: {
     },

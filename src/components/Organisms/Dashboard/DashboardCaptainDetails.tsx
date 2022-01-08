@@ -9,6 +9,7 @@ import {
 } from 'types';
 import {
   useGetCaptainDetailsQuery, useEnableDisableUserMutation,
+  useVerifyDocumentMutation,
 } from 'hooks';
 import { epochToJsDate, onErrorResponse } from 'utils';
 import { useRouter } from 'next/router';
@@ -64,6 +65,7 @@ export const DashboardCaptainDetails = ():JSX.Element => {
   };
 
   const userStatusMutation = useEnableDisableUserMutation(onError, handleSuccess);
+  const verifyDoc = useVerifyDocumentMutation(onError, handleSuccess);
 
   const toggle = (e) => {
     if (e) {
@@ -86,6 +88,17 @@ export const DashboardCaptainDetails = ():JSX.Element => {
       userStatusMutation.mutate(values);
       // setOpenDisableModal(true);
     }
+  };
+
+  const onVerify = (e) => {
+    const form = {
+      formdata: {
+        documentType: e,
+        status: true,
+      },
+      id: userId,
+    };
+    verifyDoc.mutate(form);
   };
 
   return (
@@ -195,7 +208,7 @@ export const DashboardCaptainDetails = ():JSX.Element => {
                     Driving Licence Details
                   </Typography>
                   {
-                    !licence.verificationStatus && <Button variant="primary" className="bg-green-500 text-white rounded-md h-6 disabled:transform-none cursor-default">VERIFY</Button>
+                    !licence.verificationStatus && <Button variant="primary" className="bg-green-500 text-white rounded-md h-6 disabled:transform-none cursor-default" onClick={() => onVerify('DL')}>VERIFY</Button>
                       }
                 </div>
                 <div className="flex flex-col flex-wrap justify-between">
@@ -231,6 +244,7 @@ export const DashboardCaptainDetails = ():JSX.Element => {
                       {licence.verifiedBy}
                       {' '}
                       at
+                      {' '}
                       {epochToJsDate(licence.verifiedAt)}
                     </span>
                     )
@@ -269,9 +283,8 @@ export const DashboardCaptainDetails = ():JSX.Element => {
                       <Typography className="m-2" variant="h4">
                         Registration Details
                       </Typography>
-                      {/* TODO: onclick verify button, call mutation to set it true */}
                       {
-                    !vehicle.verificationStatus && <Button variant="primary" className="bg-green-500 text-white rounded-md h-6 disabled:transform-none cursor-default">VERIFY</Button>
+                    !vehicle.verificationStatus && <Button variant="primary" className="bg-green-500 text-white rounded-md h-6 disabled:transform-none cursor-default" onClick={() => onVerify('RC')}>VERIFY</Button>
                       }
                     </div>
                     <div>
@@ -297,6 +310,7 @@ export const DashboardCaptainDetails = ():JSX.Element => {
                       {vehicle.verifiedBy}
                       {' '}
                       at
+                      {' '}
                       {epochToJsDate(vehicle.verifiedAt)}
                     </span>
                     )

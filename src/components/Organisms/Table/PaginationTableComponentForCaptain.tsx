@@ -98,10 +98,10 @@ export const PaginationTableComponentForCaptain = () => {
         accessor: 'verified',
         Cell: ({ value }) => (
 
-          value === 'APPROVED' ? (
-            <Button variant="primary" className="bg-green-400 text-white rounded-full w-3/4 h-8 disabled:transform-none cursor-default">APPROVED</Button>
+          value ? (
+            <Button variant="primary" className="bg-shamrock text-white rounded-full w-3/4 lg:w-2/4 h-8 disabled:transform-none cursor-default">APPROVED</Button>
           ) : (
-            <Button variant="primary" className="bg-primary-500 text-white rounded-full w-3/4 h-8 cursor-default">PENDING</Button>
+            <Button variant="primary" className="bg-primary-500 text-white rounded-full w-3/4 lg:w-2/4 h-8 cursor-default">PENDING</Button>
           )
         ),
       },
@@ -192,7 +192,7 @@ export const PaginationTableComponentForCaptain = () => {
                     {headerGroups.map((headerGroup) => (
                       <tr {...headerGroup.getHeaderGroupProps()}>
                         {headerGroup.headers.map((column) => (
-                          <th className="py-3 border-b-2 border-gray-200 text-left text-xs text-gray-500 tracking-wider" {...column.getHeaderProps()}>{column.render('Header')}</th>
+                          <th className="py-3 border-b-2 border-gray-200 text-left text-sm text-gray-500 w-16 tracking-wider" {...column.getHeaderProps()}>{column.render('Header')}</th>
                         ))}
                       </tr>
                     ))}
@@ -202,7 +202,7 @@ export const PaginationTableComponentForCaptain = () => {
                       prepareRow(row);
                       return (
                         <tr {...row.getRowProps()}>
-                          {row.cells.map((cell) => <td className="py-1 border-b-2 border-gray-200 text-left text-xs text-black tracking-wider" {...cell.getCellProps()}>{cell.render('Cell')}</td>)}
+                          {row.cells.map((cell) => <td className="py-1 border-b-2 border-gray-200 text-left text-sm text-black w-16 tracking-wider" {...cell.getCellProps()}>{cell.render('Cell')}</td>)}
                         </tr>
                       );
                     })}

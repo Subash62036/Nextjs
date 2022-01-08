@@ -20,21 +20,21 @@ export const DashboardMain = ():JSX.Element => {
 
   return (
     <section className="m-6">
-      <Typography className="block mt-5" variant="h1">
+      <Typography className="block mt-5 text-black tracking-wide" variant="h2">
         Welcome Admin,
       </Typography>
       {
         !isFetched
           ? <LoadingIndicator className="h-20 w-20 text-center" />
           : (
-            <Card className="bg-white py-8 px-4 shadow sm:rounded-lg divide-y mt-4">
-              <Typography className="m-2" variant="h3">
+            <Card className="bg-white py-8 px-4 shadow sm:rounded-lg divide-y-2 mt-6">
+              <Typography className="m-2 mb-4 text-black tracking-wide" variant="h3">
                 Overview
               </Typography>
 
-              <div className="grid grid-cols-4 gap-4 p-4 mt-10">
-                <Card className="bg-white border-2 border-grey-200 space-y-8 rounded-lg">
-                  <Typography className="text-grey-400 " variant="h5">
+              <div className="grid grid-cols-4 gap-8 ">
+                <Card className="mt-10 bg-white border-2 border-grey-200 hover:border-black space-y-8 rounded-lg flex flex-col">
+                  <Typography className="text-grey-400 font-semibold text-center" variant="p">
                     Total number of Customers
                   </Typography>
 
@@ -43,8 +43,8 @@ export const DashboardMain = ():JSX.Element => {
                   </Typography>
                 </Card>
 
-                <Card className="bg-white border-2 border-grey-200 space-y-8 rounded-lg">
-                  <Typography className="text-grey-400 " variant="h5">
+                <Card className="mt-10 bg-white border-2 border-grey-200 space-y-8 rounded-lg flex flex-col hover:border-black">
+                  <Typography className="text-grey-400  font-semibold text-center" variant="p">
                     Total number of Captains
                   </Typography>
 
@@ -53,8 +53,8 @@ export const DashboardMain = ():JSX.Element => {
                   </Typography>
                 </Card>
 
-                <Card className="bg-white border-2 border-grey-200 space-y-8 rounded-lg">
-                  <Typography className="text-grey-400 " variant="h5">
+                <Card className="mt-10 bg-white border-2 border-grey-200 space-y-8 rounded-lg flex flex-col hover:border-black">
+                  <Typography className="text-grey-400  font-semibold text-center" variant="p">
                     Pending Captain approval
                   </Typography>
 
@@ -63,8 +63,8 @@ export const DashboardMain = ():JSX.Element => {
                   </Typography>
                 </Card>
 
-                <Card className="bg-white border-2 border-grey-200 space-y-8 rounded-lg">
-                  <Typography className="text-grey-400" variant="h5">
+                <Card className="mt-10 bg-white border-2 border-grey-200 space-y-8 rounded-lg flex flex-col hover:border-black">
+                  <Typography className="text-grey-400 font-semibold text-center" variant="p">
                     Total number of rides taken
                   </Typography>
 
