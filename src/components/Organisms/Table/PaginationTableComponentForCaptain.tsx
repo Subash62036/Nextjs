@@ -99,7 +99,7 @@ export const PaginationTableComponentForCaptain = () => {
         Cell: ({ value }) => (
 
           value ? (
-            <Button variant="primary" className="bg-shamrock text-white rounded-full w-3/4 lg:w-2/4 h-8 disabled:transform-none cursor-default">APPROVED</Button>
+            <Button variant="primary" className="bg-shamrock border-shamrock text-white rounded-full w-3/4 lg:w-2/4 h-8 disabled:transform-none cursor-default">APPROVED</Button>
           ) : (
             <Button variant="primary" className="bg-primary-500 text-white rounded-full w-3/4 lg:w-2/4 h-8 cursor-default">PENDING</Button>
           )
@@ -226,13 +226,12 @@ export const PaginationTableComponentForCaptain = () => {
                       </option>
                     ))}
                   </select>
-                  <p>
-                    Page
-                    {' '}
+                  <p className="mr-4 text-grey-400">
                     <strong>
                       {pageIndex + 1}
                       {' '}
                       of
+                      {' '}
                       {pageOptions.length}
                     </strong>
                     {' '}

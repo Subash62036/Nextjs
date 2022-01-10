@@ -171,6 +171,7 @@ export const DashboardCaptainDetails = ():JSX.Element => {
                     captain.rating ? <LabeledTextRating label="Rating" icon value={captain.rating} />
                       : <LabeledTextRating label="Rating" icon value={0} />
                   }
+                  <LabeledText label="Total Rides" value={captain.totalTrips} />
                   <LabeledText label="City" value={captain.city} />
                   <LabeledText label="State" value={captain.state} />
                   <LabeledText label="Email" value={captain.email} />

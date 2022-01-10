@@ -32,19 +32,19 @@ export const DashboardInterface = () => {
   };
 
   const selected = classNames(
-    'bg-primary-50 border-primary-500 text-primary-700 hover:bg-primary-50 hover:text-primary-700 w-full',
+    'text-lg g-primary-50 border-primary-500 text-primary-700 hover:bg-primary-50 hover:text-primary-700 w-full',
   );
   const unselected = classNames(
-    'border-transparent text-black hover:bg-primary-200 hover:text-black w-full',
+    'text-lg border-transparent text-black hover:bg-primary-200 hover:text-black w-full',
   );
 
   const classes = classNames('group border-l-4 px-3 py-2 flex items-center text-sm font-medium tracking-widest');
 
   const selectedIcon = classNames(
-    'ml-4 text-primary-700 group-hover:text-primary-500',
+    'text-lg ml-4 text-primary-700 group-hover:text-primary-500',
   );
   const unselectedIcon = classNames(
-    'ml-4 text-black ',
+    'text-lg ml-4 text-black ',
   );
 
   const classesIcon = classNames('flex-shrink-0 -ml-1 mr-3 h-6 w-6');
@@ -129,22 +129,6 @@ export const DashboardInterface = () => {
                       </button>
 
                     </Link>
-                    // <a
-                    //   key={item.name}
-                    //   href={item.href}
-                    //   onClick={() => changeRoutes(item.name)}
-                    //   className={classNames(
-                    //     item.name === tabName
-                    //       ? selected
-                    //       : unselected,
-                    //     classes,
-                    //   )}
-                    //   aria-current={item.name === tabName ? 'page' : undefined}
-                    // >
-
-                    //   <span className="truncate">{item.name}</span>
-                    // </a>
-
                   ))}
                 </Disclosure.Panel>
               </>

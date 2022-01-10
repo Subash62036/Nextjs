@@ -27,7 +27,7 @@ export const DashboardCustomerDetails = ():JSX.Element => {
   const { data } = useGetCustomerDetailsQuery(query.detail);
   const [isFetched, setIsFetched] = useState(false);
   const {
-    name, active, phone, email, createdAt, rating, city, state, id,
+    name, active, phone, email, createdAt, rating, city, state, id, totalTrips,
   } = isFetched && data.data;
   const [enabled, setEnabled] = useState(false);
   const [error, setError] = useState('');
@@ -144,6 +144,7 @@ export const DashboardCustomerDetails = ():JSX.Element => {
                     rating ? <LabeledTextRating label="Rating" icon value={rating} />
                       : <LabeledTextRating label="Rating" icon value={0} />
                   }
+                  <LabeledText label="Total Rides" value={totalTrips} />
                   <LabeledText label="City" value={city} />
                   <LabeledText label="State" value={state} />
                   <LabeledText label="Email" value={email} />

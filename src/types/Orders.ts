@@ -79,6 +79,7 @@ export interface IUserSpecific {
   city: string
   state: string
   active: boolean
+  totalTrips: number
 }
 
 export interface IBookingHistory {
@@ -163,6 +164,7 @@ export interface ICaptainSpecific {
   email: string
   createdAt: number
   rating: number
+  
   city: string
   state: string
   active: boolean

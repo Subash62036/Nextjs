@@ -74,9 +74,9 @@ export const PaginationTableComponentForOrder = ({ route }) => {
         Cell: ({ value }) => (
 
           value === 'CANCELLED' ? (
-            <Button variant="primary" className="bg-red-500 text-white rounded-full text-sm w-full lg:w-4/6 xl:w-2/6 2xl:w-2/6 h-8 cursor-default">{value}</Button>
+            <Button variant="primary" className="bg-red-500 border-red-500 text-white rounded-full text-sm w-full lg:w-4/6 xl:w-2/6 2xl:w-2/6 h-8 cursor-default">{value}</Button>
           ) : (
-            <Button variant="primary" className="bg-shamrock text-white rounded-full text-sm w-full lg:w-4/6 xl:w-2/6 2xl:w-2/6 h-8 disabled:transform-none cursor-default">{value}</Button>
+            <Button variant="primary" className="bg-shamrock border-shamrock text-white rounded-full text-sm w-full lg:w-4/6 xl:w-2/6 2xl:w-2/6 h-8 disabled:transform-none cursor-default">{value}</Button>
           )),
       },
       {
@@ -199,19 +199,18 @@ export const PaginationTableComponentForOrder = ({ route }) => {
                       </option>
                     ))}
                   </select>
-                  <p>
-                    Page
-                    {' '}
+                  <p className="mr-4 text-grey-400">
                     <strong>
                       {pageIndex + 1}
                       {' '}
                       of
+                      {' '}
                       {pageOptions.length}
                     </strong>
                     {' '}
                   </p>
                   <button onClick={() => previousPage()} disabled={!canPreviousPage}>
-                    <p className="text-grey-300 mr-1 text-3xl">{'<'}</p>
+                    <p className="text-grey-300 mr-3 text-3xl">{'<'}</p>
                   </button>
                   <button onClick={() => nextPage()} disabled={!canNextPage}>
                     <p className="text-grey-300 mr-3 text-3xl">{'>'}</p>

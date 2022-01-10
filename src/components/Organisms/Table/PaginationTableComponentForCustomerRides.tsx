@@ -199,13 +199,12 @@ export const PaginationTableComponentForCustomerRides = ({ route }) => {
                       </option>
                     ))}
                   </select>
-                  <p>
-                    Page
-                    {' '}
+                  <p className="mr-4 text-grey-400">
                     <strong>
                       {pageIndex + 1}
                       {' '}
                       of
+                      {' '}
                       {pageOptions.length}
                     </strong>
                     {' '}
