@@ -33,44 +33,61 @@ export const DashboardMain = ():JSX.Element => {
               </Typography>
 
               <div className="grid grid-cols-4 gap-8 ">
-                <Card className="mt-10 bg-white border-2 border-grey-200 hover:border-black space-y-8 rounded-lg flex flex-col">
-                  <Typography className="text-grey-400 font-semibold text-center" variant="p">
-                    Total number of Customers
-                  </Typography>
 
-                  <Typography className="text-black text-5xl text-bold text-center hover:text-primary-500 -my-20" variant="h1">
-                    {dashboardResponse && dashboardResponse.totalNumbersOfCustomer}
-                  </Typography>
+                <Card className="mt-10 bg-white border-2 border-grey-200 rounded-lg flex flex-col hover:border-black justify-between space-y-4">
+                  <div>
+                    <Typography className="text-grey-400 font-semibold text-center h-full" variant="p">
+                      Total number of Customers
+                    </Typography>
+
+                  </div>
+                  <div>
+                    <Typography className="text-black text-5xl text-bold text-center hover:text-primary-500 h-full" variant="h1">
+                      {dashboardResponse && dashboardResponse.totalNumbersOfCaptain}
+                    </Typography>
+                  </div>
                 </Card>
 
-                <Card className="mt-10 bg-white border-2 border-grey-200 space-y-8 rounded-lg flex flex-col hover:border-black">
-                  <Typography className="text-grey-400  font-semibold text-center" variant="p">
-                    Total number of Captains
-                  </Typography>
+                <Card className="mt-10 bg-white border-2 border-grey-200 rounded-lg flex flex-col hover:border-black justify-between space-y-4">
+                  <div>
+                    <Typography className="text-grey-400 font-semibold text-center h-full" variant="p">
+                      Total number of Captains
+                    </Typography>
 
-                  <Typography className="text-black text-5xl text-bold text-center hover:text-primary-500 -my-20" variant="h1">
-                    {dashboardResponse && dashboardResponse.totalNumbersOfCaptain}
-                  </Typography>
+                  </div>
+                  <div>
+                    <Typography className="text-black text-5xl text-bold text-center hover:text-primary-500 h-full" variant="h1">
+                      {dashboardResponse && dashboardResponse.totalNumbersOfCaptain}
+                    </Typography>
+                  </div>
                 </Card>
 
-                <Card className="mt-10 bg-white border-2 border-grey-200 space-y-8 rounded-lg flex flex-col hover:border-black">
-                  <Typography className="text-grey-400  font-semibold text-center" variant="p">
-                    Pending Captain approval
-                  </Typography>
+                <Card className="mt-10 bg-white border-2 border-grey-200 rounded-lg flex flex-col hover:border-black justify-between space-y-4">
+                  <div>
+                    <Typography className="text-grey-400 font-semibold text-center h-full" variant="p">
+                      Pending Captain approval
+                    </Typography>
 
-                  <Typography className="text-black text-5xl text-bold text-center hover:text-primary-500 -my-20" variant="h1">
-                    {dashboardResponse && dashboardResponse.pendingCaptainApproval}
-                  </Typography>
+                  </div>
+                  <div>
+                    <Typography className="text-black text-5xl text-bold text-center hover:text-primary-500 h-full" variant="h1">
+                      {dashboardResponse && dashboardResponse.pendingCaptainApproval}
+                    </Typography>
+                  </div>
                 </Card>
 
-                <Card className="mt-10 bg-white border-2 border-grey-200 space-y-8 rounded-lg flex flex-col hover:border-black">
-                  <Typography className="text-grey-400 font-semibold text-center" variant="p">
-                    Total number of rides taken
-                  </Typography>
+                <Card className="mt-10 bg-white border-2 border-grey-200 rounded-lg flex flex-col hover:border-black justify-between space-y-4">
+                  <div>
+                    <Typography className="text-grey-400 font-semibold text-center h-full" variant="p">
+                      Total number of rides taken
+                    </Typography>
 
-                  <Typography className="text-black text-5xl text-bold text-center hover:text-primary-500 -my-20" variant="h1">
-                    {dashboardResponse && dashboardResponse.totalNumbersOfRide}
-                  </Typography>
+                  </div>
+                  <div>
+                    <Typography className="text-black text-5xl text-bold text-center hover:text-primary-500 h-full" variant="h1">
+                      {dashboardResponse && dashboardResponse.totalNumbersOfRide}
+                    </Typography>
+                  </div>
                 </Card>
               </div>
 
