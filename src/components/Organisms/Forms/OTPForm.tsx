@@ -28,7 +28,7 @@ export const OTPForm = ():JSX.Element => {
   };
 
   const logInOTPMutation = useLoginOTPMutation(
-    onError, handleLoginOTPSuccess, ROUTES.DASHBOARD,
+    onError, handleLoginOTPSuccess, ROUTES.LOAD_ADMIN,
   );
 
   const sendForm = (e) => {

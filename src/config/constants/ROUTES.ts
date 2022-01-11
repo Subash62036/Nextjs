@@ -8,5 +8,6 @@ export const ROUTES = {
   CUSTOMER_DETAILS: '/customer/',
   CUSTOMER_DETAILS_RIDES: '/customer/ride/',
   CAPTAIN_DETAILS: '/captain/',
-  ORDER_DETAILS: 'order/'
+  ORDER_DETAILS: 'order/',
+  LOAD_ADMIN: '/loadAdmin'
 };

@@ -23,9 +23,6 @@ export default function UserDashboard():JSX.Element {
     if (token == null) {
       checkIsAdmin();
     }
-    if (data && data.data.roles[0].id === 3) {
-      checkIsAdmin();
-    }
   }, []);
   return (
     <section className="flex flex-wrap h-full">

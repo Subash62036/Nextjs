@@ -64,7 +64,6 @@ const AuthContextProvider = ({ children }: IAuthContextProviderProps):JSX.Elemen
   }, []);
 
   const checkIsAdmin = useCallback(async (redirect = true) => {
-    queryClient.fetchQuery('user');
     authStorage.removeTokens();
     actions.setLoginSuccess(false);
     setLoggedIn(false);
