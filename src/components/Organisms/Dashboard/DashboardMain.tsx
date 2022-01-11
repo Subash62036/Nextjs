@@ -43,7 +43,7 @@ export const DashboardMain = ():JSX.Element => {
                   </div>
                   <div>
                     <Typography className="text-black text-5xl text-bold text-center hover:text-primary-500 h-full" variant="h1">
-                      {dashboardResponse && dashboardResponse.totalNumbersOfCaptain}
+                      {dashboardResponse && dashboardResponse.totalNumbersOfCustomer}
                     </Typography>
                   </div>
                 </Card>
