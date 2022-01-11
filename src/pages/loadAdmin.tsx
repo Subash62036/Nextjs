@@ -43,7 +43,11 @@ export default function LoadAdminPage():JSX.Element {
               <LoadingIndicator className="h-20 w-20 text-center" />
             </div>
           )
-          : (null)
+          : (
+            <div className="flex w-full justify-center">
+              <LoadingIndicator className="h-20 w-20 text-center" />
+            </div>
+          )
 }
       </div>
 

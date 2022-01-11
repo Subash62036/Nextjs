@@ -32,19 +32,19 @@ export const DashboardInterface = () => {
   };
 
   const selected = classNames(
-    'text-lg g-primary-50 border-primary-500 text-primary-700 hover:bg-primary-50 hover:text-primary-700 w-full',
+    'text-xl font-bold g-primary-50 border-primary-500 text-primary-700 hover:bg-primary-50 hover:text-primary-700 w-full',
   );
   const unselected = classNames(
-    'text-lg border-transparent text-black hover:bg-primary-200 hover:text-black w-full',
+    'text-xl font-bold border-transparent text-black hover:bg-primary-200 hover:text-black w-full',
   );
 
   const classes = classNames('group border-l-4 px-3 py-2 flex items-center text-sm font-medium tracking-widest');
 
   const selectedIcon = classNames(
-    'text-lg ml-4 text-primary-700 group-hover:text-primary-500',
+    'text-xl font-bold ml-14 text-primary-700 group-hover:text-primary-500',
   );
   const unselectedIcon = classNames(
-    'text-lg ml-4 text-black ',
+    'text-xl font-bold ml-14 text-black ',
   );
 
   const classesIcon = classNames('flex-shrink-0 -ml-1 mr-3 h-6 w-6');
@@ -108,7 +108,7 @@ export const DashboardInterface = () => {
                     } w-5 h-5 text-black`}
                   />
                 </Disclosure.Button>
-                <Disclosure.Panel className="px-4 pt-4 pb-2 text-sm text-gray-500">
+                <Disclosure.Panel className="px-4 pt-4 pb-2 text-sm text-gray-500 ml-20">
                   {sidebarNavigation.map((item) => (
                     <Link
                       key={item.name}

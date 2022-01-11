@@ -44,7 +44,7 @@ export const DashboardOrderDetails = ():JSX.Element => {
                   <Typography className="m-2" variant="h4">
                     Trip Details
                   </Typography>
-                  <Button variant="primary" className="bg-shamrock text-white rounded-full h-6 disabled:transform-none cursor-default">{data.data.bookingStatus}</Button>
+                  <Button variant="primary" className="bg-shamrock border-0 text-white rounded-full h-6 disabled:transform-none cursor-default">{data.data.bookingStatus}</Button>
                 </div>
                 <div className="grid grid-cols-6 gap-4">
                   <LabeledText label="Trip Details" value={id} />
@@ -79,7 +79,7 @@ export const DashboardOrderDetails = ():JSX.Element => {
                       <Typography className="" variant="h4">
                         Payment Details
                       </Typography>
-                      <Button variant="primary" className="bg-blue-500 text-white rounded-full h-6 disabled:transform-none cursor-default">INVOICE</Button>
+                      <Button variant="primary" className="bg-blue-500 border-0 text-white rounded-full h-6 disabled:transform-none cursor-default">INVOICE</Button>
                     </div>
 
                     <div className="flex justify-between ">
