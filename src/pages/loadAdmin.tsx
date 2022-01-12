@@ -22,14 +22,17 @@ export default function LoadAdminPage():JSX.Element {
     if (token == null) {
       checkIsAdmin();
     }
-    if (data && data.data.roles[0].id === 1) {
-      setIsAdmin(true);
-      router.push({
-        pathname: ROUTES.DASHBOARD,
-        query: { },
-      });
-    } else {
-      checkIsAdmin();
+
+    if (data && data.data.roles) {
+      if (data && data.data.roles[0].id !== 1) {
+        checkIsAdmin();
+      } else {
+        setIsAdmin(true);
+        router.push({
+          pathname: ROUTES.DASHBOARD,
+          query: { },
+        });
+      }
     }
   }, [data]);
 
