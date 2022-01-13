@@ -44,6 +44,14 @@ export const makeFetcher = (axiosInstance: AxiosInstance) => async (_url: string
   throw Error(status);
 };
 
+export const makeFetcher2 = (axiosInstance: AxiosInstance) => async (_url: string, options?: IFetchData, verb = 'get') => {
+  const { data, status } = await axiosInstance[verb](_url, options);
+  if (status >= 200 && status < 400) {
+    return data;
+  }
+  throw Error(data.details[0]);
+};
+
 export const useUserQuery = (initialData = null, isEnabled = true):
   UseQueryResult<IUserDetails,IError> => {
   const fetcher = makeFetcher(useAxios());
@@ -119,7 +127,7 @@ export const useEnableDisableUserMutation = (
   onSuccess: TOnSuccessFunc,
   redirect = null,
 ):UseMutationResult => {
-  const fetcher = makeFetcher(useAxios());
+  const fetcher = makeFetcher2(useAxios());
   return useMutation(({formdata, id}) => fetcher(`${PUT.ENABLE_DISABLE_USER}${id}/account-status`, formdata, 'put'), {
     onError: (e) => {
       onError(e);
@@ -155,7 +163,7 @@ export const useVerifyDocumentMutation = (
   onSuccess: TOnSuccessFunc,
   redirect = null,
 ):UseMutationResult => {
-  const fetcher = makeFetcher(useAxios());
+  const fetcher = makeFetcher2(useAxios());
   return useMutation(({formdata, id}) => fetcher(`${PUT.VERIFY_DOC}${id}`, formdata, 'put'), {
     onError: (e) => {
       onError(e);

@@ -30,12 +30,14 @@ export const DashboardCaptainDetails = ():JSX.Element => {
     vehicle, licence, aadhar, captain,
   } = isFetched && data.data;
   const [error, setError] = useState('');
+  const [errorModal, setErrorModal] = useState(false);
   const userId = query.detail;
   const queryClient = useQueryClient();
 
   const handleSuccess = (e) => {
     queryClient.refetchQueries('captainById');
     setError('');
+    setErrorModal(false);
     // setOpenDisableModal(false);
   };
 
@@ -48,6 +50,7 @@ export const DashboardCaptainDetails = ():JSX.Element => {
   useEffect(() => {
     if (error !== '') {
       setInterval(() => {
+        setErrorModal(false);
         setError('');
       }, 3000);
     }
@@ -58,8 +61,8 @@ export const DashboardCaptainDetails = ():JSX.Element => {
   }, [captain]);
 
   const onError = (e) => {
-    const textError = onErrorResponse(e);
-    setError('Something went wrong');
+    setError(e.message);
+    setErrorModal(true);
     setEnabled(captain.active);
     queryClient.refetchQueries('captainById');
   };
@@ -121,10 +124,18 @@ export const DashboardCaptainDetails = ():JSX.Element => {
                 <DisableForm id={query.detail} />
               </Modal>
 
-              <Typography className="mt-5" variant="p">
-                Home / User /
-                <b> Captain</b>
-              </Typography>
+              <Modal
+                setOpen={setOpenDisableModal}
+                size="small"
+                open={errorModal}
+                showCloseButton={false}
+                id="2"
+              >
+                <Typography variant="p" className="text-red-500 pr-4">
+                  { error}
+                </Typography>
+
+              </Modal>
 
               <Typography className="m-2" variant="h3">
                 Captain Details
@@ -136,12 +147,6 @@ export const DashboardCaptainDetails = ():JSX.Element => {
                     Personal information
                   </Typography>
                   <span className="flex">
-                    {error
-                    && (
-                    <Typography variant="p" className="text-red-500 pr-4">
-                      { error}
-                    </Typography>
-                    )}
                     <Typography variant="p">
                       { enabled ? 'ACTIVE' : 'INACTIVE'}
                     </Typography>
@@ -209,7 +214,7 @@ export const DashboardCaptainDetails = ():JSX.Element => {
                     Driving Licence Details
                   </Typography>
                   {
-                    !licence.verificationStatus && <Button variant="primary" className="bg-green-500 text-white rounded-md h-6 disabled:transform-none cursor-default" onClick={() => onVerify('DL')}>VERIFY</Button>
+                    !licence.verificationStatus && <Button variant="primary" className="bg-shamrock border-shamrock text-white rounded-md h-6 disabled:transform-none cursor-default" onClick={() => onVerify('DL')}>VERIFY</Button>
                       }
                 </div>
                 <div className="flex flex-col flex-wrap justify-between">
@@ -285,7 +290,7 @@ export const DashboardCaptainDetails = ():JSX.Element => {
                         Registration Details
                       </Typography>
                       {
-                    !vehicle.verificationStatus && <Button variant="primary" className="bg-green-500 text-white rounded-md h-6 disabled:transform-none cursor-default" onClick={() => onVerify('RC')}>VERIFY</Button>
+                    !vehicle.verificationStatus && <Button variant="primary" className="bg-shamrock border-shamrock text-white rounded-md h-6 disabled:transform-none cursor-default" onClick={() => onVerify('RC')}>VERIFY</Button>
                       }
                     </div>
                     <div>

@@ -31,6 +31,7 @@ export const DashboardCustomerDetails = ():JSX.Element => {
   } = isFetched && data.data;
   const [enabled, setEnabled] = useState(false);
   const [error, setError] = useState('');
+  const [errorModal, setErrorModal] = useState(false);
   const userId = query.detail;
 
   useEffect(() => {
@@ -47,14 +48,15 @@ export const DashboardCustomerDetails = ():JSX.Element => {
   useEffect(() => {
     if (error !== '') {
       setInterval(() => {
+        setErrorModal(false);
         setError('');
       }, 3000);
     }
   }, [error]);
 
   const onError = (e) => {
-    const textError = onErrorResponse(e);
-    setError('Something went wrong');
+    setError(e.message);
+    setErrorModal(true);
     setEnabled(active);
     queryClient.refetchQueries('customerById');
   };
@@ -62,6 +64,7 @@ export const DashboardCustomerDetails = ():JSX.Element => {
   const handleSuccess = (e) => {
     queryClient.refetchQueries('customerById');
     setError('');
+    setErrorModal(false);
     // setOpenDisableModal(false);
   };
 
@@ -111,12 +114,6 @@ export const DashboardCustomerDetails = ():JSX.Element => {
                     Personal information
                   </Typography>
                   <span className="flex">
-                    {error
-                    && (
-                    <Typography variant="p" className="text-red-500 pr-4">
-                      { error}
-                    </Typography>
-                    )}
                     <Typography variant="p">
                       { enabled ? 'ACTIVE' : 'INACTIVE'}
                     </Typography>
@@ -167,6 +164,19 @@ export const DashboardCustomerDetails = ():JSX.Element => {
               >
 
                 <DisableForm id={query.detail} />
+              </Modal>
+
+              <Modal
+                setOpen={setOpenDisableModal}
+                size="small"
+                open={errorModal}
+                showCloseButton={false}
+                id="2"
+              >
+                <Typography variant="p" className="text-red-500 pr-4">
+                  { error}
+                </Typography>
+
               </Modal>
             </>
           )
