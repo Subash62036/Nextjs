@@ -5,6 +5,11 @@
 @tailwind utilities;
 @tailwind variants;
 
+/* html {
+   tracking-wide;
+   front-thin
+} */
+
 /* @layer base {
   body {
     @apply bg-grey-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100;

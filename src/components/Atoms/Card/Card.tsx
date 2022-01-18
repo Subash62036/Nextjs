@@ -19,6 +19,7 @@ const variantClasses = {
 };
 
 const sizeClasses = {
+  xsmall: 'sm:p-8',
   small: 'sm:p-10',
   medium: 'sm:p-20',
   large: 'sm:p-40',

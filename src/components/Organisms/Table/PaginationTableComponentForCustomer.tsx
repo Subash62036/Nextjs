@@ -56,12 +56,12 @@ export const PaginationTableComponentForCustomer = () => {
 
       },
       {
-        Header: 'Customer Name',
+        Header: 'Customer name',
         accessor: 'name',
       },
 
       {
-        Header: 'Mobile Number',
+        Header: 'Mobile number',
         accessor: 'phone',
       },
       {
@@ -188,7 +188,7 @@ export const PaginationTableComponentForCustomer = () => {
                     {headerGroups.map((headerGroup) => (
                       <tr {...headerGroup.getHeaderGroupProps()}>
                         {headerGroup.headers.map((column) => (
-                          <th className="py-3 border-b-2 border-gray-200 text-left text-xs text-gray-500 w-16 tracking-wider" {...column.getHeaderProps()}>{column.render('Header')}</th>
+                          <th className="py-3 border-b-2 border-gray-200 font-normal text-left text-sm text-gray-400 w-16 tracking-wider" {...column.getHeaderProps()}>{column.render('Header')}</th>
                         ))}
                       </tr>
                     ))}
@@ -198,7 +198,7 @@ export const PaginationTableComponentForCustomer = () => {
                       prepareRow(row);
                       return (
                         <tr {...row.getRowProps()}>
-                          {row.cells.map((cell) => <td className="py-1 border-b-2 border-gray-200 text-left text-xs text-black w-16 tracking-wider" {...cell.getCellProps()}>{cell.render('Cell')}</td>)}
+                          {row.cells.map((cell) => <td className="py-1 border-b-2 border-gray-200 text-left text-sm text-black w-16 tracking-wider" {...cell.getCellProps()}>{cell.render('Cell')}</td>)}
                         </tr>
                       );
                     })}
@@ -207,7 +207,7 @@ export const PaginationTableComponentForCustomer = () => {
 
                 <ul className="flex mt-6 justify-end items-end h-16">
                   <select
-                    className="border-0 border-b-2 border-grey-200 mr-10 text-sm"
+                    className="border-0 border-grey-200 mr-10 text-sm"
                     value={pageSize}
                     onChange={(e) => {
                       setPageSize(Number(e.target.value));

@@ -34,7 +34,7 @@ export const DashboardMain = ():JSX.Element => {
 
               <div className="grid grid-cols-4 gap-8 ">
 
-                <Card className="mt-10 bg-white border-2 border-grey-200 rounded-lg flex flex-col hover:border-black justify-between space-y-4">
+                <Card size="xsmall" className="mt-10 bg-white border-2 border-grey-200 rounded-lg flex flex-col hover:border-black justify-between space-y-10">
                   <div>
                     <Typography className="text-grey-400 font-semibold text-center h-full" variant="p">
                       Total number of Customers
@@ -48,7 +48,7 @@ export const DashboardMain = ():JSX.Element => {
                   </div>
                 </Card>
 
-                <Card className="mt-10 bg-white border-2 border-grey-200 rounded-lg flex flex-col hover:border-black justify-between space-y-4">
+                <Card size="xsmall" className="mt-10 bg-white border-2 border-grey-200 rounded-lg flex flex-col hover:border-black justify-between space-y-10">
                   <div>
                     <Typography className="text-grey-400 font-semibold text-center h-full" variant="p">
                       Total number of Captains
@@ -62,7 +62,7 @@ export const DashboardMain = ():JSX.Element => {
                   </div>
                 </Card>
 
-                <Card className="mt-10 bg-white border-2 border-grey-200 rounded-lg flex flex-col hover:border-black justify-between space-y-4">
+                <Card size="xsmall" className="mt-10 bg-white border-2 border-grey-200 rounded-lg flex flex-col hover:border-black justify-between space-y-10">
                   <div>
                     <Typography className="text-grey-400 font-semibold text-center h-full" variant="p">
                       Pending Captain approval
@@ -76,7 +76,7 @@ export const DashboardMain = ():JSX.Element => {
                   </div>
                 </Card>
 
-                <Card className="mt-10 bg-white border-2 border-grey-200 rounded-lg flex flex-col hover:border-black justify-between space-y-4">
+                <Card size="xsmall" className="mt-10 bg-white border-2 border-grey-200 rounded-lg flex flex-col hover:border-black justify-between space-y-10">
                   <div>
                     <Typography className="text-grey-400 font-semibold text-center h-full" variant="p">
                       Total number of rides taken

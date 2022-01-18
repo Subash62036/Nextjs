@@ -32,16 +32,16 @@ export const DashboardInterface = () => {
   };
 
   const selected = classNames(
-    'text-lg font-bold g-primary-50 border-primary-500 text-primary-700 hover:bg-primary-50 hover:text-primary-700 w-full',
+    'text-lg font-bold g-primary-50 border-primary-500 text-primary-700 hover:text-primary-700 w-full',
   );
   const unselected = classNames(
-    'text-lg font-bold border-transparent text-black hover:bg-primary-200 hover:text-black w-full',
+    'text-lg font-bold border-transparent text-black hover:text-black w-full',
   );
 
   const classes = classNames('group border-l-4 px-3 py-2 flex items-center text-sm font-medium tracking-widest');
 
   const selectedIcon = classNames(
-    'text-lg font-bold ml-14 text-primary-700 group-hover:text-primary-500',
+    'text-lg font-bold ml-14 text-primary-700',
   );
   const unselectedIcon = classNames(
     'text-lg font-bold ml-20 text-black ',

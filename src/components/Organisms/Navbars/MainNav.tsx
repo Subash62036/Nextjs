@@ -4,13 +4,13 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
+import { UserCircleIcon, ChevronDownIcon } from '@heroicons/react/solid';
 
 import { MenuItem, Button } from 'components';
 import { useAuth } from 'state';
 import { IAuthContext } from 'types';
 
 import { MAIN_NAV, ROUTES } from 'config';
-import Rapido from '../../../../public/favico/android-chrome.png';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
@@ -21,9 +21,8 @@ export const ProfileMenu = (dropDownMenuItems, handleLogout) => (
     <div>
       <Menu.Button className="bg-white rounded-full flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
         <span className="sr-only">Open user menu</span>
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
+        <UserCircleIcon className="block h-7 w-7 text-grey-500" aria-hidden="true" />
+        <ChevronDownIcon className="block h-7 w-7 text-grey-500" aria-hidden="true" />
       </Menu.Button>
     </div>
     <Transition
@@ -62,7 +61,7 @@ export const MainNav = () => {
       {({ open }) => (
         <>
           <div className="mx-auto px-2 sm:px-6 lg:px-8">
-            <div className="relative flex justify-between h-16">
+            <div className="relative flex justify-between h-20">
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 {/* Mobile menu button */}
                 <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-500">

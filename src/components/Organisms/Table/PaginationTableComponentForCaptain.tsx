@@ -55,12 +55,12 @@ export const PaginationTableComponentForCaptain = () => {
 
       },
       {
-        Header: 'Captain Name',
+        Header: 'Captain name',
         accessor: 'name',
       },
 
       {
-        Header: 'Mobile Number',
+        Header: 'Mobile number',
         accessor: 'phone',
       },
       {
@@ -71,7 +71,7 @@ export const PaginationTableComponentForCaptain = () => {
         ),
       },
       {
-        Header: 'Total completed rides',
+        Header: 'Total rides',
         accessor: 'totalTrips',
       },
       {
@@ -192,7 +192,7 @@ export const PaginationTableComponentForCaptain = () => {
                     {headerGroups.map((headerGroup) => (
                       <tr {...headerGroup.getHeaderGroupProps()}>
                         {headerGroup.headers.map((column) => (
-                          <th className="py-3 border-b-2 border-gray-200 text-left text-sm text-gray-500 w-16 tracking-wider" {...column.getHeaderProps()}>{column.render('Header')}</th>
+                          <th className="py-3 border-b-2 border-gray-200 text-left font-normal text-sm text-gray-400 w-16 tracking-wider" {...column.getHeaderProps()}>{column.render('Header')}</th>
                         ))}
                       </tr>
                     ))}
@@ -211,7 +211,7 @@ export const PaginationTableComponentForCaptain = () => {
 
                 <ul className="flex mt-6 justify-end items-end h-16">
                   <select
-                    className="border-0 border-b-2 border-grey-200 mr-10 text-sm"
+                    className="border-0 border-grey-200 mr-10 text-sm"
                     value={pageSize}
                     onChange={(e) => {
                       setPageSize(Number(e.target.value));

@@ -165,7 +165,7 @@ export const PaginationTableComponentForCustomerRides = ({ route }) => {
                     {headerGroups.map((headerGroup) => (
                       <tr {...headerGroup.getHeaderGroupProps()}>
                         {headerGroup.headers.map((column) => (
-                          <th className="py-3 border-b-2 border-gray-200 text-left text-sm lg:text-md text-gray-500 w-16 tracking-wider" {...column.getHeaderProps()}>{column.render('Header')}</th>
+                          <th className="py-3 border-b-2 border-gray-200 font-normal text-left text-sm lg:text-md text-gray-400 w-16 tracking-wider" {...column.getHeaderProps()}>{column.render('Header')}</th>
                         ))}
                       </tr>
                     ))}
@@ -184,7 +184,7 @@ export const PaginationTableComponentForCustomerRides = ({ route }) => {
 
                 <ul className="flex mt-6 justify-end items-end h-16">
                   <select
-                    className="border-0 border-b-2 border-grey-200 mr-10 text-sm"
+                    className="border-0 border-grey-200 mr-10 text-sm"
                     value={pageSize}
                     onChange={(e) => {
                       setPageSize(Number(e.target.value));

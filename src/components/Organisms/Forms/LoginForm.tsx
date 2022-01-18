@@ -49,12 +49,13 @@ export const LoginForm = ():JSX.Element => {
       >
         {() => (
           <Form data-test-id="loginForm">
-            <Typography variant="h3" className="">Log in</Typography>
+            <Typography variant="h3" className="font-bold text-black">Log in</Typography>
             <LabeledInput
               name="phone"
               label="Phone Number"
               // type="number"
               data-test-id="loginPhoneNumber"
+              labelClassName="text-grey-400 text-lg font-thin"
             />
             {loginError && (<GenericErrorMessage data-test-id="login-error">{loginError}</GenericErrorMessage>)}
             <Button data-test-id="loginSubmit" type="submit" className="mt-6 w-full">Login</Button>
