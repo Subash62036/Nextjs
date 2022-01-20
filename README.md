@@ -105,6 +105,8 @@ yarn lint
 ```
 command and fix any issues before opening a pull request.
 
+NOTE: ```yarn lint``` does not work after generating "out" folder with ```yarn next export```. Delete the folder before running it.
+
 ### Path Aliases
 The application has several path aliases defined in tsconfig.json :
 ```
