@@ -175,7 +175,7 @@ export const PaginationTableComponentForCustomerRides = ({ route }) => {
                       prepareRow(row);
                       return (
                         <tr {...row.getRowProps()}>
-                          {row.cells.map((cell) => <td className="py-1 border-b-2 border-gray-200 text-left text-sm lg:text-md text-black w-16 tracking-wider" {...cell.getCellProps()}>{cell.render('Cell')}</td>)}
+                          {row.cells.map((cell) => <td className="table-font py-1 border-b-2 border-gray-200 text-left text-sm lg:text-md text-black w-16 tracking-wider" {...cell.getCellProps()}>{cell.render('Cell')}</td>)}
                         </tr>
                       );
                     })}

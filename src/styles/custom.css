@@ -26,6 +26,25 @@
   src: local('PTSans'), url(../assets/PT_Sans/PTSans-Regular.ttf) format('ttf');
 }
 
+.table-font {
+font-style: normal;
+font-weight: normal;
+font-size: 14px;
+line-height: 20px;
+letter-spacing: 0.2px;
+}
+
+.dashboard-font1 {
+font-style: normal;
+font-weight: normal;
+font-size: 22px;
+line-height: 0px;
+/* identical to box height, or 0% */
+
+letter-spacing: 1px;
+
+}
+
 /* @layer base {
   @font-face {
     font-family: 'PTSans';

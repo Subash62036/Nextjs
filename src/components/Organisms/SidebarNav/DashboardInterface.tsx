@@ -38,13 +38,13 @@ export const DashboardInterface = () => {
     'text-lg font-bold border-transparent text-black hover:text-black w-full',
   );
 
-  const classes = classNames('group border-l-4 px-3 py-2 flex items-center text-sm font-medium tracking-wider font-thin');
+  const classes = classNames('pl-28 pr-2 py-2 flex items-center text-sm font-medium tracking-wider font-thin');
 
   const selectedIcon = classNames(
-    'text-lg font-bold ml-24 text-primary-700',
+    'text-lg font-bold text-primary-700',
   );
   const unselectedIcon = classNames(
-    'text-lg font-bold ml-24 text-black ',
+    'text-lg font-bold text-black ',
   );
 
   const classesIcon = classNames('flex-shrink-0 -ml-1 mr-3 h-6 w-6');
@@ -108,7 +108,7 @@ export const DashboardInterface = () => {
                     } w-5 h-5 text-black`}
                   />
                 </Disclosure.Button>
-                <Disclosure.Panel className="px-4 pt-4 pb-2 text-sm text-gray-500 ml-28">
+                <Disclosure.Panel className="px-4 pt-4 pb-2 text-sm text-gray-500 ml-4">
                   {sidebarNavigation.map((item) => (
                     <Link
                       key={item.name}

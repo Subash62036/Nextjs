@@ -20,14 +20,14 @@ export const DashboardMain = ():JSX.Element => {
 
   return (
     <section className="m-6">
-      <Typography className="block mt-5 text-black tracking-wide" variant="h2">
+      <Typography className="block mt-10 text-black dashboard-font1" variant="h2">
         Welcome Admin,
       </Typography>
       {
         !isFetched
           ? <LoadingIndicator className="h-20 w-20 text-center" />
           : (
-            <Card className="bg-white py-8 px-4 shadow sm:rounded-lg divide-y-2 mt-6">
+            <Card className="bg-white py-8 px-4 shadow sm:rounded-lg divide-y-2 mt-20">
               <Typography className="m-2 mb-4 text-black tracking-wide" variant="h3">
                 Overview
               </Typography>
@@ -36,7 +36,7 @@ export const DashboardMain = ():JSX.Element => {
 
                 <Card size="xsmall" className="mt-10 bg-white border-2 border-grey-200 rounded-lg flex flex-col hover:border-black justify-between space-y-10">
                   <div>
-                    <Typography className="text-grey-400 font-semibold text-center h-full" variant="p">
+                    <Typography className="tracking-wide text-grey-400 font-semibold text-center h-full" variant="p">
                       Total number of Customers
                     </Typography>
 
