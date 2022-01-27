@@ -8,7 +8,7 @@ services:
       dockerfile: Dockerfile
       context: ./
     stdin_open: true
-    container_name: prodapp
+    container_name: stag-app
     restart: always
     ports:
       - "3000:3000"  
