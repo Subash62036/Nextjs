@@ -16,7 +16,7 @@
 
 ## Intro and General Requirements
 
-### Welcome to RAPIDO-BID ADMIN! 
+### Welcome to RAPIDO-BID ADMIN 
 
 This project has a few basic requirements for local development:
 - [Node version 14+](https://github.com/nvm-sh/nvm)
