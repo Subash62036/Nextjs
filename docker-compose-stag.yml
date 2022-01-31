@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  prodapp:
+    environment:
+      - production
+    build:
+      dockerfile: Dockerfile
+      context: ./
+    image: ${DOCKER_REGISTRY}:${TAG}
+    stdin_open: true
+    container_name: stag-app
+    restart: always
+    ports:
+      - "3000:3000"  
