@@ -9,5 +9,4 @@ export * from './LabeledText';
 export * from './DropDown';
 export * from './Menus';
 export * from './BackLink';
-export * from './ImageViewingUI';
 export * from './LabeledTextRating';
