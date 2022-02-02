@@ -3,7 +3,7 @@ version: "3"
 services:
   prodapp:
     environment:
-      - production
+      - staging
     build:
       dockerfile: Dockerfile
       context: ./
@@ -13,3 +13,5 @@ services:
     restart: always
     ports:
       - "3000:3000"  
+    env_file:
+      - ./staging.env
