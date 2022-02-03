@@ -19,11 +19,11 @@ const LabeledInput = ({
   const [field, meta] = useField(restProps);
   const classes = classNames(
     className,
-    'appearance-none text-black block w-full px-3 py-2 border-0 border-b-2 border-gray-300 placeholder-black focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm',
+    'appearance-none text-black block w-full px-1 py-2 border-0 border-b-2 border-gray-300 placeholder-black focus:outline-none focus:border-primary-500 sm:text-sm',
   );
   const labelClasses = classNames(
     labelClassName,
-    'block text-sm text-black',
+    'block text-md text-black',
   );
   return (
     <>

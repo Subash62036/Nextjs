@@ -38,7 +38,7 @@ export const DashboardInterface = () => {
     'text-lg font-bold border-transparent text-black hover:text-black w-full',
   );
 
-  const classes = classNames('pl-28 pr-2 py-2 flex items-center text-sm font-medium tracking-wider font-thin');
+  const classes = classNames('pl-4 md:pl-10 xl:pl-28 pr-2 py-2 flex items-center text-sm font-medium tracking-wider font-thin');
 
   const selectedIcon = classNames(
     'text-lg font-bold text-primary-700',

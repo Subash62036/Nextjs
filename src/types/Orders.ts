@@ -82,6 +82,21 @@ export interface IUserSpecific {
   totalTrips: number
 }
 
+export interface IUserSpecific2 {
+  id: number,
+  name: string
+  phone: number
+  email: string
+  createdAt: number
+  rating: number
+  city: string
+  state: string
+  active: boolean
+  totalTrips: number
+  vehicleModel: string,
+  vehicleRegistrationNumber: string
+}
+
 export interface IBookingHistory {
   id: number,
   bookingStatus: string
@@ -139,7 +154,7 @@ export interface ITripDetails {
 export interface IOrderSpecific {
   
   tripDetails: ITripDetails,
-  captain: IUserSpecific,
+  captain: IUserSpecific2,
   customer: IUserSpecific,
   id: number
   fromAddress: string
@@ -149,6 +164,8 @@ export interface IOrderSpecific {
   bookingStatus: string
   numberPlate: string
   model: string
+  time: number
+  distance: number
 }
 
 export interface IPersonalDetails {
