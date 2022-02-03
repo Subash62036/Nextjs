@@ -31,7 +31,6 @@ export const DashboardOrderDetails = ():JSX.Element => {
           ? <LoadingIndicator className="h-20 w-20 text-center" />
           : (
             <>
-              {console.log(data)}
               <Typography className="mt-5" variant="p">
                 Home /
                 <b> Orders</b>
@@ -54,8 +53,8 @@ export const DashboardOrderDetails = ():JSX.Element => {
                   <LabeledText label="To" value={data.data.toAddress} />
                   {/* <LabeledText label="Distance" value={data.data.distance/1000 + " Km"} />
                   <LabeledText label="Time" value={data.data.time} /> */}
-                  <LabeledText label="Vehicle Number" value={captain.vehicleRegistrationNumber} />
-                  <LabeledText label="Model" value={captain.vehicleModel} />
+                  <LabeledText label="Vehicle Number" value={captain && captain.vehicleRegistrationNumber ? captain.vehicleRegistrationNumber : "NA"} />
+                  <LabeledText label="Model" value={captain && captain.vehicleModel ? captain.vehicleModel : "NA"} />
                 </div>
               </Card>
               <div className="flex">
