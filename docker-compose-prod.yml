@@ -7,7 +7,7 @@ services:
     build:
       dockerfile: Dockerfile
       context: ./
-    image: ${DOCKER_REGISTRY}:${TAG}
+    image: $DOCKER_REGISTRY:${TAG}
     stdin_open: true
     container_name: prod-app
     restart: always
@@ -15,4 +15,5 @@ services:
       - "3000:3000"
     env_file:
       - ./production.env
+   
 
