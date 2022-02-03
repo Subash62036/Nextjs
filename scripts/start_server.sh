@@ -3,11 +3,13 @@
 cd /home/ubuntu/rapido-bid-admin
 
 if [ "$DEPLOYMENT_GROUP_NAME" = "stag-admin-code-deploy" ]; then
-  export APPLICATION_ENVIRONMENT=admin-staging
+  export APPLICATION_ENVIRONMENT=staging
   export DOCKER_FILE=docker-compose-stag.yml
+  export DOCKER_ENVIRONMENT=staging.env
 else
-  export APPLICATION_ENVIRONMENT=admin-prod
+  export APPLICATION_ENVIRONMENT=production
   export DOCKER_FILE=docker-compose-prod.yml
+  export DOCKER_ENVIRONMENT=production.env
 fi
 
 export DOCKER_REGISTRY=921073560172.dkr.ecr.ap-south-1.amazonaws.com/admin-rapido-bid
