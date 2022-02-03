@@ -16,7 +16,6 @@ export const DashboardOrderDetails = ():JSX.Element => {
   useEffect(() => {
     if (data) {
       setIsFetched(true);
-      console.log(data);
     }
   }, [data]);
 
