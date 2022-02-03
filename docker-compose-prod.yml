@@ -7,7 +7,7 @@ services:
     build:
       dockerfile: Dockerfile
       context: ./
-    image: 921073560172.dkr.ecr.ap-south-1.amazonaws.com/admin-rapido-bid:${TAG}
+    image: $DOCKER_REGISTRY:${TAG}
     stdin_open: true
     container_name: prod-app
     restart: always
