@@ -7,7 +7,7 @@ services:
     build:
       dockerfile: Dockerfile
       context: ./
-    image: ${DOCKER_REGISTRY}:${TAG}
+    image: 921073560172.dkr.ecr.ap-south-1.amazonaws.com/admin-rapido-bid:${TAG}
     stdin_open: true
     container_name: stag-app
     restart: always
@@ -15,4 +15,5 @@ services:
       - "3000:3000"  
     env_file:
       - ./staging.env
+      
      

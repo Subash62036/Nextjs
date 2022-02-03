@@ -12,9 +12,9 @@ else
   export DOCKER_ENVIRONMENT=production.env
 fi
 
-export DOCKER_REGISTRY=921073560172.dkr.ecr.ap-south-1.amazonaws.com/admin-rapido-bid
+export 921073560172.dkr.ecr.ap-south-1.amazonaws.com/admin-rapido-bid
 echo "Application env: "$APPLICATION_ENVIRONMENT
 export TAG=$(aws ssm get-parameters --names "admin-production-tag" --with-decryption --query "Parameters[0].Value" --region "ap-south-1" | tr -d '"')
 aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 921073560172.dkr.ecr.ap-south-1.amazonaws.com
-docker pull $DOCKER_REGISTRY:$TAG
+docker pull 921073560172.dkr.ecr.ap-south-1.amazonaws.com/admin-rapido-bid:$TAG
 docker-compose -f $DOCKER_FILE up -d
