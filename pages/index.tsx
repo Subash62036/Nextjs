@@ -10,10 +10,9 @@ const Home: NextPage<{ characters: Characters[] }> = ({ characters }) => {
    <>
     <Head>
          <title>id card page</title>
-         <Script src="./sc.js" ></Script>
-         
+         <Script src="./sc.js" ></Script>   
     </Head>
-    <Navbar />
+
       {characters.map((data) => {
         return (
 
