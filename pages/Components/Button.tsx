@@ -1,9 +1,10 @@
-import { Children } from "react";
 
-function Button(props:any ){
-    return(
-      <div>
-
-      </div>
-    )
+function Button({children}:any) {
+  return (
+    <div>
+       <button>{children}</button>
+    </div>
+  )
 }
+
+export default Button
